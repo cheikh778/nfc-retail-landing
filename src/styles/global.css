@@ -39,6 +39,7 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
 }
 
 button,
@@ -112,43 +113,47 @@ body {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: var(--fs-xs);
-  font-weight: 700;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
   letter-spacing: 0.02em;
+  text-transform: uppercase;
   color: var(--color-primary-darker);
-  background: var(--color-primary-light);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-full);
 }
 
-.eyebrow::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-primary);
+.eyebrow-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  animation: eyebrow-spin 3s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow-icon {
+    animation: none;
+  }
+}
+
+@keyframes eyebrow-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .eyebrow-dark {
   color: var(--color-white);
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.eyebrow-dark::before {
-  background: var(--color-primary);
 }
 
 .section-title {
   font-family: var(--font-display);
   font-size: var(--fs-2xl);
   line-height: var(--lh-tight);
-  font-weight: 800;
+  font-weight: var(--fw-semibold);
   color: var(--color-ink);
   letter-spacing: -0.01em;
 }
 
 .section-title .accent {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
 }
 
 @media (min-width: 768px) {
@@ -178,7 +183,30 @@ body {
   margin-inline: auto;
 }
 
-/* Dark section block (light/dark contrast pattern) */
+/* Split header: title block left, supporting paragraph right (desktop only) */
+.section-head.split {
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  .section-head.split {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-10);
+  }
+
+  .section-head.split > .section-head-titleblock {
+    max-width: 34rem;
+  }
+
+  .section-head.split > .section-subtitle {
+    max-width: 26rem;
+    padding-bottom: var(--space-1);
+  }
+}
+
+/* Dark section block (full-bleed light/dark contrast pattern) */
 .dark-section {
   background: var(--color-dark-bg);
   color: var(--color-dark-text);
@@ -189,6 +217,32 @@ body {
 }
 
 .dark-section .section-subtitle {
+  color: var(--color-dark-text-muted);
+}
+
+/* Contained dark card: a big rounded dark panel *within* a light section,
+   rather than a full-bleed dark section — the "home2" reference pattern. */
+.dark-card-section {
+  background: var(--color-dark-bg);
+  border-radius: var(--radius-lg);
+  color: var(--color-dark-text);
+  padding: var(--space-8) var(--space-5);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .dark-card-section {
+    border-radius: var(--radius-xl);
+    padding: var(--space-12) var(--space-10);
+  }
+}
+
+.dark-card-section .section-title {
+  color: var(--color-white);
+}
+
+.dark-card-section .section-subtitle {
   color: var(--color-dark-text-muted);
 }
 
@@ -206,10 +260,21 @@ body {
   border-radius: var(--radius-lg);
 }
 
+/* Frosted-glass card, for use inside .dark-card-section */
+.card-glass {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+}
+
 /* Buttons */
 .btn {
   --btn-bg: var(--color-secondary);
   --btn-fg: var(--color-white);
+  --btn-sweep: var(--color-secondary-dark);
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -219,19 +284,35 @@ body {
   padding: var(--space-4) var(--space-6);
   font-family: var(--font-display);
   font-size: var(--fs-sm);
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
   letter-spacing: 0.01em;
   line-height: 1.3;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  overflow: hidden;
   background: var(--btn-bg);
   color: var(--btn-fg);
   max-width: 100%;
   transition:
     transform var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out),
-    background var(--duration-fast) var(--ease-out);
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--btn-sweep);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.btn:hover::before {
+  transform: scaleY(1);
 }
 
 .btn:hover {
@@ -248,18 +329,20 @@ body {
      "large text" at this size). -dark clears 4.5:1 while staying the same red. */
   --btn-bg: var(--color-primary-dark);
   --btn-fg: var(--color-white);
+  --btn-sweep: var(--color-primary-darker);
   box-shadow: var(--shadow-primary);
-}
-
-.btn-primary:hover {
-  --btn-bg: var(--color-primary-darker);
 }
 
 .btn-secondary {
   --btn-bg: var(--color-white);
   --btn-fg: var(--color-secondary);
+  --btn-sweep: var(--color-secondary);
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border-strong);
+}
+
+.btn-secondary:hover {
+  color: var(--color-white);
 }
 
 .btn-block {

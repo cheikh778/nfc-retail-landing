@@ -14,10 +14,10 @@ import { submitLead } from '../../lib/api';
 
 function renderForm() {
   render(
-    <MemoryRouter initialEntries={[ROUTES.visibilite]}>
+    <MemoryRouter initialEntries={[ROUTES.visibilite('fr')]}>
       <Routes>
-        <Route path={ROUTES.visibilite} element={<LeadForm content={fr.form} />} />
-        <Route path={ROUTES.merci} element={<div>Page merci</div>} />
+        <Route path={ROUTES.visibilite('fr')} element={<LeadForm content={fr.form} market="fr" />} />
+        <Route path={ROUTES.merci('fr')} element={<div>Page merci</div>} />
       </Routes>
     </MemoryRouter>,
   );

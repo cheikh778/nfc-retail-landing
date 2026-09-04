@@ -16,7 +16,7 @@ let app: ReturnType<typeof createApp>;
 beforeAll(async () => {
   dir = await mkdtemp(join(tmpdir(), 'nfcr-app-'));
   leadsFilePath = join(dir, 'leads.jsonl');
-  const leadService = new LeadService(new UnconfiguredCrmClient(), new LeadStore(leadsFilePath), logger);
+  const leadService = new LeadService(() => new UnconfiguredCrmClient(), new LeadStore(leadsFilePath), logger);
   app = createApp(leadService);
 });
 
@@ -41,6 +41,7 @@ function validPayload(overrides: Record<string, unknown> = {}) {
       utm_medium: null,
       utm_campaign: null,
       utm_content: null,
+      utm_term: null,
       gclid: null,
       fbclid: null,
       msclkid: null,
@@ -158,6 +159,30 @@ describe('POST /api/fr/visibilite/lead', () => {
     const res = await request(app).post('/api/fr/visibilite/lead').send(validPayload());
     expect(res.body).not.toHaveProperty('stack');
     expect(JSON.stringify(res.body)).not.toMatch(/\.(ts|js):\d+/);
+  });
+});
+
+describe('multi-market routing', () => {
+  it('accepts leads for other supported markets on their own route', async () => {
+    const { agent, csrfToken } = await getCsrf();
+    const res = await agent
+      .post('/api/ma/visibilite/lead')
+      .set('X-CSRF-Token', csrfToken)
+      .send(validPayload({ establishmentName: 'Casablanca Marker' }));
+
+    expect(res.status).toBe(200);
+    const stored = (await readFile(leadsFilePath, 'utf8'))
+      .trim()
+      .split('\n')
+      .map((line) => JSON.parse(line));
+    const record = stored.find((lead) => lead.establishmentName === 'Casablanca Marker');
+    expect(record?.market).toBe('ma');
+  });
+
+  it('rejects an unsupported market code before touching CSRF/CRM logic', async () => {
+    const res = await request(app).post('/api/xx/visibilite/lead').send(validPayload());
+    expect(res.status).toBe(404);
+    expect(res.body).toEqual({ error: 'unsupported_market' });
   });
 });
 

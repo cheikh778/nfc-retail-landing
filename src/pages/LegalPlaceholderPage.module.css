@@ -4,7 +4,7 @@
 
 .title {
   font-size: var(--fs-2xl);
-  font-weight: 800;
+  font-weight: var(--fw-semibold);
   color: var(--color-ink);
   margin-bottom: var(--space-4);
 }

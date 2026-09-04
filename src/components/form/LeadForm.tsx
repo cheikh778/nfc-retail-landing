@@ -1,5 +1,6 @@
 import { useLeadForm } from '../../hooks/useLeadForm';
 import type { LandingContent } from '../../content/types';
+import type { MarketCode } from '../../lib/routes';
 import type { FieldErrorCode } from '../../lib/validation';
 import { FormProgress } from './FormProgress';
 import { Honeypot } from './fields/Honeypot';
@@ -8,10 +9,11 @@ import styles from './LeadForm.module.css';
 
 interface LeadFormProps {
   content: LandingContent['form'];
+  market: MarketCode;
 }
 
-export function LeadForm({ content }: LeadFormProps) {
-  const form = useLeadForm();
+export function LeadForm({ content, market }: LeadFormProps) {
+  const form = useLeadForm(market);
 
   const errorMessage = (code?: FieldErrorCode): string | undefined => {
     if (!code) return undefined;

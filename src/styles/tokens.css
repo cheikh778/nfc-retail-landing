@@ -14,6 +14,7 @@
   /* Neutrals */
   --color-white: #ffffff;
   --color-bg: #f7f8fa;
+  --color-bg-warm: #faf7f4;
   --color-bg-subtle: #eef0f3;
   --color-border: #e4e7ec;
   --color-border-strong: #d0d5dd;
@@ -36,11 +37,14 @@
   --color-error: #d92d20;
   --color-error-bg: #fef3f2;
 
-  /* Typography */
+  /* Typography — Poppins throughout, capped at semibold (600): "pas trop gras". */
   --font-sans:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, 'Helvetica Neue', Arial,
+    'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     sans-serif;
-  --font-display: 'Plus Jakarta Sans', var(--font-sans);
+  --font-display: var(--font-sans);
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
   --fs-xs: 0.8125rem;
   --fs-sm: 0.9375rem;
   --fs-base: 1rem;
@@ -76,6 +80,7 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-full: 999px;
 
   /* Shadows */

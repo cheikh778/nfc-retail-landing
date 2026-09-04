@@ -24,12 +24,12 @@ function getCsrfToken(): Promise<string> {
   return csrfTokenPromise;
 }
 
-export async function submitLead(data: LeadFormData, formRenderedAt: string): Promise<void> {
+export async function submitLead(market: string, data: LeadFormData, formRenderedAt: string): Promise<void> {
   const attribution = getStoredAttribution() ?? captureAttribution();
   const payload: LeadSubmissionPayload = { ...data, attribution, formRenderedAt };
   const csrfToken = await getCsrfToken();
 
-  const res = await fetch(`${API_BASE}/fr/visibilite/lead`, {
+  const res = await fetch(`${API_BASE}/${market}/visibilite/lead`, {
     method: 'POST',
     credentials: 'include',
     headers: {

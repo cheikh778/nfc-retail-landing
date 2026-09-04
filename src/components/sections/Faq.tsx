@@ -1,3 +1,4 @@
+import { Eyebrow } from '../Eyebrow';
 import { ChevronDownIcon } from '../icons';
 import type { LandingContent } from '../../content/types';
 import styles from './Faq.module.css';
@@ -11,7 +12,7 @@ export function Faq({ content }: FaqProps) {
     <section className="section">
       <div className="container">
         <div className="section-head centered">
-          <span className="eyebrow">{content.eyebrow}</span>
+          <Eyebrow>{content.eyebrow}</Eyebrow>
           <h2 className="section-title">{content.title}</h2>
           <p className="section-subtitle">{content.subtitle}</p>
         </div>

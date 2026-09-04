@@ -130,7 +130,6 @@ export interface LandingContent {
     nextStepsTitle: string;
     nextSteps: string[];
     backHomeLabel: string;
-    backHomeHref: string;
   };
 
   finalCta: {
@@ -147,7 +146,8 @@ export interface LandingContent {
   footer: {
     logoAlt: string;
     tagline: string;
-    legalLinks: { label: string; href: string }[];
+    /** `slug` is market-relative (e.g. 'mentions-legales') — the page builds the full /:market/ path. */
+    legalLinks: { label: string; slug: string }[];
     copyright: string;
   };
 

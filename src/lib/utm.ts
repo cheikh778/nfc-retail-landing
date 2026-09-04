@@ -1,6 +1,6 @@
 import type { AttributionData } from '../types/lead';
 
-const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'] as const;
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
 const CLICK_ID_KEYS = ['gclid', 'fbclid', 'msclkid'] as const;
 
 const SESSION_KEY = 'nfcr_attribution_last';
@@ -33,6 +33,7 @@ function readCurrentAttribution(): AttributionData {
     utm_medium: get('utm_medium'),
     utm_campaign: get('utm_campaign'),
     utm_content: get('utm_content'),
+    utm_term: get('utm_term'),
     gclid: get('gclid'),
     fbclid: get('fbclid'),
     msclkid: get('msclkid'),

@@ -2,7 +2,7 @@ import { useCallback, useRef, useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { submitLead } from '../lib/api';
 import { normalizePhone } from '../lib/phone';
-import { ROUTES } from '../lib/routes';
+import { ROUTES, type MarketCode } from '../lib/routes';
 import { track } from '../lib/tracking';
 import { normalizeWebsiteUrl } from '../lib/url';
 import { validateStep1, validateStep2, type FieldErrorCode } from '../lib/validation';
@@ -21,7 +21,7 @@ const EMPTY_STEP2: LeadStep2 = {
 type Step1Errors = Partial<Record<keyof LeadStep1, FieldErrorCode>>;
 type Step2Errors = Partial<Record<keyof Omit<LeadStep2, 'companyWebsiteHp'>, FieldErrorCode>>;
 
-export function useLeadForm() {
+export function useLeadForm(market: MarketCode) {
   const navigate = useNavigate();
   const [step, setStep] = useState<1 | 2>(1);
   const [step1, setStep1] = useState<LeadStep1>(EMPTY_STEP1);
@@ -82,7 +82,7 @@ export function useLeadForm() {
 
       if (step2.companyWebsiteHp.trim()) {
         // Honeypot triggered: behave as a normal success without ever calling the API.
-        navigate(ROUTES.merci);
+        navigate(ROUTES.merci(market));
         return;
       }
 
@@ -95,6 +95,7 @@ export function useLeadForm() {
       try {
         track('form_complete');
         await submitLead(
+          market,
           {
             ...step1,
             ...step2,
@@ -104,14 +105,14 @@ export function useLeadForm() {
           formRenderedAt.current,
         );
         track('generate_lead');
-        navigate(ROUTES.merci);
+        navigate(ROUTES.merci(market));
       } catch {
         setSubmitError(true);
       } finally {
         setSubmitting(false);
       }
     },
-    [step1, step2, navigate],
+    [step1, step2, navigate, market],
   );
 
   return {

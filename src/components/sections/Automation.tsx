@@ -1,3 +1,4 @@
+import { Eyebrow } from '../Eyebrow';
 import { ArrowRightIcon, CheckIcon, RepeatIcon, SearchIcon, SparklesIcon, TrendingUpIcon } from '../icons';
 import type { LandingContent } from '../../content/types';
 import styles from './Automation.module.css';
@@ -20,7 +21,7 @@ export function Automation({ content }: AutomationProps) {
     <section className="section">
       <div className="container">
         <div className="section-head centered">
-          <span className="eyebrow">{content.eyebrow}</span>
+          <Eyebrow>{content.eyebrow}</Eyebrow>
           <h2 className="section-title">{content.title}</h2>
           <p className="section-subtitle">{content.body}</p>
         </div>
@@ -40,7 +41,7 @@ export function Automation({ content }: AutomationProps) {
           ))}
         </ul>
 
-        <div className={styles.pipeline}>
+        <div className={`dark-card-section ${styles.pipeline}`}>
           {content.pipeline.map((step, index) => {
             const Icon = PIPELINE_ICONS[index] ?? SparklesIcon;
             return (

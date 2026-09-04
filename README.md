@@ -81,12 +81,36 @@ server/src/
 └── validation/leadSchema.ts        # Zod, source de vérité serveur
 ```
 
-Routes livrées : `GET /fr/visibilite`, `POST` (via l'API séparée, pas la
-route elle-même — SPA oblige), `GET /fr/visibilite/merci`, plus
-`/fr/mentions-legales` et `/fr/politique-de-confidentialite` (placeholders,
-voir plus bas). La structure est prête pour `ma/`, `sn/` (§0/§54 du brief) :
-un nouveau fichier `content/ma-fr.ts` implémentant `LandingContent`
-(`content/types.ts`) suffit, sans toucher aux composants.
+Routes livrées, pour chaque marché (`fr`, `ma`, `sn` — voir section
+Multi-marché ci-dessous) : `GET /:market/visibilite`, `GET
+/:market/visibilite/merci`, `/:market/mentions-legales` et
+`/:market/politique-de-confidentialite` (placeholders, voir plus bas). Seul
+`fr` a du contenu réel aujourd'hui ; `ma`/`sn` retombent sur le contenu `fr`
+(`content/index.ts`) tant que leur copie n'est pas prête — le routage et le
+CRM, eux, sont déjà prêts pour ces marchés.
+
+## Multi-marché (fr / ma / sn)
+
+Le segment pays dans l'URL est la seule source de vérité pour deux choses,
+et une seule et même liste des marchés supportés les pilote toutes les deux :
+
+1. **Le contenu affiché** — `src/lib/routes.ts` (`SUPPORTED_MARKETS`,
+   `normalizeMarket`) + `src/content/index.ts` (`getContent(market)`).
+2. **Le CRM qui reçoit le lead** — `server/src/config/markets.ts`
+   (`SUPPORTED_MARKETS`, `MARKET_CRM_CONFIG`) : `POST
+   /api/:market/visibilite/lead` résout un `CrmClient` différent par marché
+   (`server/src/services/crm/resolveCrmClient.ts`), avec repli local
+   (`UnconfiguredCrmClient`, statut `pending`) tant qu'un marché n'a pas
+   encore son CRM configuré — jamais de lead perdu, jamais de blocage du
+   développement en attendant le CRM Maroc/Sénégal.
+
+Ajouter un marché plus tard = de la config, pas du code : déclarer son code
+dans les deux listes `SUPPORTED_MARKETS` (client et serveur, à garder
+synchronisées) et renseigner `CRM_<CODE>_API_URL` / `_API_KEY` (+
+optionnellement `_PIPELINE` / `_SOURCE`) une fois le CRM du marché prêt —
+voir `server/.env.example`. Un code marché inconnu dans l'URL ne casse rien
+(la page retombe sur le contenu `fr`) ; côté API, seuls les marchés déclarés
+dans `SUPPORTED_MARKETS` sont acceptés (`404 unsupported_market` sinon).
 
 ### Pourquoi une SPA pour une landing "il ne faut pas sur-engineerer"
 
@@ -98,18 +122,50 @@ client-side routé sur 4 chemins. Le principe reste respecté : peu de
 dépendances (pas de Redux, pas de librairie de formulaire, pas de UI kit),
 CSS Modules plutôt qu'un design system complet.
 
-## CRM (brief §15)
+## Design
 
-`CRMClientInterface` (`server/src/services/crm/CrmClient.ts`) est
-implémentée par :
-- `HttpCrmClient` — POST JSON générique avec Bearer token. **Le format exact
-  n'est pas celui d'un CRM réel** : personne ne nous a donné l'API du CRM
-  cible, donc rien n'a été inventé au-delà d'un contrat HTTP raisonnable.
-  À adapter dans ce seul fichier une fois le CRM choisi.
-- `UnconfiguredCrmClient` — utilisée tant que `CRM_API_URL`/`CRM_API_KEY`
-  sont vides. Un lead soumis dans cet état est stocké en local
-  (`server/data/leads.jsonl`, statut `pending`) et ne bloque jamais le
-  visiteur — voir `LeadService.ts`.
+Le visuel s'inspire de deux références partagées en cours de projet, jamais
+recopiées telles quelles (contenu, structure de page et couleurs de marque
+restent ceux du brief NFC Retail) :
+- Un template "CryptoCalc" (premier jet) pour le contraste sections
+  claires/sombres, les boutons pilule, les cartes flottantes et les rangées
+  de type liste.
+- Le template React "SecureVest" — page "home 2" (demande du 2026-09-04) —
+  pour le pattern actuel : cartes sombres arrondies *contenues* dans une
+  section claire (plutôt que des sections 100% sombres), en-têtes de section
+  "split" (titre à gauche, paragraphe à droite), cartes numérotées avec un
+  très grand chiffre en filigrane, et un mini-repère (icône qui tourne
+  lentement) devant chaque eyebrow. Ce template est une référence de design
+  uniquement — il n'est pas inclus dans ce dépôt (gitignored, template tiers
+  acheté) et son code React n'a pas été réutilisé, seul le rendu visuel a
+  servi d'inspiration, entièrement réécrit en CSS Modules avec les couleurs
+  NFC Retail.
+- Police : Poppins, capée à 600 (semibold) — voir "Accessibilité &
+  performance" plus bas.
+
+## CRM (brief §15 ; demande du 2026-09-04 : Web Service côté CRM)
+
+Le Web Service de création de lead sera développé côté CRM (confirmé le
+2026-09-04) : ce dépôt ne fait qu'appeler ce WS, il ne l'implémente pas.
+`CRMClientInterface` (`server/src/services/crm/CrmClient.ts`) est la
+frontière entre les deux, implémentée par :
+- `HttpCrmClient` — POST JSON générique avec Bearer token, incluant les
+  informations du formulaire, les UTM capturés à l'arrivée et le code marché
+  (`market: "fr" | "ma" | "sn"`). **Le format exact n'est pas celui du futur
+  WS CRM** : personne ne nous a encore donné son contrat précis ("on pourra
+  voir ensemble le format du WS et les champs à transmettre"), donc rien n'a
+  été inventé au-delà d'un appel HTTP raisonnable. Tout le format de requête
+  est concentré dans ce seul fichier — l'adapter au vrai contrat WS n'impacte
+  rien d'autre.
+- `UnconfiguredCrmClient` — utilisée tant qu'un marché n'a pas de CRM
+  configuré (`CRM_<CODE>_API_URL`/`_API_KEY` vides). Le lead est alors stocké
+  en local (`server/data/leads.jsonl`, statut `pending`) et ne bloque jamais
+  le visiteur — voir `LeadService.ts`. Un lead `pending` peut être rejoué
+  vers le CRM plus tard une fois le WS branché (le fichier garde toutes les
+  informations nécessaires, `market` inclus).
+
+Voir aussi "Multi-marché" ci-dessus pour comment le marché décide du CRM
+cible.
 
 ## Tracking (brief §17-19, §41-42)
 
@@ -122,8 +178,12 @@ implémentée par :
   doit atteindre l'analytics.
 - GA4 (`src/lib/ga4.ts`) ne se charge que si `VITE_GA4_MEASUREMENT_ID` est
   défini **et** que le consentement analytics a été donné (bannière cookies).
-- UTM (`src/lib/utm.ts`) : capturés à l'arrivée, conservés en
-  `sessionStorage` pour la durée de la visite ; un premier-touch est aussi
+- UTM (`src/lib/utm.ts`) : `utm_source`, `utm_medium`, `utm_campaign`,
+  `utm_content`, `utm_term` (+ `gclid`/`fbclid`/`msclkid`) capturés à
+  l'arrivée sur `/:market/visibilite?utm_source=chatgpt&utm_medium=paid&...`
+  (ChatGPT Ads, Google Ads, ou toute autre source), conservés en
+  `sessionStorage` pour la durée de la visite et transmis avec le lead
+  (`attribution` dans le payload envoyé au CRM). Un premier-touch est aussi
   gardé en `localStorage` (jamais écrasé) pour une éventuelle exploitation
   first/last-touch ultérieure (brief §20), sans complexifier le payload
   envoyé au lead en V1.
@@ -160,7 +220,11 @@ tiennent leur place en attendant :
       section preuves (`Proof`) ne s'affiche qu'en `dev` tant qu'aucune
       donnée réelle n'est fournie (brief §22 : jamais de placeholder visible
       en production).
-- [ ] **CRM cible + API** — voir section CRM ci-dessus.
+- [ ] **Contrat du Web Service CRM France** (champs exacts, auth,
+      format de réponse) — à définir ensemble ("on pourra voir ensemble le
+      format du WS et les champs à transmettre"), puis à adapter dans
+      `HttpCrmClient.ts` uniquement. Idem pour les WS CRM Maroc et Sénégal
+      quand ces marchés seront lancés — voir section Multi-marché.
 - [ ] **GA4 measurement ID** (`VITE_GA4_MEASUREMENT_ID`) et éventuel GTM.
 - [ ] **Texte légal réel** (mentions légales, politique de confidentialité)
       — pages actuellement des placeholders explicites à
@@ -172,8 +236,12 @@ tiennent leur place en attendant :
 - [ ] **Email de notification des leads** — `LEAD_NOTIFICATION_EMAIL` est
       prévu en config serveur mais aucun envoi n'est câblé (pas
       d'implémentation email inventée sans destinataire confirmé).
-- [ ] **Règles de qualification CRM**, pipeline/source exacts
-      (`CRM_PIPELINE`, `CRM_SOURCE`).
+- [ ] **Règles de qualification CRM**, pipeline/source exacts par marché
+      (`CRM_FR_PIPELINE`/`_SOURCE`, puis `CRM_MA_*`/`CRM_SN_*` le moment venu).
+- [ ] **Convention exacte des codes marché dans l'URL** — `/fr/`, `/ma/`,
+      `/sn/` sont utilisés en l'attente d'une validation ("ou autre
+      convention que nous validerons") ; un changement de convention se fait
+      dans `SUPPORTED_MARKETS` (client + serveur) sans toucher au reste.
 
 ## Déploiement
 
@@ -192,20 +260,29 @@ si client et API sont sur des origines différentes.
   normal sur blanc (~4.1:1) — un ton `--color-primary-dark` légèrement plus
   foncé est utilisé pour le texte des boutons/badges, `#E2452C` restant la
   couleur de marque pour les usages larges/décoratifs (icônes, titres).
-- Police système par défaut (aucune requête réseau) + Plus Jakarta Sans en
-  amélioration progressive pour les titres, avec fallback.
+- Police Poppins (demande du 2026-09-04, remplace Plus Jakarta Sans),
+  chargée en 400/500/600 seulement — pas de 700+ ("pas trop gras"), fallback
+  système si Google Fonts est indisponible.
 - Skip link, landmarks sémantiques, erreurs de formulaire en
   `role="alert"`, focus visible, labels explicites, `autocomplete`/
   `inputmode` corrects par champ.
 
 ## Tests
 
-- `npm test` (racine) : validation, phone/URL, UTM, tracking (garde PII),
-  et le formulaire complet (React Testing Library, API mockée).
+- `npm test` (racine) : validation, phone/URL, UTM (dont `utm_term`),
+  tracking (garde PII), routing multi-marché (`normalizeMarket`,
+  `getContent`), et le formulaire complet (React Testing Library, API
+  mockée).
 - `npm test` (dans `server/`) : mêmes fonctions pures côté serveur, plus
-  `LeadService` (CRM configuré / non configuré / en échec — jamais de perte
-  de lead) et une suite d'intégration HTTP complète (`app.test.ts` — CSRF,
-  honeypot, piège temporel, validations, 404, pas de fuite d'erreur).
-- `npm run test:e2e` : les 4 scénarios du brief (§44) avec Playwright — voir
-  `e2e/README.md`, y compris une note sur pourquoi les tests utilisent
-  `data-testid` plutôt que `getByRole`/`getByLabel`.
+  `LeadService` (CRM configuré / non configuré / en échec, par marché —
+  jamais de perte de lead), la résolution CRM par marché
+  (`config/markets.test.ts`, `resolveCrmClient.test.ts`) et une suite
+  d'intégration HTTP complète (`app.test.ts` — CSRF, honeypot, piège
+  temporel, validations, routage multi-marché, marché non supporté, 404, pas
+  de fuite d'erreur).
+- `npm run test:e2e` : les 4 scénarios du brief (§44) avec Playwright, plus
+  un scénario multi-marché (`/ma/visibilite` → `/api/ma/visibilite/lead`) —
+  voir `e2e/README.md`, y compris une note sur pourquoi les tests utilisent
+  `data-testid` plutôt que `getByRole`/`getByLabel`, et comment éviter les
+  conflits de port avec `E2E_CLIENT_PORT`/`E2E_API_PORT` si un autre projet
+  tourne déjà sur 5173/3001.

@@ -24,7 +24,7 @@
   justify-content: space-between;
   gap: var(--space-4);
   padding-block: var(--space-4);
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
   font-size: var(--fs-sm);
   color: var(--color-ink);
   cursor: pointer;

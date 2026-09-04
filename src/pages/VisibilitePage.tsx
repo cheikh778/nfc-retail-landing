@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { ConsentBanner } from '../components/consent/ConsentBanner';
 import { Footer } from '../components/layout/Footer';
 import { Header } from '../components/layout/Header';
@@ -13,11 +14,13 @@ import { LeadForm } from '../components/form/LeadForm';
 import { getContent } from '../content';
 import { useAnalyticsBootstrap } from '../hooks/useAnalyticsBootstrap';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { normalizeMarket } from '../lib/routes';
 import { captureAttribution } from '../lib/utm';
 import { track } from '../lib/tracking';
 
 export function VisibilitePage() {
-  const content = getContent('fr');
+  const market = normalizeMarket(useParams<{ market: string }>().market);
+  const content = getContent(market);
 
   useDocumentMeta({
     title: content.meta.title,
@@ -29,8 +32,8 @@ export function VisibilitePage() {
 
   useEffect(() => {
     captureAttribution();
-    track('landing_view');
-  }, []);
+    track('landing_view', { market });
+  }, [market]);
 
   return (
     <>
@@ -44,10 +47,10 @@ export function VisibilitePage() {
         <Automation content={content.automation} />
         <Faq content={content.faq} />
         <Proof content={content.proof} />
-        <LeadForm content={content.form} />
+        <LeadForm content={content.form} market={market} />
         <FinalCta content={content.finalCta} />
       </main>
-      <Footer content={content.footer} logoSrc={content.header.logoSrc} />
+      <Footer content={content.footer} logoSrc={content.header.logoSrc} market={market} />
       <StickyCta label={content.stickyCta.label} href={content.hero.ctaHref} formAnchorId={content.form.anchorId} />
       <ConsentBanner />
     </>

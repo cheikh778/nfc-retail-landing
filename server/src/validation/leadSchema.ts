@@ -5,6 +5,7 @@ const attributionSchema = z.object({
   utm_medium: z.string().nullable(),
   utm_campaign: z.string().nullable(),
   utm_content: z.string().nullable(),
+  utm_term: z.string().nullable(),
   gclid: z.string().nullable(),
   fbclid: z.string().nullable(),
   msclkid: z.string().nullable(),

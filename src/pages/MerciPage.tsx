@@ -1,12 +1,15 @@
+import { useParams } from 'react-router-dom';
 import { Footer } from '../components/layout/Footer';
 import { Header } from '../components/layout/Header';
 import { CheckIcon } from '../components/icons';
 import { getContent } from '../content';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { normalizeMarket, ROUTES } from '../lib/routes';
 import styles from './MerciPage.module.css';
 
 export function MerciPage() {
-  const content = getContent('fr');
+  const market = normalizeMarket(useParams<{ market: string }>().market);
+  const content = getContent(market);
 
   useDocumentMeta({
     title: `${content.confirmation.title} — NFC Retail`,
@@ -34,13 +37,13 @@ export function MerciPage() {
               </ol>
             </div>
 
-            <a href={content.confirmation.backHomeHref} className="btn btn-secondary">
+            <a href={ROUTES.visibilite(market)} className="btn btn-secondary">
               {content.confirmation.backHomeLabel}
             </a>
           </div>
         </section>
       </main>
-      <Footer content={content.footer} logoSrc={content.header.logoSrc} />
+      <Footer content={content.footer} logoSrc={content.header.logoSrc} market={market} />
     </>
   );
 }

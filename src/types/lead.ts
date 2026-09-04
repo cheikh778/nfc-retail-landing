@@ -21,6 +21,7 @@ export interface AttributionData {
   utm_medium: string | null;
   utm_campaign: string | null;
   utm_content: string | null;
+  utm_term: string | null;
   gclid: string | null;
   fbclid: string | null;
   msclkid: string | null;

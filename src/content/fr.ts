@@ -1,4 +1,3 @@
-import { ROUTES } from '../lib/routes';
 import type { LandingContent } from './types';
 
 /**
@@ -159,7 +158,6 @@ export const fr: LandingContent = {
       'Nous vous proposons un plan d’action pour développer votre visibilité.',
     ],
     backHomeLabel: 'Retour à l’accueil',
-    backHomeHref: ROUTES.visibilite,
   },
 
   finalCta: {
@@ -177,8 +175,8 @@ export const fr: LandingContent = {
     logoAlt: 'NFC Retail',
     tagline: 'Visibilité, réputation et acquisition pour les commerces de terrain.',
     legalLinks: [
-      { label: 'Mentions légales', href: ROUTES.mentionsLegales },
-      { label: 'Politique de confidentialité', href: ROUTES.politiqueConfidentialite },
+      { label: 'Mentions légales', slug: 'mentions-legales' },
+      { label: 'Politique de confidentialité', slug: 'politique-de-confidentialite' },
     ],
     copyright: `© ${new Date().getFullYear()} NFC Retail. Tous droits réservés.`,
   },

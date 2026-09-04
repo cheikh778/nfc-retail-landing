@@ -1,7 +1,9 @@
+import { useParams } from 'react-router-dom';
 import { Footer } from '../components/layout/Footer';
 import { Header } from '../components/layout/Header';
 import { getContent } from '../content';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { normalizeMarket } from '../lib/routes';
 import styles from './LegalPlaceholderPage.module.css';
 
 interface LegalPlaceholderPageProps {
@@ -9,7 +11,8 @@ interface LegalPlaceholderPageProps {
 }
 
 export function LegalPlaceholderPage({ title }: LegalPlaceholderPageProps) {
-  const content = getContent('fr');
+  const market = normalizeMarket(useParams<{ market: string }>().market);
+  const content = getContent(market);
 
   useDocumentMeta({ title: `${title} — NFC Retail`, robots: 'noindex, follow' });
 
@@ -24,7 +27,7 @@ export function LegalPlaceholderPage({ title }: LegalPlaceholderPageProps) {
           </div>
         </section>
       </main>
-      <Footer content={content.footer} logoSrc={content.header.logoSrc} />
+      <Footer content={content.footer} logoSrc={content.header.logoSrc} market={market} />
     </>
   );
 }

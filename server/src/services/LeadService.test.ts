@@ -25,6 +25,7 @@ const attribution = {
   utm_medium: 'ads',
   utm_campaign: null,
   utm_content: null,
+  utm_term: null,
   gclid: null,
   fbclid: null,
   msclkid: null,
@@ -61,22 +62,23 @@ afterEach(async () => {
 describe('LeadService', () => {
   it('marks the lead "sent" and persists it when the CRM accepts it', async () => {
     const crm = new FakeCrmClient('succeed');
-    const service = new LeadService(crm, new LeadStore(storePath), logger);
+    const service = new LeadService(() => crm, new LeadStore(storePath), logger);
 
-    const result = await service.submit(newLead);
+    const result = await service.submit('fr', newLead);
 
     expect(result.status).toBe('sent');
     expect(crm.calls).toHaveLength(1);
     const stored = JSON.parse((await readFile(storePath, 'utf8')).trim());
     expect(stored.status).toBe('sent');
     expect(stored.id).toBe(result.id);
+    expect(stored.market).toBe('fr');
   });
 
   it('falls back to "pending" without losing the lead when the CRM is not configured', async () => {
     const crm = new FakeCrmClient('unconfigured');
-    const service = new LeadService(crm, new LeadStore(storePath), logger);
+    const service = new LeadService(() => crm, new LeadStore(storePath), logger);
 
-    const result = await service.submit(newLead);
+    const result = await service.submit('fr', newLead);
 
     expect(result.status).toBe('pending');
     const stored = JSON.parse((await readFile(storePath, 'utf8')).trim());
@@ -86,9 +88,9 @@ describe('LeadService', () => {
 
   it('falls back to "pending" without losing the lead when the CRM call fails', async () => {
     const crm = new FakeCrmClient('fail');
-    const service = new LeadService(crm, new LeadStore(storePath), logger);
+    const service = new LeadService(() => crm, new LeadStore(storePath), logger);
 
-    const result = await service.submit(newLead);
+    const result = await service.submit('fr', newLead);
 
     expect(result.status).toBe('pending');
     const stored = JSON.parse((await readFile(storePath, 'utf8')).trim());
@@ -96,9 +98,30 @@ describe('LeadService', () => {
   });
 
   it('gives every lead a unique id and receivedAt timestamp', async () => {
-    const service = new LeadService(new FakeCrmClient('succeed'), new LeadStore(storePath), logger);
-    const first = await service.submit(newLead);
-    const second = await service.submit(newLead);
+    const service = new LeadService(() => new FakeCrmClient('succeed'), new LeadStore(storePath), logger);
+    const first = await service.submit('fr', newLead);
+    const second = await service.submit('fr', newLead);
     expect(first.id).not.toBe(second.id);
+  });
+
+  it('resolves a different CRM client per market and records the market on the stored lead', async () => {
+    const crmFr = new FakeCrmClient('succeed');
+    const crmMa = new FakeCrmClient('succeed');
+    const service = new LeadService(
+      (market) => (market === 'fr' ? crmFr : crmMa),
+      new LeadStore(storePath),
+      logger,
+    );
+
+    await service.submit('fr', newLead);
+    await service.submit('ma', newLead);
+
+    expect(crmFr.calls).toHaveLength(1);
+    expect(crmMa.calls).toHaveLength(1);
+    const stored = (await readFile(storePath, 'utf8'))
+      .trim()
+      .split('\n')
+      .map((line) => JSON.parse(line));
+    expect(stored.map((lead) => lead.market)).toEqual(['fr', 'ma']);
   });
 });

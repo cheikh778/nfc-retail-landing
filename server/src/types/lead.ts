@@ -3,6 +3,7 @@ export interface AttributionData {
   utm_medium: string | null;
   utm_campaign: string | null;
   utm_content: string | null;
+  utm_term: string | null;
   gclid: string | null;
   fbclid: string | null;
   msclkid: string | null;
@@ -14,6 +15,8 @@ export interface AttributionData {
 
 export interface CRMLeadRecord {
   id: string;
+  /** Market/country code the lead came in through (fr, ma, sn, ...) — decides which CRM receives it. */
+  market: string;
   establishmentName: string;
   city: string;
   activity: string;

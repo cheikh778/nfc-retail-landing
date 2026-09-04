@@ -6,6 +6,7 @@ const attribution = {
   utm_medium: null,
   utm_campaign: null,
   utm_content: null,
+  utm_term: null,
   gclid: null,
   fbclid: null,
   msclkid: null,

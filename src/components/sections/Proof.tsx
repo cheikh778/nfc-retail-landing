@@ -1,3 +1,4 @@
+import { Eyebrow } from '../Eyebrow';
 import type { LandingContent } from '../../content/types';
 import styles from './Proof.module.css';
 
@@ -21,7 +22,7 @@ export function Proof({ content }: ProofProps) {
         </p>
 
         <div className="section-head centered">
-          <span className="eyebrow">{content.eyebrow}</span>
+          <Eyebrow>{content.eyebrow}</Eyebrow>
           <h2 className="section-title">{content.title}</h2>
         </div>
 
