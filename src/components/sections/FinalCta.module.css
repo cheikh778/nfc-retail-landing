@@ -1,0 +1,35 @@
+.finalCta {
+  position: relative;
+  overflow: hidden;
+}
+
+.finalCta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(226, 69, 44, 0.16), transparent 60%);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  text-align: center;
+  max-width: 640px;
+}
+
+.title {
+  font-size: var(--fs-3xl);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: var(--lh-tight);
+  color: var(--color-white);
+}
+
+.subtitle {
+  font-size: var(--fs-md);
+  color: var(--color-dark-text-muted);
+}
