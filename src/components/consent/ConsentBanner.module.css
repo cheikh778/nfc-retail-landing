@@ -1,0 +1,50 @@
+.banner {
+  position: fixed;
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: var(--z-banner);
+  max-width: 460px;
+  margin-inline: auto;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-5);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.text {
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--color-text-muted);
+}
+
+.link {
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.actions .btn {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-xs);
+}
+
+@media (min-width: 640px) {
+  .banner {
+    left: auto;
+    right: var(--space-6);
+    bottom: var(--space-6);
+  }
+}
