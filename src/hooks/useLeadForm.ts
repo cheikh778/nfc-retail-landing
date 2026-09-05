@@ -105,7 +105,9 @@ export function useLeadForm(market: MarketCode) {
           formRenderedAt.current,
         );
         track('generate_lead');
-        navigate(ROUTES.merci(market));
+        navigate(ROUTES.merci(market), {
+          state: { firstName: step2.firstName, establishmentName: step1.establishmentName },
+        });
       } catch {
         setSubmitError(true);
       } finally {

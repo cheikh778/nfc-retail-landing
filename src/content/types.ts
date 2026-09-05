@@ -21,8 +21,9 @@ export interface ProofItem {
   placeholder: string;
 }
 
-export interface HeroVisualCard {
+export interface NavLink {
   label: string;
+  href: string;
 }
 
 export interface LandingContent {
@@ -40,8 +41,7 @@ export interface LandingContent {
   header: {
     logoSrc: string;
     logoAlt: string;
-    anchorLabel: string;
-    anchorHref: string;
+    navLinks: NavLink[];
     ctaLabel: string;
     ctaHref: string;
   };
@@ -52,14 +52,10 @@ export interface LandingContent {
     body: string;
     ctaLabel: string;
     ctaHref: string;
-    reassurance: string;
+    reassurance: string[];
     visual: {
-      desktopSrc: string;
-      desktopPlaceholderSrc: string;
-      mobileSrc: string;
-      mobilePlaceholderSrc: string;
+      src: string;
       alt: string;
-      cards: HeroVisualCard[];
     };
   };
 
@@ -68,6 +64,12 @@ export interface LandingContent {
     title: string;
     subtitle: string;
     steps: JourneyStep[];
+  };
+
+  product: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
   };
 
   automation: {
@@ -125,8 +127,9 @@ export interface LandingContent {
   };
 
   confirmation: {
-    title: string;
-    body: string;
+    /** `firstName` comes from the lead's step-2 answer, when navigation state carries it. */
+    title: (firstName?: string) => string;
+    body: (establishmentName?: string) => string;
     nextStepsTitle: string;
     nextSteps: string[];
     backHomeLabel: string;

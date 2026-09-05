@@ -31,3 +31,9 @@ export function loadGA4(measurementId: string): void {
 export function isGA4Loaded(): boolean {
   return loaded;
 }
+
+/** Forwards an app tracking event to GA4 as a real `gtag('event', ...)` call. No-ops until GA4 is loaded. */
+export function sendGA4Event(eventName: string, params: Record<string, unknown> = {}): void {
+  if (!loaded || !window.gtag) return;
+  window.gtag('event', eventName, params);
+}

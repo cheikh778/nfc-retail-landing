@@ -19,61 +19,62 @@ export const fr: LandingContent = {
   },
 
   header: {
-    logoSrc: '/assets/landing/fr/logo.svg',
+    logoSrc: '/assets/landing/fr/nfclogo.png',
     logoAlt: 'NFC Retail',
-    anchorLabel: 'Comment ça marche',
-    anchorHref: '#parcours',
-    ctaLabel: 'AUDIT GRATUIT',
+    navLinks: [
+      { label: 'Visibilité', href: '#promesse' },
+      { label: 'Solutions', href: '#produit' },
+      { label: 'Acquisition', href: '#automation' },
+      { label: 'Réputation', href: '#produit' },
+    ],
+    ctaLabel: 'Analyser ma visibilité',
     ctaHref: '#diagnostic',
   },
 
   hero: {
-    h1: 'Vos futurs clients vous trouvent-ils vraiment ?',
-    h2: 'Soyez visible là où vos clients vous cherchent : Google, ChatGPT et les nouveaux moteurs IA.',
+    h1: 'Vos futurs clients vous trouvent-ils vraiment ?',
+    h2: 'Soyez visible là où vos clients vous cherchent : Google, ChatGPT et les nouveaux moteurs IA.',
     body: "NFC Retail pilote votre visibilité, votre e-réputation et votre acquisition digitale pour vous aider à attirer de nouveaux clients et développer votre chiffre d'affaires.",
-    ctaLabel: 'ANALYSER GRATUITEMENT MA VISIBILITÉ',
+    ctaLabel: 'Analyser gratuitement ma visibilité',
     ctaHref: '#diagnostic',
-    reassurance: 'Audit gratuit • Sans engagement • Analyse personnalisée',
+    reassurance: ['Audit gratuit', 'Sans engagement', 'Analyse personnalisée'],
     visual: {
-      desktopSrc: '/assets/landing/fr/dashboard.webp',
-      desktopPlaceholderSrc: '/assets/landing/fr/dashboard-placeholder.svg',
-      mobileSrc: '/assets/landing/fr/dashboard-mobile.webp',
-      mobilePlaceholderSrc: '/assets/landing/fr/dashboard-mobile-placeholder.svg',
-      alt: 'Interface du tableau de bord NFC Retail',
-      cards: [
-        { label: 'Visibilité' },
-        { label: 'Avis clients' },
-        { label: 'Réputation' },
-        { label: 'Campagnes' },
-        { label: 'Acquisition' },
-      ],
+      src: '/assets/landing/fr/crm-hero-1.webp',
+      alt: 'Tableau de bord NFC Retail : suivi des clients, statistiques et paiements',
     },
   },
 
   journey: {
-    eyebrow: 'Le parcours',
+    eyebrow: 'La promesse',
     title: 'Votre marketing digital piloté pour vous.',
     subtitle: "Vous gérez votre activité. NFC Retail s'occupe de votre visibilité et de votre acquisition.",
     steps: [
-      { label: 'ÊTRE TROUVÉ', description: 'Google, Maps et nouveaux moteurs IA.' },
-      { label: 'ÊTRE CHOISI', description: 'Avis, réputation et présence digitale.' },
-      { label: 'ATTIRER', description: 'Acquisition et campagnes.' },
-      { label: 'FIDÉLISER', description: 'Données clients, WhatsApp/SMS et fidélisation.' },
-      { label: 'DÉVELOPPER SON CHIFFRE D’AFFAIRES', description: '' },
+      { label: 'Être trouvé', description: 'Google, Maps et nouveaux moteurs IA.' },
+      { label: 'Être choisi', description: 'Avis, réputation et présence digitale.' },
+      { label: 'Attirer', description: 'Acquisition et campagnes.' },
+      { label: 'Fidéliser', description: 'Données clients, WhatsApp/SMS et fidélisation.' },
+      { label: "Développer son chiffre d'affaires", description: '' },
     ],
   },
 
+  product: {
+    eyebrow: 'Le produit',
+    title: 'Une vision claire de votre activité digitale.',
+    subtitle:
+      'Score de visibilité, avis, réputation, campagnes, acquisition et données clients : tout est réuni dans un tableau de bord simple et lisible.',
+  },
+
   automation: {
-    eyebrow: 'Automatisation',
+    eyebrow: 'Automatisation & IA',
     title: 'Votre marketing travaille même quand vous ne vous en occupez pas.',
-    body: "NFC Retail exploite progressivement vos données pour simplifier et automatiser le marketing de votre établissement. Certaines automatisations sont en cours de déploiement : les fonctionnalités disponibles dépendent de votre configuration.",
+    body: "NFC Retail exploite progressivement vos données pour simplifier et automatiser le marketing de votre établissement. Certaines automatisations sont en cours de déploiement : les fonctionnalités disponibles dépendent de votre configuration.",
     flows: [
       { from: 'Avis reçu', to: 'Réponse assistée / automatisée' },
       { from: 'Données clients', to: 'Segmentation' },
       { from: 'Opportunité commerciale', to: 'Campagne' },
       { from: 'Campagne', to: 'Analyse des résultats' },
     ],
-    pipeline: ['COLLECTER', 'ANALYSER', 'AGIR', 'MESURER'],
+    pipeline: ['Collecter', 'Analyser', 'Agir', 'Mesurer'],
   },
 
   proof: {
@@ -124,7 +125,7 @@ export const fr: LandingContent = {
       establishmentLabel: "Nom de l'établissement",
       cityLabel: 'Ville',
       activityLabel: 'Activité',
-      ctaLabel: 'ANALYSER MA VISIBILITÉ',
+      ctaLabel: 'Analyser ma visibilité',
     },
     step2: {
       title: 'Vos coordonnées',
@@ -135,7 +136,7 @@ export const fr: LandingContent = {
       emailLabel: 'E-mail',
       websiteLabel: 'Site internet',
       websiteOptionalHint: 'Optionnel',
-      ctaLabel: 'RECEVOIR MON DIAGNOSTIC GRATUIT',
+      ctaLabel: 'Recevoir mon diagnostic gratuit',
     },
     errors: {
       required: 'Ce champ est obligatoire.',
@@ -149,8 +150,12 @@ export const fr: LandingContent = {
   },
 
   confirmation: {
-    title: 'Votre demande d’analyse a bien été reçue.',
-    body: 'Merci ! Un membre de l’équipe NFC Retail va étudier la visibilité de votre établissement.',
+    title: (firstName) =>
+      firstName ? `Merci ${firstName}, votre demande a bien été reçue.` : 'Votre demande d’analyse a bien été reçue.',
+    body: (establishmentName) =>
+      establishmentName
+        ? `Un membre de l’équipe NFC Retail va étudier la visibilité de ${establishmentName}.`
+        : 'Merci ! Un membre de l’équipe NFC Retail va étudier la visibilité de votre établissement.',
     nextStepsTitle: 'La suite',
     nextSteps: [
       'Nous analysons votre présence sur Google, Maps et les moteurs IA.',
@@ -161,14 +166,14 @@ export const fr: LandingContent = {
   },
 
   finalCta: {
-    title: 'Et si vos prochains clients vous cherchaient déjà ?',
+    title: 'Et si vos prochains clients vous cherchaient déjà ?',
     subtitle: 'Découvrez les opportunités de visibilité de votre établissement.',
-    ctaLabel: 'ANALYSER GRATUITEMENT MA VISIBILITÉ',
+    ctaLabel: 'Analyser gratuitement ma visibilité',
     ctaHref: '#diagnostic',
   },
 
   stickyCta: {
-    label: 'ANALYSER MA VISIBILITÉ',
+    label: 'Analyser ma visibilité',
   },
 
   footer: {
