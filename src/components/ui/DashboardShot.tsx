@@ -12,7 +12,7 @@ export function DashboardShot({ src, alt }: DashboardShotProps) {
         <span className="h-2.5 w-2.5 rounded-full bg-primary-foreground/25" />
         <span className="h-2.5 w-2.5 rounded-full bg-flame/80" />
         <span className="ml-3 hidden rounded-md bg-primary-foreground/10 px-2.5 py-1 text-[10px] font-medium text-primary-foreground/70 sm:block">
-          app.nfc-retail.fr — tableau de bord
+          app.nfcretail.com — tableau de bord
         </span>
       </div>
       <img src={src} alt={alt} width={1000} height={711} loading="eager" className="block w-full" />

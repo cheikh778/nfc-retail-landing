@@ -20,7 +20,7 @@ export function DashboardMockup() {
         <span className="h-2.5 w-2.5 rounded-full bg-border" />
         <span className="h-2.5 w-2.5 rounded-full bg-flame/70" />
         <span className="ml-3 hidden rounded-md bg-card px-2.5 py-1 text-[10px] font-medium text-muted-foreground sm:block">
-          app.nfc-retail.fr — démonstration
+          app.nfcretail.com — démonstration
         </span>
       </div>
 
