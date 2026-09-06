@@ -1,7 +1,7 @@
 import type { AttributionData } from '../types/lead';
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
-const CLICK_ID_KEYS = ['gclid', 'fbclid', 'msclkid'] as const;
+const CLICK_ID_KEYS = ['gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid'] as const;
 
 const SESSION_KEY = 'nfcr_attribution_last';
 const FIRST_TOUCH_KEY = 'nfcr_attribution_first';
@@ -35,6 +35,8 @@ function readCurrentAttribution(): AttributionData {
     utm_content: get('utm_content'),
     utm_term: get('utm_term'),
     gclid: get('gclid'),
+    gbraid: get('gbraid'),
+    wbraid: get('wbraid'),
     fbclid: get('fbclid'),
     msclkid: get('msclkid'),
     landing_page: window.location.href,

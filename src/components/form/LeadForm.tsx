@@ -1,7 +1,8 @@
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useLeadForm } from '../../hooks/useLeadForm';
 import type { LandingContent } from '../../content/types';
-import type { MarketCode } from '../../lib/routes';
+import { ROUTES, type MarketCode } from '../../lib/routes';
 import type { FieldErrorCode } from '../../lib/validation';
 import { Reveal } from '../ui/Reveal';
 import { FormProgress } from './FormProgress';
@@ -166,6 +167,36 @@ export function LeadForm({ content, market }: LeadFormProps) {
 
                     <Honeypot value={form.step2.companyWebsiteHp} onChange={(value) => form.updateStep2('companyWebsiteHp', value)} />
 
+                    <div>
+                      <label className="flex items-start gap-3 text-sm leading-relaxed text-muted-foreground">
+                        <input
+                          type="checkbox"
+                          data-testid="field-consent"
+                          checked={form.consent}
+                          onChange={(event) => form.toggleConsent(event.target.checked)}
+                          aria-invalid={form.consentError || undefined}
+                          className="mt-0.5 h-4 w-4 shrink-0 rounded border-border text-flame focus:ring-flame"
+                        />
+                        <span>
+                          {content.consent.before}
+                          <Link
+                            to={ROUTES.politiqueConfidentialite(market)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-600 text-navy underline underline-offset-2 hover:text-flame"
+                          >
+                            {content.consent.linkLabel}
+                          </Link>
+                          {content.consent.after}
+                        </span>
+                      </label>
+                      {form.consentError && (
+                        <p role="alert" data-testid="consent-error" className="mt-1.5 text-xs font-600 text-destructive">
+                          {content.consent.error}
+                        </p>
+                      )}
+                    </div>
+
                     {form.submitError && (
                       <p role="alert" data-testid="submit-error" className="text-xs font-600 text-destructive">
                         {content.submitError}
@@ -184,7 +215,7 @@ export function LeadForm({ content, market }: LeadFormProps) {
                       </button>
                       <button
                         type="submit"
-                        disabled={form.submitting}
+                        disabled={form.submitting || !form.consent}
                         data-testid="step-2-submit"
                         className="group inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-flame px-6 py-4 text-sm font-700 uppercase tracking-wide text-primary-foreground shadow-glow-flame transition-all duration-300 hover:-translate-y-0.5 hover:brightness-105 disabled:pointer-events-none disabled:opacity-70"
                       >

@@ -32,12 +32,18 @@ export async function submitStep1(page: Page): Promise<void> {
   await page.getByTestId('lead-form-step-2').waitFor({ state: 'visible' });
 }
 
+/** The consent box is unchecked by default and gates the submit button. */
+export async function acceptConsent(page: Page): Promise<void> {
+  await page.getByTestId('field-consent').check();
+}
+
 export async function fillStep2(page: Page, data: typeof VALID_STEP2 = VALID_STEP2): Promise<void> {
   await page.getByTestId('field-first-name').fill(data.firstName);
   await page.getByTestId('field-last-name').fill(data.lastName);
   await page.getByTestId('field-phone').fill(data.phone);
   await page.getByTestId('field-email').fill(data.email);
   if (data.website) await page.getByTestId('field-website').fill(data.website);
+  await acceptConsent(page);
 }
 
 export async function submitStep2(page: Page): Promise<void> {

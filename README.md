@@ -28,7 +28,10 @@ ci-dessous) pour le détail.
 
 ```bash
 npm install                                # installe client + serveur (workspaces npm)
-cp server/.env.example server/.env         # renseigner au moins CSRF_SECRET
+cp server/.env.example server/.env         # config non secrète
+# puis, pour les secrets (chargé après .env, gitignored) :
+printf 'CSRF_SECRET=%s\n' "$(node -e "console.log(require('crypto').randomBytes(32).toString('hex'))")" > server/.env.local
+# + CRM_FR_API_KEY=<clé Bearer> dans server/.env.local pour brancher le CRM France
 npm run dev:all                            # client sur :5173, API sur :3001 (proxy /api)
 ```
 
@@ -107,7 +110,7 @@ et une seule et même liste des marchés supportés les pilote toutes les deux :
 Ajouter un marché plus tard = de la config, pas du code : déclarer son code
 dans les deux listes `SUPPORTED_MARKETS` (client et serveur, à garder
 synchronisées) et renseigner `CRM_<CODE>_API_URL` / `_API_KEY` (+
-optionnellement `_PIPELINE` / `_SOURCE`) une fois le CRM du marché prêt —
+optionnellement `_LOCALE` / `_OFFER_CODE`) une fois le CRM du marché prêt —
 voir `server/.env.example`. Un code marché inconnu dans l'URL ne casse rien
 (la page retombe sur le contenu `fr`) ; côté API, seuls les marchés déclarés
 dans `SUPPORTED_MARKETS` sont acceptés (`404 unsupported_market` sinon).
@@ -143,26 +146,34 @@ restent ceux du brief NFC Retail) :
 - Police : Poppins, capée à 600 (semibold) — voir "Accessibilité &
   performance" plus bas.
 
-## CRM (brief §15 ; demande du 2026-09-04 : Web Service côté CRM)
+## CRM (brief §15 ; contrat "LeadInbound" reçu le 2026-09-05)
 
-Le Web Service de création de lead sera développé côté CRM (confirmé le
-2026-09-04) : ce dépôt ne fait qu'appeler ce WS, il ne l'implémente pas.
-`CRMClientInterface` (`server/src/services/crm/CrmClient.ts`) est la
+Le Web Service de création de lead est développé côté CRM : ce dépôt ne fait
+que l'appeler. `CrmClient` (`server/src/services/crm/CrmClient.ts`) est la
 frontière entre les deux, implémentée par :
-- `HttpCrmClient` — POST JSON générique avec Bearer token, incluant les
-  informations du formulaire, les UTM capturés à l'arrivée et le code marché
-  (`market: "fr" | "ma" | "sn"`). **Le format exact n'est pas celui du futur
-  WS CRM** : personne ne nous a encore donné son contrat précis ("on pourra
-  voir ensemble le format du WS et les champs à transmettre"), donc rien n'a
-  été inventé au-delà d'un appel HTTP raisonnable. Tout le format de requête
-  est concentré dans ce seul fichier — l'adapter au vrai contrat WS n'impacte
-  rien d'autre.
+
+- `HttpCrmClient` — implémente le contrat d'interface **LeadInbound France** :
+  `POST https://up.moncrm.io/api/v1/leads`, `Authorization: Bearer <clé>`,
+  `Idempotency-Key: <submission_id>`. Le payload suit l'exemple du contrat
+  (`submission_id`, `locale`, `offer_code`, `contact`, `company`, `request`,
+  `attribution`, `privacy`, `submitted_at`). `market_code` n'est **pas**
+  envoyé : l'endpoint est exclusivement celui du CRM France. Tout le format
+  de requête est concentré dans ce seul fichier.
+  - **Idempotence** : `submission_id` est généré côté client (un UUID par
+    soumission du formulaire), réutilisé tel quel comme `Idempotency-Key` à
+    chaque retentative. `200` (déjà reçu) et `201` (créé) sont des succès ;
+    `5xx` / timeout / erreur réseau sont réessayés (même clé) puis, en cas
+    d'échec persistant, le lead retombe en `pending` ; `409` (même clé,
+    données différentes) et `4xx` fonctionnels ne sont pas réessayés.
+  - **Clé Bearer** : uniquement dans `server/.env.local` (gitignored, chargé
+    après `.env`), jamais dans le bundle frontend, jamais commitée.
 - `UnconfiguredCrmClient` — utilisée tant qu'un marché n'a pas de CRM
-  configuré (`CRM_<CODE>_API_URL`/`_API_KEY` vides). Le lead est alors stocké
-  en local (`server/data/leads.jsonl`, statut `pending`) et ne bloque jamais
-  le visiteur — voir `LeadService.ts`. Un lead `pending` peut être rejoué
-  vers le CRM plus tard une fois le WS branché (le fichier garde toutes les
-  informations nécessaires, `market` inclus).
+  configuré (`CRM_<CODE>_API_URL`/`_API_KEY` vides — le cas de `ma`/`sn`
+  aujourd'hui). Le lead est alors stocké en local (`server/data/leads.jsonl`,
+  statut `pending`) et ne bloque jamais le visiteur — voir `LeadService.ts`.
+  Un lead `pending` est rejoué vers le CRM par `npm run replay:leads`
+  (workspace `server`) : le fichier garde tout le nécessaire, `submission_id`
+  inclus, donc le rejeu réutilise la même clé d'idempotence.
 
 Voir aussi "Multi-marché" ci-dessus pour comment le marché décide du CRM
 cible.
@@ -179,14 +190,26 @@ cible.
 - GA4 (`src/lib/ga4.ts`) ne se charge que si `VITE_GA4_MEASUREMENT_ID` est
   défini **et** que le consentement analytics a été donné (bannière cookies).
 - UTM (`src/lib/utm.ts`) : `utm_source`, `utm_medium`, `utm_campaign`,
-  `utm_content`, `utm_term` (+ `gclid`/`fbclid`/`msclkid`) capturés à
-  l'arrivée sur `/:market/visibilite?utm_source=chatgpt&utm_medium=paid&...`
-  (ChatGPT Ads, Google Ads, ou toute autre source), conservés en
-  `sessionStorage` pour la durée de la visite et transmis avec le lead
-  (`attribution` dans le payload envoyé au CRM). Un premier-touch est aussi
-  gardé en `localStorage` (jamais écrasé) pour une éventuelle exploitation
-  first/last-touch ultérieure (brief §20), sans complexifier le payload
-  envoyé au lead en V1.
+  `utm_content`, `utm_term` (+ `gclid`/`gbraid`/`wbraid`, et
+  `fbclid`/`msclkid` pour usage interne) capturés à l'arrivée sur
+  `/:market/visibilite?utm_source=chatgpt&utm_medium=paid&...` (ChatGPT Ads,
+  Google Ads, ou toute autre source), avec l'URL d'entrée et le référent,
+  conservés en `sessionStorage` pour la durée de la visite et transmis avec
+  le lead (`attribution` dans le payload envoyé au CRM). Un premier-touch est
+  aussi gardé en `localStorage` (jamais écrasé) pour une éventuelle
+  exploitation first/last-touch ultérieure (brief §20), sans complexifier le
+  payload envoyé au lead en V1.
+
+## Consentement (RGPD)
+
+Le formulaire (étape 2) comporte une case de consentement **non cochée par
+défaut**, avec un lien vers `/:market/politique-de-confidentialite`. Tant
+qu'elle n'est pas cochée, le bouton d'envoi est désactivé ; côté serveur, le
+contrôleur rejette toute soumission avec `marketing_consent !== true`
+(`400 consent_required`) — aucune requête n'atteint le CRM sans consentement.
+Quand la case est cochée, le lead porte `privacy.notice_version` (version de
+la notice affichée, `content/fr.ts` → `privacy.noticeVersion`),
+`marketing_consent: true` et `marketing_consent_at` (horodatage du clic).
 
 ## Sécurité (brief §13, §35, §48)
 
@@ -220,11 +243,11 @@ tiennent leur place en attendant :
       section preuves (`Proof`) ne s'affiche qu'en `dev` tant qu'aucune
       donnée réelle n'est fournie (brief §22 : jamais de placeholder visible
       en production).
-- [ ] **Contrat du Web Service CRM France** (champs exacts, auth,
-      format de réponse) — à définir ensemble ("on pourra voir ensemble le
-      format du WS et les champs à transmettre"), puis à adapter dans
-      `HttpCrmClient.ts` uniquement. Idem pour les WS CRM Maroc et Sénégal
-      quand ces marchés seront lancés — voir section Multi-marché.
+- [x] **Contrat du Web Service CRM France** — reçu le 2026-09-05
+      (LeadInbound, `up.moncrm.io`), câblé dans `HttpCrmClient.ts`. Reste à
+      remplacer la clé Bearer temporaire par la clé de prod définitive
+      (`server/.env.local` → `CRM_FR_API_KEY`). Les WS CRM Maroc et Sénégal
+      restent à fournir quand ces marchés seront lancés.
 - [ ] **GA4 measurement ID** (`VITE_GA4_MEASUREMENT_ID`) et éventuel GTM.
 - [ ] **Texte légal réel** (mentions légales, politique de confidentialité)
       — pages actuellement des placeholders explicites à
@@ -236,8 +259,9 @@ tiennent leur place en attendant :
 - [ ] **Email de notification des leads** — `LEAD_NOTIFICATION_EMAIL` est
       prévu en config serveur mais aucun envoi n'est câblé (pas
       d'implémentation email inventée sans destinataire confirmé).
-- [ ] **Règles de qualification CRM**, pipeline/source exacts par marché
-      (`CRM_FR_PIPELINE`/`_SOURCE`, puis `CRM_MA_*`/`CRM_SN_*` le moment venu).
+- [ ] **`offer_code` / `locale` par marché** si autre chose que `visibilite`
+      / `fr-FR` (`CRM_FR_OFFER_CODE` / `CRM_FR_LOCALE`, puis `CRM_MA_*` /
+      `CRM_SN_*` le moment venu).
 - [ ] **Convention exacte des codes marché dans l'URL** — `/fr/`, `/ma/`,
       `/sn/` sont utilisés en l'attente d'une validation ("ou autre
       convention que nous validerons") ; un changement de convention se fait

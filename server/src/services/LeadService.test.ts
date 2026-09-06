@@ -27,6 +27,8 @@ const attribution = {
   utm_content: null,
   utm_term: null,
   gclid: null,
+  gbraid: null,
+  wbraid: null,
   fbclid: null,
   msclkid: null,
   landing_page: 'https://nfcretail.com/fr/visibilite',
@@ -36,6 +38,12 @@ const attribution = {
 };
 
 const newLead = {
+  submissionId: '01991ad8-6682-7ab1-b840-f42c3ce971de',
+  consent: {
+    noticeVersion: '2026-09-01',
+    marketingConsent: true,
+    marketingConsentAt: new Date().toISOString(),
+  },
   establishmentName: 'Boulangerie du Coin',
   city: 'Lyon',
   activity: 'Boulangerie',

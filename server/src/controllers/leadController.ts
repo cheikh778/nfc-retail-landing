@@ -38,8 +38,16 @@ export function createLeadController(leadService: LeadService, log: Logger) {
       return;
     }
 
+    // Consent is mandatory: no lead is ever forwarded to the CRM without it
+    // (the client also blocks the submit button, this is the server-side guard).
+    if (input.consent.marketingConsent !== true) {
+      res.status(400).json({ error: 'consent_required' });
+      return;
+    }
+
     try {
       const result = await leadService.submit(market, {
+        submissionId: input.submissionId,
         establishmentName: input.establishmentName,
         city: input.city,
         activity: input.activity,
@@ -49,6 +57,7 @@ export function createLeadController(leadService: LeadService, log: Logger) {
         email: input.email,
         website,
         attribution: input.attribution,
+        consent: input.consent,
       });
       res.status(200).json({ ok: true, status: result.status });
     } catch (error) {

@@ -1,5 +1,5 @@
 import { captureAttribution, getStoredAttribution } from './utm';
-import type { LeadFormData, LeadSubmissionPayload } from '../types/lead';
+import type { ConsentData, LeadFormData, LeadSubmissionPayload } from '../types/lead';
 
 const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? '/api';
 
@@ -24,9 +24,21 @@ function getCsrfToken(): Promise<string> {
   return csrfTokenPromise;
 }
 
-export async function submitLead(market: string, data: LeadFormData, formRenderedAt: string): Promise<void> {
+interface LeadSubmissionMeta {
+  formRenderedAt: string;
+  submissionId: string;
+  consent: ConsentData;
+}
+
+export async function submitLead(market: string, data: LeadFormData, meta: LeadSubmissionMeta): Promise<void> {
   const attribution = getStoredAttribution() ?? captureAttribution();
-  const payload: LeadSubmissionPayload = { ...data, attribution, formRenderedAt };
+  const payload: LeadSubmissionPayload = {
+    ...data,
+    attribution,
+    formRenderedAt: meta.formRenderedAt,
+    submissionId: meta.submissionId,
+    consent: meta.consent,
+  };
   const csrfToken = await getCsrfToken();
 
   const res = await fetch(`${API_BASE}/${market}/visibilite/lead`, {

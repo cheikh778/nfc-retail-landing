@@ -4,10 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch --env-file-if-exists=.env src/index.ts",
+    "dev": "tsx watch --env-file-if-exists=.env --env-file-if-exists=.env.local src/index.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "node --env-file-if-exists=.env dist/index.js",
-    "replay:leads": "tsx --env-file-if-exists=.env src/scripts/replayPendingLeads.ts",
+    "start": "node --env-file-if-exists=.env --env-file-if-exists=.env.local dist/index.js",
+    "replay:leads": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local src/scripts/replayPendingLeads.ts",
     "test": "vitest run"
   },
   "dependencies": {

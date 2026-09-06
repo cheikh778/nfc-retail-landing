@@ -63,6 +63,10 @@ describe('LeadForm', () => {
     await user.click(screen.getByRole('button', { name: fr.form.step1.ctaLabel }));
     await screen.findByText(fr.form.step2.title);
 
+    // The submit button stays disabled until the consent box is ticked.
+    expect(screen.getByRole('button', { name: fr.form.step2.ctaLabel })).toBeDisabled();
+    await user.click(screen.getByTestId('field-consent'));
+
     // Submitting empty step 2 shows errors and does not call the API.
     await user.click(screen.getByRole('button', { name: fr.form.step2.ctaLabel }));
     expect(await screen.findAllByText(fr.form.errors.required)).not.toHaveLength(0);

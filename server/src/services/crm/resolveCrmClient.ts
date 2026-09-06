@@ -16,8 +16,8 @@ export function resolveCrmClient(market: MarketCode): CrmClient {
       ? new HttpCrmClient({
           apiUrl: config.apiUrl,
           apiKey: config.apiKey,
-          pipeline: config.pipeline,
-          source: config.source,
+          locale: config.locale,
+          offerCode: config.offerCode,
         })
       : new UnconfiguredCrmClient();
 

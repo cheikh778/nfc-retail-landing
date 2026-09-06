@@ -21,7 +21,17 @@ export interface MarketCrmConfig {
   apiKey?: string;
   pipeline?: string;
   source: string;
+  /** `locale` sent in the CRM payload (see HttpCrmClient / the LeadInbound contract). */
+  locale: string;
+  /** `offer_code` sent in the CRM payload — the landing's offer (e.g. "visibilite"). */
+  offerCode: string;
 }
+
+const DEFAULT_MARKET_LOCALE: Record<MarketCode, string> = {
+  fr: 'fr-FR',
+  ma: 'fr-MA',
+  sn: 'fr-SN',
+};
 
 /**
  * CRM_API_URL / CRM_API_KEY / CRM_PIPELINE / CRM_SOURCE (no market prefix)
@@ -44,6 +54,8 @@ function readMarketCrmConfig(market: MarketCode): MarketCrmConfig {
     apiKey: read('API_KEY'),
     pipeline: read('PIPELINE'),
     source: read('SOURCE') || `nfc-retail-landing-${market}`,
+    locale: read('LOCALE') || DEFAULT_MARKET_LOCALE[market],
+    offerCode: read('OFFER_CODE') || 'visibilite',
   };
 }
 

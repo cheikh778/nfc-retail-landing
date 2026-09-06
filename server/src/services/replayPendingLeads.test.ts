@@ -27,6 +27,8 @@ const attribution = {
   utm_content: null,
   utm_term: null,
   gclid: null,
+  gbraid: null,
+  wbraid: null,
   fbclid: null,
   msclkid: null,
   landing_page: 'https://nfcretail.com/fr/visibilite',
@@ -35,9 +37,16 @@ const attribution = {
   landing_timestamp: new Date().toISOString(),
 };
 
+const consent = {
+  noticeVersion: '2026-09-01',
+  marketingConsent: true,
+  marketingConsentAt: new Date().toISOString(),
+};
+
 function makeLead(overrides: Partial<StoredLead>): StoredLead {
   return {
     id: 'lead-1',
+    submissionId: '01991ad8-6682-7ab1-b840-f42c3ce971de',
     market: 'fr',
     establishmentName: 'Boulangerie du Coin',
     city: 'Lyon',
@@ -48,6 +57,7 @@ function makeLead(overrides: Partial<StoredLead>): StoredLead {
     email: 'jean@example.com',
     website: '',
     attribution,
+    consent,
     receivedAt: new Date().toISOString(),
     status: 'pending',
     ...overrides,

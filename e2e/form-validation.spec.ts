@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { dismissConsentBanner, fillStep1, submitStep1, submitStep2, VALID_STEP1 } from './helpers';
+import { acceptConsent, dismissConsentBanner, fillStep1, submitStep1, submitStep2, VALID_STEP1 } from './helpers';
 
 // Brief §44 scenario 3: formulaire invalide → erreurs → correction → succès.
 test('step 1 shows required-field errors and clears them once corrected', async ({ page }) => {
@@ -30,6 +30,7 @@ test('step 2 rejects an invalid email and phone, then succeeds once fixed', asyn
   await page.getByTestId('field-last-name').fill('Dupont');
   await page.getByTestId('field-phone').fill('abc');
   await page.getByTestId('field-email').fill('not-an-email');
+  await acceptConsent(page);
   await page.getByTestId('step-2-submit').click();
 
   await expect(page.getByTestId('field-phone')).toHaveAttribute('aria-invalid', 'true');
@@ -54,6 +55,7 @@ test('an implausible website is rejected while leaving the field optional', asyn
   await page.getByTestId('field-phone').fill('0601020304');
   await page.getByTestId('field-email').fill('jean.dupont@example.com');
   await page.getByTestId('field-website').fill('not a url');
+  await acceptConsent(page);
   await page.getByTestId('step-2-submit').click();
   await expect(page.getByTestId('field-website')).toHaveAttribute('aria-invalid', 'true');
 

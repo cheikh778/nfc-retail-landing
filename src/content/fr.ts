@@ -138,6 +138,12 @@ export const fr: LandingContent = {
       websiteOptionalHint: 'Optionnel',
       ctaLabel: 'Recevoir mon diagnostic gratuit',
     },
+    consent: {
+      before: 'J’accepte que mes informations soient utilisées afin de traiter ma demande, conformément à la ',
+      linkLabel: 'politique de confidentialité',
+      after: '.',
+      error: 'Merci de cocher cette case pour envoyer votre demande.',
+    },
     errors: {
       required: 'Ce champ est obligatoire.',
       email: 'Merci de renseigner une adresse e-mail valide.',
@@ -147,6 +153,11 @@ export const fr: LandingContent = {
     },
     submitError:
       'Une erreur temporaire est survenue. Votre demande n’a pas pu être finalisée. Merci de réessayer dans quelques instants.',
+  },
+
+  privacy: {
+    // Bump this whenever the privacy policy text shown on the landing changes.
+    noticeVersion: '2026-09-01',
   },
 
   confirmation: {

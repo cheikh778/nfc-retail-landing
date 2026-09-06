@@ -116,6 +116,16 @@ export interface LandingContent {
       websiteOptionalHint: string;
       ctaLabel: string;
     };
+    consent: {
+      /** Text before the privacy-policy link. */
+      before: string;
+      /** The clickable link label pointing to the privacy policy. */
+      linkLabel: string;
+      /** Text after the link (may be empty). */
+      after: string;
+      /** Shown when the visitor tries to submit without ticking the box. */
+      error: string;
+    };
     errors: {
       required: string;
       email: string;
@@ -124,6 +134,11 @@ export interface LandingContent {
       generic: string;
     };
     submitError: string;
+  };
+
+  /** Privacy notice metadata sent with every lead (CRM `privacy.notice_version`). */
+  privacy: {
+    noticeVersion: string;
   };
 
   confirmation: {
