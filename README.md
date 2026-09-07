@@ -2,7 +2,7 @@
 
 Landing page V1 France pour NFC Retail : diagnostic de visibilité gratuit,
 formulaire de lead en 2 étapes, tracking funnel, intégration CRM. Construite
-en **React + TypeScript** (SPA légère, pas de Symfony) avec une petite API
+en **React + TypeScript** avec une petite API
 Node/Express dédiée à la réception des leads.
 
 Cahier des charges complet : voir le document fourni par l'équipe marketing
