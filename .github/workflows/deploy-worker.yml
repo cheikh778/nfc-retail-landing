@@ -1,0 +1,25 @@
+name: Deploy Worker
+
+# Pushes the Cloudflare edge router (deploy/cloudflare-worker) that splits
+# nfcretail.com between the Pages landing and WordPress.
+# Runs only when the worker changes AND DEPLOY_WORKER_ENABLED is "true".
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "deploy/cloudflare-worker/**"
+      - ".github/workflows/deploy-worker.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: ${{ vars.DEPLOY_WORKER_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: deploy/cloudflare-worker
