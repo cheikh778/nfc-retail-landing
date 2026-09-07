@@ -1,7 +1,9 @@
 import { captureAttribution, getStoredAttribution } from './utm';
 import type { ConsentData, LeadFormData, LeadSubmissionPayload } from '../types/lead';
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? '/api';
+// `||` (not `??`): an empty VITE_API_BASE_URL — e.g. a blank line in a local
+// .env — must still fall back to the dev proxy path, not blank out the URL.
+const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) || '/api';
 
 export class LeadSubmissionError extends Error {}
 

@@ -44,13 +44,13 @@ const newLead = {
     marketingConsent: true,
     marketingConsentAt: new Date().toISOString(),
   },
-  establishmentName: 'Boulangerie du Coin',
+  establishmentName: 'Boulangerie Saint-Antoine',
   city: 'Lyon',
   activity: 'Boulangerie',
-  firstName: 'Jean',
-  lastName: 'Dupont',
-  phone: '0601020304',
-  email: 'jean@example.com',
+  firstName: 'Camille',
+  lastName: 'Moreau',
+  phone: '0674321985',
+  email: 'camille.moreau@gmail.com',
   website: '',
   attribution,
 };
@@ -91,7 +91,7 @@ describe('LeadService', () => {
     expect(result.status).toBe('pending');
     const stored = JSON.parse((await readFile(storePath, 'utf8')).trim());
     expect(stored.status).toBe('pending');
-    expect(stored.establishmentName).toBe('Boulangerie du Coin');
+    expect(stored.establishmentName).toBe('Boulangerie Saint-Antoine');
   });
 
   it('falls back to "pending" without losing the lead when the CRM call fails', async () => {

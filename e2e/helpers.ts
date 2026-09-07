@@ -1,17 +1,17 @@
 import type { Page } from '@playwright/test';
 
 export const VALID_STEP1 = {
-  establishment: 'Boulangerie du Coin',
+  establishment: 'Boulangerie Saint-Antoine',
   city: 'Lyon',
   activity: 'Boulangerie',
 };
 
 export const VALID_STEP2 = {
-  firstName: 'Jean',
-  lastName: 'Dupont',
-  phone: '06 01 02 03 04',
-  email: 'jean.dupont@example.com',
-  website: 'boulangerie-lyon.fr',
+  firstName: 'Camille',
+  lastName: 'Moreau',
+  phone: '06 74 32 19 85',
+  email: 'camille.moreau@gmail.com',
+  website: 'boulangerie-saint-antoine.fr',
 };
 
 export async function dismissConsentBanner(page: Page): Promise<void> {

@@ -27,13 +27,13 @@ afterAll(async () => {
 function validPayload(overrides: Record<string, unknown> = {}) {
   return {
     submissionId: `01991ad8-6682-7ab1-b840-${Math.random().toString(16).slice(2, 14).padEnd(12, '0')}`,
-    establishmentName: 'Boulangerie du Coin',
+    establishmentName: 'Boulangerie Saint-Antoine',
     city: 'Lyon',
     activity: 'Boulangerie',
-    firstName: 'Jean',
-    lastName: 'Dupont',
-    phone: '0601020304',
-    email: 'jean@example.com',
+    firstName: 'Camille',
+    lastName: 'Moreau',
+    phone: '0674321985',
+    email: 'camille.moreau@gmail.com',
     website: '',
     companyWebsiteHp: '',
     formRenderedAt: new Date(Date.now() - 5000).toISOString(),

@@ -1,0 +1,11 @@
+name = "nfcretail-router"
+main = "worker.js"
+compatibility_date = "2025-09-01"
+workers_dev = false
+
+# Bind the Worker in front of the whole apex + www. The zone must already be
+# active on Cloudflare (nameservers switched) for these routes to attach.
+routes = [
+  { pattern = "nfcretail.com/*", zone_name = "nfcretail.com" },
+  { pattern = "www.nfcretail.com/*", zone_name = "nfcretail.com" },
+]

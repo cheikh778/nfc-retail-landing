@@ -42,7 +42,7 @@ describe('LeadForm', () => {
     const user = userEvent.setup();
     renderForm();
 
-    await user.type(screen.getByLabelText(fr.form.step1.establishmentLabel, { exact: false }), 'Boulangerie du Coin');
+    await user.type(screen.getByLabelText(fr.form.step1.establishmentLabel, { exact: false }), 'Boulangerie Saint-Antoine');
     await user.type(screen.getByLabelText(fr.form.step1.cityLabel, { exact: false }), 'Lyon');
     await user.type(screen.getByLabelText(fr.form.step1.activityLabel, { exact: false }), 'Boulangerie');
     await user.click(screen.getByRole('button', { name: fr.form.step1.ctaLabel }));
@@ -57,7 +57,7 @@ describe('LeadForm', () => {
     const user = userEvent.setup();
     renderForm();
 
-    await user.type(screen.getByLabelText(fr.form.step1.establishmentLabel, { exact: false }), 'Boulangerie du Coin');
+    await user.type(screen.getByLabelText(fr.form.step1.establishmentLabel, { exact: false }), 'Boulangerie Saint-Antoine');
     await user.type(screen.getByLabelText(fr.form.step1.cityLabel, { exact: false }), 'Lyon');
     await user.type(screen.getByLabelText(fr.form.step1.activityLabel, { exact: false }), 'Boulangerie');
     await user.click(screen.getByRole('button', { name: fr.form.step1.ctaLabel }));
@@ -74,10 +74,10 @@ describe('LeadForm', () => {
 
     // "Prénom"/"Nom" need a start-anchored regex: exact:true fails on the required-field's
     // trailing "*" marker, and plain substring matching would make "Nom" match "Prénom" too.
-    await user.type(screen.getByLabelText(new RegExp(`^${fr.form.step2.firstNameLabel}`)), 'Jean');
-    await user.type(screen.getByLabelText(new RegExp(`^${fr.form.step2.lastNameLabel}`)), 'Dupont');
-    await user.type(screen.getByLabelText(fr.form.step2.phoneLabel, { exact: false }), '0601020304');
-    await user.type(screen.getByLabelText(fr.form.step2.emailLabel, { exact: false }), 'jean.dupont@example.com');
+    await user.type(screen.getByLabelText(new RegExp(`^${fr.form.step2.firstNameLabel}`)), 'Camille');
+    await user.type(screen.getByLabelText(new RegExp(`^${fr.form.step2.lastNameLabel}`)), 'Moreau');
+    await user.type(screen.getByLabelText(fr.form.step2.phoneLabel, { exact: false }), '0674321985');
+    await user.type(screen.getByLabelText(fr.form.step2.emailLabel, { exact: false }), 'camille.moreau@gmail.com');
     await user.click(screen.getByRole('button', { name: fr.form.step2.ctaLabel }));
 
     await waitFor(() => expect(submitLead).toHaveBeenCalledTimes(1));

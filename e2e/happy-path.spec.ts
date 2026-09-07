@@ -14,6 +14,7 @@ test('visitor completes the 2-step form and reaches the confirmation page', asyn
   await completeLeadForm(page);
 
   await expect(page).toHaveURL(/\/fr\/visibilite\/merci$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Votre demande d’analyse a bien été reçue.');
+  // The confirmation page greets the visitor by the first name captured in step 2.
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Merci Camille, votre demande a bien été reçue.');
   expect(leadResponseStatus).toBe(200);
 });

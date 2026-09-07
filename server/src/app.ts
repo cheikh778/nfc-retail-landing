@@ -15,7 +15,12 @@ export function createApp(leadService: LeadService) {
   app.set('trust proxy', 1);
 
   app.use(helmet());
-  app.use(cors({ origin: env.ALLOWED_ORIGIN, credentials: true }));
+  // ALLOWED_ORIGIN may be a comma-separated list (prod apex + a *.pages.dev
+  // preview URL, say). cors reflects the request Origin when it's in the list.
+  const allowedOrigins = env.ALLOWED_ORIGIN.split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+  app.use(cors({ origin: allowedOrigins, credentials: true }));
   app.use(express.json({ limit: '32kb' }));
   app.use(cookieParser());
 
