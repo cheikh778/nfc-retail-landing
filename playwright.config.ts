@@ -6,7 +6,13 @@ import { defineConfig, devices } from '@playwright/test';
  * set PLAYWRIGHT_CHROMIUM_PATH to the pre-installed browser instead of
  * downloading one; real machines/CI leave it unset and Playwright manages
  * its own browser normally.
+ *
+ * Ports are overridable (E2E_CLIENT_PORT / E2E_API_PORT) for machines where
+ * 5173/3001 are already in use by another project.
  */
+const CLIENT_PORT = Number(process.env.E2E_CLIENT_PORT) || 5173;
+const API_PORT = Number(process.env.E2E_API_PORT) || 3001;
+
 export default defineConfig({
   testDir: './e2e',
   timeout: 30_000,
@@ -14,7 +20,7 @@ export default defineConfig({
   retries: 0,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: `http://localhost:${CLIENT_PORT}`,
     trace: 'retain-on-failure',
     ...devices['Desktop Chrome'],
     launchOptions: {
@@ -27,15 +33,17 @@ export default defineConfig({
   webServer: [
     {
       command: 'npm run dev:server',
-      port: 3001,
+      port: API_PORT,
       reuseExistingServer: true,
       timeout: 30_000,
+      env: { PORT: String(API_PORT), ALLOWED_ORIGIN: `http://localhost:${CLIENT_PORT}` },
     },
     {
-      command: 'npm run dev',
-      port: 5173,
+      command: `npm run dev -- --port ${CLIENT_PORT} --strictPort`,
+      port: CLIENT_PORT,
       reuseExistingServer: true,
       timeout: 30_000,
+      env: { VITE_API_PROXY_TARGET: `http://localhost:${API_PORT}` },
     },
   ],
 });

@@ -21,8 +21,9 @@ export interface ProofItem {
   placeholder: string;
 }
 
-export interface HeroVisualCard {
+export interface NavLink {
   label: string;
+  href: string;
 }
 
 export interface LandingContent {
@@ -40,8 +41,7 @@ export interface LandingContent {
   header: {
     logoSrc: string;
     logoAlt: string;
-    anchorLabel: string;
-    anchorHref: string;
+    navLinks: NavLink[];
     ctaLabel: string;
     ctaHref: string;
   };
@@ -52,14 +52,10 @@ export interface LandingContent {
     body: string;
     ctaLabel: string;
     ctaHref: string;
-    reassurance: string;
+    reassurance: string[];
     visual: {
-      desktopSrc: string;
-      desktopPlaceholderSrc: string;
-      mobileSrc: string;
-      mobilePlaceholderSrc: string;
+      src: string;
       alt: string;
-      cards: HeroVisualCard[];
     };
   };
 
@@ -68,6 +64,12 @@ export interface LandingContent {
     title: string;
     subtitle: string;
     steps: JourneyStep[];
+  };
+
+  product: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
   };
 
   automation: {
@@ -114,6 +116,16 @@ export interface LandingContent {
       websiteOptionalHint: string;
       ctaLabel: string;
     };
+    consent: {
+      /** Text before the privacy-policy link. */
+      before: string;
+      /** The clickable link label pointing to the privacy policy. */
+      linkLabel: string;
+      /** Text after the link (may be empty). */
+      after: string;
+      /** Shown when the visitor tries to submit without ticking the box. */
+      error: string;
+    };
     errors: {
       required: string;
       email: string;
@@ -124,13 +136,18 @@ export interface LandingContent {
     submitError: string;
   };
 
+  /** Privacy notice metadata sent with every lead (CRM `privacy.notice_version`). */
+  privacy: {
+    noticeVersion: string;
+  };
+
   confirmation: {
-    title: string;
-    body: string;
+    /** `firstName` comes from the lead's step-2 answer, when navigation state carries it. */
+    title: (firstName?: string) => string;
+    body: (establishmentName?: string) => string;
     nextStepsTitle: string;
     nextSteps: string[];
     backHomeLabel: string;
-    backHomeHref: string;
   };
 
   finalCta: {
@@ -147,7 +164,8 @@ export interface LandingContent {
   footer: {
     logoAlt: string;
     tagline: string;
-    legalLinks: { label: string; href: string }[];
+    /** `slug` is market-relative (e.g. 'mentions-legales') — the page builds the full /:market/ path. */
+    legalLinks: { label: string; slug: string }[];
     copyright: string;
   };
 

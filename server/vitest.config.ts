@@ -3,6 +3,8 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     environment: 'node',
+    // Never run the compiled copies in dist/ (present after `npm run build`).
+    exclude: ['**/node_modules/**', '**/dist/**'],
     env: {
       NODE_ENV: 'test',
       CSRF_SECRET: 'test-only-secret-not-for-production-0123456789',

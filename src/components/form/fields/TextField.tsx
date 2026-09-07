@@ -1,5 +1,4 @@
 import { useId, type InputHTMLAttributes } from 'react';
-import styles from './TextField.module.css';
 
 interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
   label: string;
@@ -9,6 +8,11 @@ interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id
   testId?: string;
 }
 
+const inputClass =
+  'w-full rounded-xl border border-input bg-card px-4 py-3.5 text-sm font-medium text-navy placeholder:text-muted-foreground/70 outline-none transition-all duration-200 focus:border-flame focus:ring-4 focus:ring-flame/15';
+
+const labelClass = 'mb-1.5 block text-xs font-700 uppercase tracking-[0.12em] text-navy';
+
 export function TextField({ label, error, hint, required, className, testId, ...inputProps }: TextFieldProps) {
   const id = useId();
   const errorId = `${id}-error`;
@@ -16,16 +20,16 @@ export function TextField({ label, error, hint, required, className, testId, ...
   const describedBy = [error ? errorId : null, hint ? hintId : null].filter(Boolean).join(' ') || undefined;
 
   return (
-    <div className={`${styles.field} ${className ?? ''}`}>
-      <label htmlFor={id} className={styles.label}>
+    <div className={className}>
+      <label htmlFor={id} className={labelClass}>
         {label}
         {required && (
-          <span className={styles.required} aria-hidden="true">
+          <span className="text-flame" aria-hidden="true">
             {' *'}
           </span>
         )}
         {hint && (
-          <span className={styles.hint} id={hintId}>
+          <span id={hintId} className="ml-2 font-500 normal-case tracking-normal text-muted-foreground">
             {hint}
           </span>
         )}
@@ -36,11 +40,11 @@ export function TextField({ label, error, hint, required, className, testId, ...
         required={required}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy}
-        className={`${styles.input} ${error ? styles.inputError : ''}`}
+        className={`${inputClass} ${error ? 'border-destructive focus:border-destructive focus:ring-destructive/15' : ''}`}
         {...inputProps}
       />
       {error && (
-        <p id={errorId} className={styles.error} role="alert">
+        <p id={errorId} role="alert" className="mt-1.5 text-xs font-600 text-destructive">
           {error}
         </p>
       )}

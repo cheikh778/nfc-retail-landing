@@ -1,0 +1,4 @@
+# Cloudflare Pages: serve the SPA entry for any client-side route
+# (/fr/visibilite/merci, /ma/visibilite, ...) instead of a 404.
+# The Cloudflare Worker only forwards SPA paths here, so a catch-all is safe.
+/*  /index.html  200

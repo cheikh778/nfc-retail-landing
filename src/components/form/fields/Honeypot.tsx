@@ -1,5 +1,3 @@
-import styles from './Honeypot.module.css';
-
 interface HoneypotProps {
   value: string;
   onChange: (value: string) => void;
@@ -8,7 +6,7 @@ interface HoneypotProps {
 /** Invisible anti-spam trap (brief §13/§35) — real users never see or fill this. */
 export function Honeypot({ value, onChange }: HoneypotProps) {
   return (
-    <div className={styles.wrap} aria-hidden="true">
+    <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
       <label htmlFor="company_website">Ne pas remplir ce champ</label>
       <input
         id="company_website"

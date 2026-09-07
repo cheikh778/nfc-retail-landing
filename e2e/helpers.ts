@@ -1,17 +1,17 @@
 import type { Page } from '@playwright/test';
 
 export const VALID_STEP1 = {
-  establishment: 'Boulangerie du Coin',
+  establishment: 'Boulangerie Saint-Antoine',
   city: 'Lyon',
   activity: 'Boulangerie',
 };
 
 export const VALID_STEP2 = {
-  firstName: 'Jean',
-  lastName: 'Dupont',
-  phone: '06 01 02 03 04',
-  email: 'jean.dupont@example.com',
-  website: 'boulangerie-lyon.fr',
+  firstName: 'Camille',
+  lastName: 'Moreau',
+  phone: '06 74 32 19 85',
+  email: 'camille.moreau@gmail.com',
+  website: 'boulangerie-saint-antoine.fr',
 };
 
 export async function dismissConsentBanner(page: Page): Promise<void> {
@@ -32,12 +32,18 @@ export async function submitStep1(page: Page): Promise<void> {
   await page.getByTestId('lead-form-step-2').waitFor({ state: 'visible' });
 }
 
+/** The consent box is unchecked by default and gates the submit button. */
+export async function acceptConsent(page: Page): Promise<void> {
+  await page.getByTestId('field-consent').check();
+}
+
 export async function fillStep2(page: Page, data: typeof VALID_STEP2 = VALID_STEP2): Promise<void> {
   await page.getByTestId('field-first-name').fill(data.firstName);
   await page.getByTestId('field-last-name').fill(data.lastName);
   await page.getByTestId('field-phone').fill(data.phone);
   await page.getByTestId('field-email').fill(data.email);
   if (data.website) await page.getByTestId('field-website').fill(data.website);
+  await acceptConsent(page);
 }
 
 export async function submitStep2(page: Page): Promise<void> {

@@ -5,13 +5,14 @@ const envSchema = z.object({
   PORT: z.coerce.number().int().positive().default(3001),
   ALLOWED_ORIGIN: z.string().default('http://localhost:5173'),
   CSRF_SECRET: z.string().min(16, 'must be at least 16 characters'),
-  CRM_API_URL: z.union([z.string().url(), z.literal('')]).optional(),
-  CRM_API_KEY: z.string().optional(),
-  CRM_PIPELINE: z.string().optional(),
-  CRM_SOURCE: z.string().default('nfc-retail-landing-fr'),
   LEAD_STORE_PATH: z.string().default('./data/leads.jsonl'),
   LEAD_NOTIFICATION_EMAIL: z.union([z.string().email(), z.literal('')]).optional(),
 });
+
+// Per-market CRM_<CODE>_API_URL / _API_KEY / _PIPELINE / _SOURCE (and the
+// legacy unprefixed CRM_* alias for "fr") are read directly from
+// process.env in config/markets.ts, not validated here — the set of markets
+// is configurable, so its env vars aren't a fixed, enumerable schema shape.
 
 function loadEnv() {
   const parsed = envSchema.safeParse(process.env);
@@ -27,5 +28,3 @@ function loadEnv() {
 }
 
 export const env = loadEnv();
-
-export const crmConfigured = Boolean(env.CRM_API_URL && env.CRM_API_KEY);

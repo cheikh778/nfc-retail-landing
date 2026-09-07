@@ -13,7 +13,7 @@ describe('validateStep1', () => {
 
   it('passes with all fields filled', () => {
     const errors = validateStep1({
-      establishmentName: 'Boulangerie du Coin',
+      establishmentName: 'Boulangerie Saint-Antoine',
       city: 'Lyon',
       activity: 'Boulangerie',
     });
@@ -28,10 +28,10 @@ describe('validateStep1', () => {
 
 describe('validateStep2', () => {
   const valid = {
-    firstName: 'Jean',
-    lastName: 'Dupont',
-    phone: '0601020304',
-    email: 'jean@example.com',
+    firstName: 'Camille',
+    lastName: 'Moreau',
+    phone: '0674321985',
+    email: 'camille.moreau@gmail.com',
     website: '',
   };
 

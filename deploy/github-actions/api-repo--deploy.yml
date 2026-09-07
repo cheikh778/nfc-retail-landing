@@ -1,0 +1,59 @@
+# nfcretail-api repo  ->  .github/workflows/deploy.yml
+#
+# Tests, builds and ships server/ to the Hostinger Node.js app over SSH,
+# then restarts Passenger. Runs on every push to main.
+
+name: Deploy API
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy-api
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run build   # -> dist/
+
+      # All server deps are pure JS, so shipping node_modules built on CI is
+      # safe and avoids needing a toolchain on the host.
+      - run: npm ci --omit=dev
+
+      - name: Upload to Hostinger
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: >-
+            -azr --delete
+            --exclude='.git*'
+            --exclude='.env' --exclude='.env.local'
+            --exclude='data' --exclude='tmp'
+          path: ./
+          remote_path: ${{ secrets.HOSTINGER_APP_PATH }}
+          remote_host: ${{ secrets.HOSTINGER_SSH_HOST }}
+          remote_user: ${{ secrets.HOSTINGER_SSH_USER }}
+          remote_port: ${{ secrets.HOSTINGER_SSH_PORT }}
+          remote_key: ${{ secrets.HOSTINGER_SSH_KEY }}
+
+      - name: Restart Passenger
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOSTINGER_SSH_HOST }}
+          username: ${{ secrets.HOSTINGER_SSH_USER }}
+          port: ${{ secrets.HOSTINGER_SSH_PORT }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          script: |
+            mkdir -p "${{ secrets.HOSTINGER_APP_PATH }}/tmp" "${{ secrets.HOSTINGER_APP_PATH }}/data"
+            touch "${{ secrets.HOSTINGER_APP_PATH }}/tmp/restart.txt"

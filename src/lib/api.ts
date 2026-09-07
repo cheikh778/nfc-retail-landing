@@ -1,7 +1,9 @@
 import { captureAttribution, getStoredAttribution } from './utm';
-import type { LeadFormData, LeadSubmissionPayload } from '../types/lead';
+import type { ConsentData, LeadFormData, LeadSubmissionPayload } from '../types/lead';
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? '/api';
+// `||` (not `??`): an empty VITE_API_BASE_URL — e.g. a blank line in a local
+// .env — must still fall back to the dev proxy path, not blank out the URL.
+const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) || '/api';
 
 export class LeadSubmissionError extends Error {}
 
@@ -24,12 +26,24 @@ function getCsrfToken(): Promise<string> {
   return csrfTokenPromise;
 }
 
-export async function submitLead(data: LeadFormData, formRenderedAt: string): Promise<void> {
+interface LeadSubmissionMeta {
+  formRenderedAt: string;
+  submissionId: string;
+  consent: ConsentData;
+}
+
+export async function submitLead(market: string, data: LeadFormData, meta: LeadSubmissionMeta): Promise<void> {
   const attribution = getStoredAttribution() ?? captureAttribution();
-  const payload: LeadSubmissionPayload = { ...data, attribution, formRenderedAt };
+  const payload: LeadSubmissionPayload = {
+    ...data,
+    attribution,
+    formRenderedAt: meta.formRenderedAt,
+    submissionId: meta.submissionId,
+    consent: meta.consent,
+  };
   const csrfToken = await getCsrfToken();
 
-  const res = await fetch(`${API_BASE}/fr/visibilite/lead`, {
+  const res = await fetch(`${API_BASE}/${market}/visibilite/lead`, {
     method: 'POST',
     credentials: 'include',
     headers: {

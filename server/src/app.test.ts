@@ -16,7 +16,7 @@ let app: ReturnType<typeof createApp>;
 beforeAll(async () => {
   dir = await mkdtemp(join(tmpdir(), 'nfcr-app-'));
   leadsFilePath = join(dir, 'leads.jsonl');
-  const leadService = new LeadService(new UnconfiguredCrmClient(), new LeadStore(leadsFilePath), logger);
+  const leadService = new LeadService(() => new UnconfiguredCrmClient(), new LeadStore(leadsFilePath), logger);
   app = createApp(leadService);
 });
 
@@ -26,13 +26,14 @@ afterAll(async () => {
 
 function validPayload(overrides: Record<string, unknown> = {}) {
   return {
-    establishmentName: 'Boulangerie du Coin',
+    submissionId: `01991ad8-6682-7ab1-b840-${Math.random().toString(16).slice(2, 14).padEnd(12, '0')}`,
+    establishmentName: 'Boulangerie Saint-Antoine',
     city: 'Lyon',
     activity: 'Boulangerie',
-    firstName: 'Jean',
-    lastName: 'Dupont',
-    phone: '0601020304',
-    email: 'jean@example.com',
+    firstName: 'Camille',
+    lastName: 'Moreau',
+    phone: '0674321985',
+    email: 'camille.moreau@gmail.com',
     website: '',
     companyWebsiteHp: '',
     formRenderedAt: new Date(Date.now() - 5000).toISOString(),
@@ -41,13 +42,21 @@ function validPayload(overrides: Record<string, unknown> = {}) {
       utm_medium: null,
       utm_campaign: null,
       utm_content: null,
+      utm_term: null,
       gclid: null,
+      gbraid: null,
+      wbraid: null,
       fbclid: null,
       msclkid: null,
       landing_page: 'https://nfcretail.com/fr/visibilite',
       landing_path: '/fr/visibilite',
       referrer: '',
       landing_timestamp: new Date().toISOString(),
+    },
+    consent: {
+      noticeVersion: '2026-09-01',
+      marketingConsent: true,
+      marketingConsentAt: new Date().toISOString(),
     },
     ...overrides,
   };
@@ -86,6 +95,25 @@ describe('POST /api/fr/visibilite/lead', () => {
 
     const stored = await readFile(leadsFilePath, 'utf8');
     expect(stored).toContain('Valid Submission Marker');
+  });
+
+  it('rejects a submission without marketing consent and never stores it', async () => {
+    const { agent, csrfToken } = await getCsrf();
+    const res = await agent
+      .post('/api/fr/visibilite/lead')
+      .set('X-CSRF-Token', csrfToken)
+      .send(
+        validPayload({
+          establishmentName: 'NO CONSENT MARKER',
+          consent: { noticeVersion: '2026-09-01', marketingConsent: false, marketingConsentAt: new Date().toISOString() },
+        }),
+      );
+
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('consent_required');
+
+    const stored = await readFile(leadsFilePath, 'utf8').catch(() => '');
+    expect(stored).not.toContain('NO CONSENT MARKER');
   });
 
   it('rejects an invalid phone number', async () => {
@@ -158,6 +186,30 @@ describe('POST /api/fr/visibilite/lead', () => {
     const res = await request(app).post('/api/fr/visibilite/lead').send(validPayload());
     expect(res.body).not.toHaveProperty('stack');
     expect(JSON.stringify(res.body)).not.toMatch(/\.(ts|js):\d+/);
+  });
+});
+
+describe('multi-market routing', () => {
+  it('accepts leads for other supported markets on their own route', async () => {
+    const { agent, csrfToken } = await getCsrf();
+    const res = await agent
+      .post('/api/ma/visibilite/lead')
+      .set('X-CSRF-Token', csrfToken)
+      .send(validPayload({ establishmentName: 'Casablanca Marker' }));
+
+    expect(res.status).toBe(200);
+    const stored = (await readFile(leadsFilePath, 'utf8'))
+      .trim()
+      .split('\n')
+      .map((line) => JSON.parse(line));
+    const record = stored.find((lead) => lead.establishmentName === 'Casablanca Marker');
+    expect(record?.market).toBe('ma');
+  });
+
+  it('rejects an unsupported market code before touching CSRF/CRM logic', async () => {
+    const res = await request(app).post('/api/xx/visibilite/lead').send(validPayload());
+    expect(res.status).toBe(404);
+    expect(res.body).toEqual({ error: 'unsupported_market' });
   });
 });
 

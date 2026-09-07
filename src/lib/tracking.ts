@@ -1,3 +1,5 @@
+import { sendGA4Event } from './ga4';
+
 export type TrackEventName =
   | 'landing_view'
   | 'cta_click'
@@ -51,4 +53,5 @@ export function track(eventName: TrackEventName, params: Record<string, unknown>
 
   ensureTrackingBridge();
   window.NFCTracking.track(eventName, params);
+  sendGA4Event(eventName, params);
 }

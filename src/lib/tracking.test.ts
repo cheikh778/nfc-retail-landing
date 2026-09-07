@@ -22,7 +22,7 @@ describe('track', () => {
 
   it('refuses to send params that look like PII', () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    track('form_complete', { email: 'jean@example.com' });
+    track('form_complete', { email: 'camille.moreau@gmail.com' });
     expect(window.dataLayer).toEqual([]);
     expect(warnSpy).toHaveBeenCalled();
   });

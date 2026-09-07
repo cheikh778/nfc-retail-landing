@@ -21,7 +21,10 @@ export interface AttributionData {
   utm_medium: string | null;
   utm_campaign: string | null;
   utm_content: string | null;
+  utm_term: string | null;
   gclid: string | null;
+  gbraid: string | null;
+  wbraid: string | null;
   fbclid: string | null;
   msclkid: string | null;
   landing_page: string;
@@ -30,8 +33,19 @@ export interface AttributionData {
   landing_timestamp: string;
 }
 
+export interface ConsentData {
+  /** Version of the privacy notice displayed to the visitor. */
+  noticeVersion: string;
+  marketingConsent: boolean;
+  /** ISO timestamp of the moment the box was ticked. */
+  marketingConsentAt: string;
+}
+
 export interface LeadSubmissionPayload extends LeadFormData {
+  /** Stable per form submission, reused on retry — the CRM idempotency key. */
+  submissionId: string;
   attribution: AttributionData;
+  consent: ConsentData;
   /** Client-side render timestamp, used server-side as a time-trap anti-spam signal. */
   formRenderedAt: string;
 }

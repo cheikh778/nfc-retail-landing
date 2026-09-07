@@ -14,10 +14,10 @@ import { submitLead } from '../../lib/api';
 
 function renderForm() {
   render(
-    <MemoryRouter initialEntries={[ROUTES.visibilite]}>
+    <MemoryRouter initialEntries={[ROUTES.visibilite('fr')]}>
       <Routes>
-        <Route path={ROUTES.visibilite} element={<LeadForm content={fr.form} />} />
-        <Route path={ROUTES.merci} element={<div>Page merci</div>} />
+        <Route path={ROUTES.visibilite('fr')} element={<LeadForm content={fr.form} market="fr" />} />
+        <Route path={ROUTES.merci('fr')} element={<div>Page merci</div>} />
       </Routes>
     </MemoryRouter>,
   );
@@ -42,7 +42,7 @@ describe('LeadForm', () => {
     const user = userEvent.setup();
     renderForm();
 
-    await user.type(screen.getByLabelText(fr.form.step1.establishmentLabel, { exact: false }), 'Boulangerie du Coin');
+    await user.type(screen.getByLabelText(fr.form.step1.establishmentLabel, { exact: false }), 'Boulangerie Saint-Antoine');
     await user.type(screen.getByLabelText(fr.form.step1.cityLabel, { exact: false }), 'Lyon');
     await user.type(screen.getByLabelText(fr.form.step1.activityLabel, { exact: false }), 'Boulangerie');
     await user.click(screen.getByRole('button', { name: fr.form.step1.ctaLabel }));
@@ -57,11 +57,15 @@ describe('LeadForm', () => {
     const user = userEvent.setup();
     renderForm();
 
-    await user.type(screen.getByLabelText(fr.form.step1.establishmentLabel, { exact: false }), 'Boulangerie du Coin');
+    await user.type(screen.getByLabelText(fr.form.step1.establishmentLabel, { exact: false }), 'Boulangerie Saint-Antoine');
     await user.type(screen.getByLabelText(fr.form.step1.cityLabel, { exact: false }), 'Lyon');
     await user.type(screen.getByLabelText(fr.form.step1.activityLabel, { exact: false }), 'Boulangerie');
     await user.click(screen.getByRole('button', { name: fr.form.step1.ctaLabel }));
     await screen.findByText(fr.form.step2.title);
+
+    // The submit button stays disabled until the consent box is ticked.
+    expect(screen.getByRole('button', { name: fr.form.step2.ctaLabel })).toBeDisabled();
+    await user.click(screen.getByTestId('field-consent'));
 
     // Submitting empty step 2 shows errors and does not call the API.
     await user.click(screen.getByRole('button', { name: fr.form.step2.ctaLabel }));
@@ -70,10 +74,10 @@ describe('LeadForm', () => {
 
     // "Prénom"/"Nom" need a start-anchored regex: exact:true fails on the required-field's
     // trailing "*" marker, and plain substring matching would make "Nom" match "Prénom" too.
-    await user.type(screen.getByLabelText(new RegExp(`^${fr.form.step2.firstNameLabel}`)), 'Jean');
-    await user.type(screen.getByLabelText(new RegExp(`^${fr.form.step2.lastNameLabel}`)), 'Dupont');
-    await user.type(screen.getByLabelText(fr.form.step2.phoneLabel, { exact: false }), '0601020304');
-    await user.type(screen.getByLabelText(fr.form.step2.emailLabel, { exact: false }), 'jean.dupont@example.com');
+    await user.type(screen.getByLabelText(new RegExp(`^${fr.form.step2.firstNameLabel}`)), 'Camille');
+    await user.type(screen.getByLabelText(new RegExp(`^${fr.form.step2.lastNameLabel}`)), 'Moreau');
+    await user.type(screen.getByLabelText(fr.form.step2.phoneLabel, { exact: false }), '0674321985');
+    await user.type(screen.getByLabelText(fr.form.step2.emailLabel, { exact: false }), 'camille.moreau@gmail.com');
     await user.click(screen.getByRole('button', { name: fr.form.step2.ctaLabel }));
 
     await waitFor(() => expect(submitLead).toHaveBeenCalledTimes(1));
