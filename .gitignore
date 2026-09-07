@@ -22,6 +22,8 @@ playwright/.cache
 .env
 .env.local
 
+
+
 # Third-party design reference (purchased template) — inspiration only, never ship it
 SecureVest_ReactJs/
 
