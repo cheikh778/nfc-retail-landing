@@ -1,15 +1,18 @@
-# Déploiement — nfcretail.com + api.nfcretail.com
+# Déploiement — nfcretail.com
 
-**Un seul repo.** Pas de split. Cloudflare Pages build le landing depuis ce
-repo, une GitHub Action déploie l'API quand `server/**` change, une autre
-pousse le Worker.
+> **Migration Next.js.** Ce repo ne contient plus que la landing (Next.js,
+> export statique → `out/`). L'ancienne API Express (`server/`) a été
+> **retirée** : la réception des leads est désormais une **API Symfony dans un
+> repo séparé**, déployée depuis ce repo-là. Les sections §1 et §2 ci-dessous
+> (API sur Hostinger, secrets SSH) sont conservées pour mémoire mais ne
+> s'appliquent plus ici.
 
 | Élément | Où | Déclencheur |
 |---|---|---|
-| Landing (React/Vite) | `nfcretail.com/fr/visibilite` (et `/ma`, `/sn`) | Cloudflare Pages, auto sur `git push` |
+| Landing (Next.js, `out/`) | `nfcretail.com/fr/visibilite` | Cloudflare Pages, auto sur `git push` |
 | Routage apex | Cloudflare Worker devant `nfcretail.com` | `.github/workflows/deploy-worker.yml` |
 | WordPress | `nfcretail.com` (tout le reste) | inchangé |
-| API (Express) | `api.nfcretail.com` | `.github/workflows/deploy-api.yml` (SSH → Hostinger) |
+| API leads (Symfony) | `api.nfcretail.com` | **repo Symfony séparé** |
 
 ```
                     ┌─────────────────────────┐
@@ -138,21 +141,22 @@ Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to G
 ce repo :
 
 - Production branch : `main`
-- Framework preset : **Vite**
+- Framework preset : **Next.js (Static HTML Export)**
 - Build command : `npm run build`
-- Build output directory : `dist`
-- Variables : rien d'obligatoire (`VITE_API_BASE_URL` est déjà dans
-  `.env.production`). Ajouter `VITE_GA4_MEASUREMENT_ID` ici le moment venu.
+- Build output directory : `out`
+- Variables : rien d'obligatoire (`NEXT_PUBLIC_API_BASE_URL` est déjà dans
+  `.env.production`). Ajouter `NEXT_PUBLIC_GA4_MEASUREMENT_ID` ici le moment venu.
 
 Premier build → note l'URL `https://<projet>.pages.dev`.
 **Ne pas** ajouter `nfcretail.com` comme domaine personnalisé du projet Pages
 (ça capturerait tout l'apex) — c'est le Worker qui route.
 
-`public/_redirects` (déjà présent) fait servir `index.html` pour les routes
-profondes (`/fr/visibilite/merci` en accès direct).
+L'export Next émet un vrai fichier HTML par route (`out/fr/visibilite/index.html`,
+`out/fr/visibilite/merci/index.html`, …) donc les accès directs fonctionnent
+sans règle de réécriture. `public/_redirects` reste un filet de sécurité.
 
 Test : `https://<projet>.pages.dev/fr/visibilite` s'affiche. Pour tester le
-formulaire, ajoute temporairement cette URL à `ALLOWED_ORIGIN` (§1a).
+formulaire, il faut que l'API Symfony autorise cette origine (CORS).
 
 ---
 
@@ -212,16 +216,14 @@ SSL/TLS → **Full (strict)** ; Edge Certificates → **Always Use HTTPS : ON**.
 
 | Fichier | Changement |
 |---|---|
-| `.github/workflows/` | `ci.yml`, `deploy-api.yml`, `deploy-worker.yml` |
-| `.env.production` | `VITE_API_BASE_URL=https://api.nfcretail.com/api` (non secret, committé) |
-| `public/_redirects` | fallback SPA pour Cloudflare Pages |
-| `deploy/cloudflare-worker/` | Worker + `wrangler.toml` |
-| `src/lib/api.ts` | `\|\| '/api'` : une variable d'env vide ne blanchit plus l'URL API |
-| `server/src/app.ts` | `ALLOWED_ORIGIN` accepte une liste séparée par virgules |
-| `server/vitest.config.ts` | exclut `dist/` des tests |
+| `.github/workflows/` | `ci.yml` (build Next), `deploy-worker.yml` |
+| `.env.production` | `NEXT_PUBLIC_API_BASE_URL` (non secret, committé) |
+| `public/_redirects` | filet de sécurité SPA pour Cloudflare Pages |
+| `deploy/cloudflare-worker/worker.js` | `SPA_PATH` route `/fr/*`, `/_next/`, `/assets/`, `robots.txt`, `sitemap.xml` |
+| `lib/api.ts` | POST du lead vers `${NEXT_PUBLIC_API_BASE_URL}/fr/visibilite/lead` (contrat Symfony à confirmer) |
 
-Rien à changer côté routes/assets : le SPA sert déjà des chemins absolus et
-`canonicalUrl` pointe déjà sur l'apex.
+`next build` (`output: 'export'`) génère `out/` ; `canonicalUrl` pointe déjà
+sur l'apex.
 
 ---
 
@@ -230,9 +232,9 @@ Rien à changer côté routes/assets : le SPA sert déjà des chemins absolus et
 - **`.htaccess` WordPress** : non modifié, aucun risque de ce côté.
 - **Plugin multilingue WP** : si WordPress sert déjà des URLs `/fr/…`, collision
   avec le Worker. Vérifier avant bascule.
-- **Thème WP servant `/assets/`** : rare ; si c'est le cas, préfixer le build
-  (`build.assetsDir`) et ajuster `SPA_PATH` dans le Worker.
-- **`req.ip` derrière proxies** : le CSRF lie le token à l'IP. `trust proxy: 1`
-  est déjà réglé. `invalid_csrf_token` sporadiques → cette piste.
-- **`.tmp-shot*.mjs`** à la racine : brouillons commités par erreur (`39142cd`),
-  à supprimer.
+- **Thème WP servant `/assets/` ou `/_next/`** : rare ; si c'est le cas,
+  ajuster `SPA_PATH` dans le Worker.
+- **CORS de l'API Symfony** : la landing (`nfcretail.com`) et l'API
+  (`api.nfcretail.com`) partagent le domaine racine → *same-site*. L'API doit
+  autoriser l'origine `https://nfcretail.com` (et l'URL `*.pages.dev` pendant
+  les tests).

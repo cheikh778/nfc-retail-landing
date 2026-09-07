@@ -12,13 +12,20 @@ dist
 dist-ssr
 *.local
 
+# Next.js
+.next
+out
+next-env.d.ts
+.vercel
+*.tsbuildinfo
+
 # Playwright
 test-results
 playwright-report
 blob-report
 playwright/.cache
 
-# Env files (never commit secrets — see server/.env.example)
+# Env files (never commit secrets — see .env.example)
 .env
 .env.local
 

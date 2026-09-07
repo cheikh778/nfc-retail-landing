@@ -1,0 +1,248 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens — values taken 1:1 from the submitted design canvas
+ * (scratchpad/design/*.dc.html). Flame #E2452C + Night blue #213F74.
+ */
+@theme {
+  --font-display: var(--font-space-grotesk), 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-public-sans), 'Public Sans', ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: #fcfbfa;
+  --color-foreground: #213f74;
+  --color-card: #ffffff;
+  --color-navy: #213f74;
+  --color-navy-soft: #33394a;
+  --color-flame: #e2452c;
+  --color-cream: #fcfbfa;
+  --color-border: #ece9e6;
+  --color-border-strong: #e2dfdb;
+  --color-muted: #4b5563;
+  --color-muted-soft: #8a8f99;
+  --color-field: #fbfbfc;
+  --color-field-border: #e2e5e9;
+  --color-destructive: #cf3721;
+
+  --shadow-chip: 0 2px 6px rgba(16, 20, 30, 0.04);
+  --shadow-card: 0 20px 45px -20px rgba(20, 30, 60, 0.22), 0 2px 8px rgba(16, 20, 30, 0.05);
+  --shadow-badge: 0 10px 26px -10px rgba(20, 30, 60, 0.28), 0 2px 6px rgba(16, 20, 30, 0.06);
+  --shadow-glow-flame: 0 18px 32px -14px rgba(226, 69, 44, 0.55);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  input {
+    font-family: inherit;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-navy);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  background: var(--color-navy);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  z-index: 80;
+  transition: top 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---------- Orbiting brand logos — two counter-rotating groups on separate
+ *            rings, so their paths never cross. Group A rides the outer ring
+ *            (clockwise), group B the middle ring (counter-clockwise). ---------- */
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes overlay-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sheet-slide-up { from { transform: translateY(110%); } to { transform: translateY(0); } }
+@keyframes modal-pop {
+  from { opacity: 0; transform: scale(0.965); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility reveal {
+  animation: reveal-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* ---------- Hero composition geometry (matches the design artboards) ----------
+ * < 1120px : stacked — text block, then the orbit + preview composition in its
+ *            own .hero-visual box (like MobileHero.dc.html but not overlapping
+ *            the copy).
+ * >= 1120px: layered — .hero-visual is absolute behind the centred copy, exactly
+ *            like Main.dc.html (rings centred at 582, card at 598).
+ */
+.hero {
+  --content-top: 84px;
+  --visual-h: 500px;
+  --orbit-cy: 244px;
+  --card-top: 168px;
+  --card-w: 336px;
+  --card-scale: 0.92;
+  --r1: 104px;
+  --r2: 160px;
+  --r3: 214px;
+  --badge: 48px;
+}
+.hero-visual {
+  position: relative;
+  height: var(--visual-h);
+  margin-top: 8px;
+}
+@media (min-width: 768px) {
+  .hero {
+    --content-top: 104px;
+    --visual-h: 660px;
+    --orbit-cy: 310px;
+    --card-top: 214px;
+    --card-w: 560px;
+    --card-scale: 0.85;
+    --r1: 158px;
+    --r2: 244px;
+    --r3: 326px;
+    --badge: 62px;
+  }
+}
+@media (min-width: 1120px) {
+  .hero {
+    --content-top: 132px;
+    --orbit-cy: 574px;
+    --card-top: 596px;
+    --card-w: 760px;
+    --card-scale: 0.82;
+    --r1: 320px;
+    --r2: 460px;
+    --r3: 604px;
+    --badge: 76px;
+    min-height: 1148px;
+  }
+  .hero-visual {
+    position: absolute;
+    inset: 0;
+    height: auto;
+    margin-top: 0;
+  }
+}
+
+.orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: var(--orbit-cy);
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  border: 1px solid var(--ring-color, #f1e3df);
+}
+
+/* A group is a 0×0 anchor at the orbit centre that spins as one rigid body. */
+.orbit-group {
+  position: absolute;
+  left: 50%;
+  top: var(--orbit-cy);
+  width: 0;
+  height: 0;
+  animation: orbit-spin var(--spin-dur, 68s) linear infinite;
+  animation-direction: var(--spin-dir, normal);
+}
+.orbit-badge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--badge);
+  height: var(--badge);
+  margin: calc(var(--badge) / -2);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--shadow-badge);
+  /* sit at --slot degrees on a circle of radius --radius, orientation kept level */
+  transform: rotate(var(--slot)) translateX(var(--radius)) rotate(calc(-1 * var(--slot)));
+}
+.orbit-badge__img {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  /* undo the group spin so each logo stays upright */
+  animation: orbit-spin var(--spin-dur, 68s) linear infinite;
+  animation-direction: var(--spin-dir-rev, reverse);
+}
+.orbit-badge__img img {
+  display: block;
+  width: calc(var(--badge) * var(--img-pct, 0.56));
+  height: auto;
+  object-fit: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .orbit-group,
+  .orbit-badge__img,
+  [class*='animate-'] {
+    animation: none !important;
+  }
+}
