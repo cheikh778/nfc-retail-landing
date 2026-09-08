@@ -31,6 +31,7 @@ export const fr: LandingContent = {
     h1Highlight: 'vraiment',
     subtitle:
       'Soyez visible là où vos clients vous cherchent : Google, ChatGPT et les nouveaux moteurs IA.',
+    body: "NFC Retail pilote votre visibilité, votre e-réputation et votre acquisition digitale pour attirer de nouveaux clients et développer votre chiffre d'affaires.",
     ctaPrimaryLabel: 'Analyser gratuitement ma visibilité',
     ctaSecondaryLabel: 'Voir un exemple de diagnostic',
     reassurance: ['Audit gratuit', 'Sans engagement', 'Analyse personnalisée'],

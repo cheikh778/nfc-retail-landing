@@ -25,9 +25,12 @@ playwright-report
 blob-report
 playwright/.cache
 
-# Env files (never commit secrets — see .env.example)
+# Env files (never commit secrets — see .env.example and server/.env.example)
 .env
 .env.local
+
+# Captured leads — PII, local fallback store only (also in server/.gitignore)
+server/data/*.jsonl
 
 
 

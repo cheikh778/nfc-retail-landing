@@ -102,12 +102,27 @@
   top: 1rem;
 }
 
-/* ---------- Orbiting brand logos — two counter-rotating groups on separate
- *            rings, so their paths never cross. Group A rides the outer ring
- *            (clockwise), group B the middle ring (counter-clockwise). ---------- */
-@keyframes orbit-spin {
+/* ---------- Scattered "coin" field — each badge floats on its own drift
+ *            vector, phase and duration, so the constellation never looks
+ *            mechanical. See OrbitField.tsx. ---------- */
+@keyframes field-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(var(--drift-x, 0), var(--drift-y, -14px), 0);
+  }
+}
+
+@keyframes field-in {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -127,24 +142,19 @@
   animation-delay: var(--reveal-delay, 0ms);
 }
 
-/* ---------- Hero composition geometry (matches the design artboards) ----------
- * < 1120px : stacked — text block, then the orbit + preview composition in its
- *            own .hero-visual box (like MobileHero.dc.html but not overlapping
- *            the copy).
- * >= 1120px: layered — .hero-visual is absolute behind the centred copy, exactly
- *            like Main.dc.html (rings centred at 582, card at 598).
+/* ---------- Hero composition geometry ----------
+ * < 1120px : stacked — text block, then the floating field + preview card in
+ *            their own .hero-visual box, below the copy.
+ * >= 1120px: layered — .hero-visual is absolute behind the centred copy, so the
+ *            coin field drifts around the headline and the card sits under it.
  */
 .hero {
   --content-top: 84px;
   --visual-h: 500px;
-  --orbit-cy: 244px;
   --card-top: 168px;
   --card-w: 336px;
   --card-scale: 0.92;
-  --r1: 104px;
-  --r2: 160px;
-  --r3: 214px;
-  --badge: 48px;
+  --badge: 46px;
 }
 .hero-visual {
   position: relative;
@@ -155,27 +165,19 @@
   .hero {
     --content-top: 104px;
     --visual-h: 660px;
-    --orbit-cy: 310px;
     --card-top: 214px;
     --card-w: 560px;
     --card-scale: 0.85;
-    --r1: 158px;
-    --r2: 244px;
-    --r3: 326px;
-    --badge: 62px;
+    --badge: 60px;
   }
 }
 @media (min-width: 1120px) {
   .hero {
     --content-top: 132px;
-    --orbit-cy: 574px;
     --card-top: 596px;
     --card-w: 760px;
     --card-scale: 0.82;
-    --r1: 320px;
-    --r2: 460px;
-    --r3: 604px;
-    --badge: 76px;
+    --badge: 72px;
     min-height: 1148px;
   }
   .hero-visual {
@@ -186,53 +188,115 @@
   }
 }
 
-.orbit-ring {
+.field-badge {
   position: absolute;
-  left: 50%;
-  top: var(--orbit-cy);
-  transform: translate(-50%, -50%);
-  border-radius: 999px;
-  border: 1px solid var(--ring-color, #f1e3df);
+  left: var(--x);
+  top: var(--y);
+  width: calc(var(--badge) * var(--scale, 1));
+  height: calc(var(--badge) * var(--scale, 1));
+  margin: calc(var(--badge) * var(--scale, 1) / -2);
+  opacity: 0;
+  animation: field-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--in-delay, 0s) both;
 }
-
-/* A group is a 0×0 anchor at the orbit centre that spins as one rigid body. */
-.orbit-group {
-  position: absolute;
-  left: 50%;
-  top: var(--orbit-cy);
-  width: 0;
-  height: 0;
-  animation: orbit-spin var(--spin-dur, 68s) linear infinite;
-  animation-direction: var(--spin-dir, normal);
-}
-.orbit-badge {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: var(--badge);
-  height: var(--badge);
-  margin: calc(var(--badge) / -2);
+.field-badge__inner {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
   border-radius: 999px;
   background: #fff;
   box-shadow: var(--shadow-badge);
-  /* sit at --slot degrees on a circle of radius --radius, orientation kept level */
-  transform: rotate(var(--slot)) translateX(var(--radius)) rotate(calc(-1 * var(--slot)));
+  animation: field-float var(--float-dur, 9s) ease-in-out var(--float-delay, 0s) infinite;
 }
-.orbit-badge__img {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  /* undo the group spin so each logo stays upright */
-  animation: orbit-spin var(--spin-dur, 68s) linear infinite;
-  animation-direction: var(--spin-dir-rev, reverse);
-}
-.orbit-badge__img img {
+.field-badge__inner img {
   display: block;
-  width: calc(var(--badge) * var(--img-pct, 0.56));
   height: auto;
   object-fit: contain;
+}
+
+/* Badges that would sit under the preview card on narrow layouts. */
+@media (max-width: 1119px) {
+  .field-badge--wide {
+    display: none;
+  }
+}
+
+/* ---------- Triple concentric "orbit" rings (OrbitField.tsx) ----------
+ * Primary colour, kept barely-there: a hint of structure behind the field. */
+.orbit-rings {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: min(760px, 118%);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  color: var(--color-flame);
+  opacity: 0.09;
+  overflow: visible;
+  animation: orbit-rings-breathe 15s ease-in-out infinite;
+}
+.orbit-rings__spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: orbit-rings-spin 64s linear infinite;
+}
+@keyframes orbit-rings-breathe {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+}
+@keyframes orbit-rings-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (min-width: 1120px) {
+  .orbit-rings {
+    top: 52%;
+    width: min(880px, 82%);
+  }
+}
+
+/* ---------- Cursor-reveal grid of "carreaux" (CursorGrid.tsx) ----------
+ * A faint primary-colour lattice that only shows through a soft circle around
+ * the pointer, so moving over empty hero space uncovers graph paper. */
+.cursor-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  --cx: -999px;
+  --cy: -999px;
+  --on: 0;
+  --grid-step: 44px;
+  --grid-line: color-mix(in srgb, var(--color-flame) 42%, transparent);
+  opacity: calc(var(--on) * 0.6);
+  transition: opacity 0.45s ease;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-step) var(--grid-step);
+  -webkit-mask-image: radial-gradient(
+    circle 170px at var(--cx) var(--cy),
+    #000 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    circle 170px at var(--cx) var(--cy),
+    #000 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    transparent 72%
+  );
+}
+@media (min-width: 768px) {
+  .cursor-grid {
+    --grid-step: 54px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -240,9 +304,17 @@
     scroll-behavior: auto;
   }
   .reveal,
-  .orbit-group,
-  .orbit-badge__img,
+  .field-badge,
+  .field-badge__inner,
+  .orbit-rings,
+  .orbit-rings__spin,
   [class*='animate-'] {
     animation: none !important;
+  }
+  .field-badge {
+    opacity: 1;
+  }
+  .cursor-grid {
+    display: none;
   }
 }

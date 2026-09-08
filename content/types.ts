@@ -23,7 +23,10 @@ export interface LandingContent {
     h1: string;
     /** The word inside h1 that gets the flame highlight. */
     h1Highlight: string;
+    /** Bold lead line under the h1. */
     subtitle: string;
+    /** Supporting paragraph under the lead line. */
+    body: string;
     ctaPrimaryLabel: string;
     ctaSecondaryLabel: string;
     reassurance: string[];

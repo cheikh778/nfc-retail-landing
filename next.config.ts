@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: { unoptimized: true },
   reactStrictMode: true,
+  // Let other devices on the LAN reach `next dev` (which binds to 0.0.0.0 by
+  // default) without Next blocking its dev-only assets/endpoints as cross-origin.
+  allowedDevOrigins: ['192.168.1.42'],
 };
 
 export default nextConfig;

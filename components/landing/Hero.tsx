@@ -3,6 +3,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import { track } from '@/lib/tracking';
 import type { LandingContent } from '@/content/types';
+import { CursorGrid } from './CursorGrid';
 import { OrbitField } from './OrbitField';
 import { ProductPreview } from './ProductPreview';
 
@@ -11,7 +12,7 @@ interface HeroProps {
   onOpenModal: () => void;
 }
 
-/** Splits the h1 so the highlighted word gets the flame colour. */
+/** Splits the h1 so the highlighted word gets the flame colour + a hand-drawn underline. */
 function HeroTitle({ text, highlight }: { text: string; highlight: string }) {
   const index = text.toLowerCase().indexOf(highlight.toLowerCase());
   if (index === -1) return <>{text}</>;
@@ -21,7 +22,23 @@ function HeroTitle({ text, highlight }: { text: string; highlight: string }) {
   return (
     <>
       {before}
-      <span className="text-flame">{match}</span>
+      <span className="relative whitespace-nowrap text-flame">
+        {match}
+        <svg
+          aria-hidden
+          viewBox="0 0 220 12"
+          preserveAspectRatio="none"
+          className="absolute -bottom-1.5 left-0 h-[0.5em] w-full text-flame/55"
+        >
+          <path
+            d="M3 9 Q110 1 217 8"
+            stroke="currentColor"
+            strokeWidth="3.5"
+            fill="none"
+            strokeLinecap="round"
+          />
+        </svg>
+      </span>
       {after}
     </>
   );
@@ -35,8 +52,9 @@ export function Hero({ content, onOpenModal }: HeroProps) {
 
   return (
     <section className="hero relative overflow-hidden">
+      <CursorGrid />
       <div
-        className="reveal relative z-10 mx-auto w-full max-w-[720px] px-5 text-center sm:px-6"
+        className="reveal relative z-10 mx-auto w-full max-w-[780px] px-5 text-center sm:px-6"
         style={{ paddingTop: 'var(--content-top)' }}
       >
         <div className="flex flex-wrap items-center justify-center gap-2.5">
@@ -50,12 +68,16 @@ export function Hero({ content, onOpenModal }: HeroProps) {
           ))}
         </div>
 
-        <h1 className="mt-6 font-display text-[2rem] font-bold leading-[1.12] tracking-[-0.02em] text-navy sm:text-[2.6rem] lg:text-[3.7rem]">
+        <h1 className="mt-6 text-balance font-display text-[2.35rem] font-bold leading-[1.06] tracking-[-0.025em] text-navy sm:text-[3.1rem] lg:text-[4.1rem]">
           <HeroTitle text={content.h1} highlight={content.h1Highlight} />
         </h1>
 
-        <p className="mx-auto mt-5 max-w-[620px] text-base font-medium leading-relaxed text-muted sm:text-lg lg:text-[20.5px]">
+        <p className="mx-auto mt-6 max-w-[640px] text-lg font-semibold leading-snug text-navy sm:text-xl lg:text-[22px]">
           {content.subtitle}
+        </p>
+
+        <p className="mx-auto mt-4 max-w-[560px] text-[15px] font-normal leading-relaxed text-muted sm:text-base">
+          {content.body}
         </p>
 
         <div className="mt-8 flex justify-center">
