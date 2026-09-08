@@ -17,14 +17,11 @@ test('the full flow works on a mobile viewport with no horizontal overflow', asy
   await expect(page).toHaveURL(MERCI_RE);
 });
 
-test('the modal opens as a bottom sheet and closes on Escape', async ({ page }) => {
+test('the mobile sticky CTA is shown and points at the lead form', async ({ page }) => {
   await page.goto(LANDING);
   await dismissConsentBanner(page);
 
-  const modal = page.getByRole('dialog', { name: /Étape/ });
-  await page.getByTestId('hero-cta').click();
-  await expect(modal).toBeVisible();
-
-  await page.keyboard.press('Escape');
-  await expect(modal).toBeHidden();
+  const cta = page.locator('.mobile-sticky-cta');
+  await expect(cta).toBeVisible();
+  await expect(cta).toHaveAttribute('href', '#diagnostic');
 });

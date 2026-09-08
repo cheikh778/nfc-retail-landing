@@ -4,145 +4,95 @@ import type { LandingContent } from './types';
 
 /**
  * V1 France content for /fr/visibilite.
- * Texts marked "exact" in the brief are copied verbatim — do not rephrase
- * them without checking with marketing. Visual copy follows the submitted
- * design canvas (scratchpad/design/*.dc.html).
+ * Visual copy is a 1:1 transcription of the validated France mock
+ * (nfc-retail-france-landing) — do not rephrase without checking with marketing.
  */
 export const fr: LandingContent = {
   locale: 'fr-FR',
 
   meta: {
-    title: 'NFC Retail — Améliorez la visibilité de votre établissement',
+    title: 'NFC Retail — Vos prochains clients vous cherchent déjà',
     description:
-      'Analysez gratuitement la visibilité de votre établissement sur Google, ChatGPT et les nouveaux moteurs IA avec NFC Retail. Audit gratuit, sans engagement.',
+      'Découvrez si vos clients peuvent trouver votre établissement sur Google, ChatGPT et les moteurs IA. Diagnostic de visibilité gratuit, sans engagement, en moins d’une minute.',
     canonicalUrl: `${SITE_URL}${PATHS.visibilite}`,
     robots: 'index, follow',
     ogImage: '/assets/landing/fr/og-image.png',
   },
 
   header: {
-    logoSrc: '/assets/landing/fr/logo.png',
-    logoAlt: 'NFC Retail',
+    brandStrong: 'NFC',
+    brandRest: 'RETAIL',
+    brandTagline: 'BOOSTEZ VOTRE VISIBILITÉ LOCALE',
+    channels: ['Google', 'ChatGPT', 'Moteurs IA'],
+    growth: ['Plus de clients.', 'Plus de croissance.'],
+    countryLabel: 'France',
   },
 
   hero: {
-    chips: ['Google', 'ChatGPT', 'Nouveaux moteurs IA'],
-    h1: 'Vos futurs clients vous trouvent-ils vraiment ?',
-    h1Highlight: 'vraiment',
-    subtitle:
-      'Soyez visible là où vos clients vous cherchent : Google, ChatGPT et les nouveaux moteurs IA.',
-    body: "NFC Retail pilote votre visibilité, votre e-réputation et votre acquisition digitale pour vous aider à attirer de nouveaux clients et développer votre chiffre d'affaires.",
-    ctaPrimaryLabel: 'Analyser gratuitement ma visibilité',
-    formAnchor: 'analyser',
-    reassurance: ['Audit gratuit', 'Sans engagement', 'Analyse personnalisée'],
-    gauge: {
-      score: 78,
-      scoreLabel: 'Score de visibilité estimé',
-      caption: 'Un commerce non accompagné passe à côté de la majorité des recherches locales.',
-      engines: [
-        { src: '/assets/landing/fr/google-logo.png', alt: 'Google' },
-        { src: '/assets/landing/fr/maps-icon.png', alt: 'Google Maps' },
-        { src: '/assets/landing/fr/chatgpt-logo.png', alt: 'ChatGPT' },
-        { src: '/assets/landing/fr/ads-icon.png', alt: 'Google Ads' },
-      ],
-    },
-    showcase: {
-      shots: [
-        {
-          src: '/assets/landing/fr/dashboard-1.webp',
-          alt: 'Tableau de bord NFC Retail — note Google et avis par établissement',
-          caption: 'Réputation',
-        },
-        {
-          src: '/assets/landing/fr/page_avis.png',
-          alt: 'Tableau de bord NFC Retail — parc de dispositifs NFC et répartition des scans',
-          caption: 'Visibilité',
-        },
-        {
-          src: '/assets/landing/fr/statistiques_avis.png',
-          alt: 'Tableau de bord NFC Retail — évolution des scans et des interactions sur la période',
-          caption: 'Acquisition',
-        },
-      ],
-    },
-  },
-
-  journey: {
-    title: 'Votre marketing digital piloté pour vous.',
-    subtitle: 'Vous gérez votre activité. NFC Retail s’occupe de votre visibilité et de votre acquisition.',
-    steps: [
-      {
-        label: 'Être trouvé',
-        detail: 'Google, Maps et nouveaux moteurs IA.',
-        image: '/assets/landing/fr/step-1.jpg',
-        imageAlt: 'Être trouvé sur Google, Maps et les moteurs IA',
-      },
-      {
-        label: 'Être choisi',
-        detail: 'Avis, réputation et présence digitale.',
-        image: '/assets/landing/fr/step-2.jpg',
-        imageAlt: 'Avis, réputation et présence digitale',
-      },
-      {
-        label: 'Attirer',
-        detail: 'Acquisition et campagnes.',
-        image: '/assets/landing/fr/step-3.jpg',
-        imageAlt: 'Acquisition et campagnes',
-      },
-      {
-        label: 'Fidéliser',
-        detail: 'Données clients, WhatsApp / SMS et fidélisation.',
-        image: '/assets/landing/fr/step-4.jpg',
-        imageAlt: 'Données clients, WhatsApp / SMS et fidélisation',
-      },
+    eyebrow: 'VOTRE VISIBILITÉ, PARTOUT OÙ VOS CLIENTS CHERCHENT',
+    h1Line1: 'Vos prochains clients',
+    h1Line2: 'vous cherchent déjà.',
+    sublead:
+      'NFC Retail analyse votre visibilité digitale et vous aide à être trouvé, recommandé et choisi par plus de clients.',
+    benefits: [
+      { title: 'Visibilité locale', sub: 'sur Google Maps' },
+      { title: 'Avis clients', sub: 'et réputation' },
+      { title: 'Analyse IA', sub: 'et opportunités' },
+      { title: 'Plus de clients', sub: 'et de chiffre d’affaires' },
     ],
-    outcome: 'Développer votre chiffre d’affaires',
+    scribbles: {
+      left: 'Vos clients\nvous cherchent\nici…',
+      right: '… et aussi\nsur ChatGPT\net les moteurs IA !',
+    },
   },
 
-  modal: {
-    closeLabel: 'Fermer',
-    stepIndicator: (step) => `Étape ${step} sur 2`,
-    step1: {
-      establishmentLabel: "Nom de l'établissement",
-      establishmentPlaceholder: 'Ex. Le Comptoir du Marché',
+  form: {
+    titleLead: 'Découvrez si vos clients peuvent vous trouver sur ',
+    engineDefault: 'CHATGPT.',
+    subtitle: 'Recevez votre diagnostic de visibilité en moins d’une minute.',
+    fields: {
+      establishmentLabel: 'Nom de votre établissement',
+      establishmentPlaceholder: 'Ex : Maison Zayna',
       cityLabel: 'Ville',
-      cityPlaceholder: 'Ex. Lyon',
-      activityLabel: 'Activité',
-      activityPlaceholder: 'Ex. Restaurant, institut de beauté…',
-      ctaLabel: 'Analyser ma visibilité',
-    },
-    step2: {
-      backLabel: 'Retour',
+      cityPlaceholder: 'Ex : Paris',
       firstNameLabel: 'Prénom',
-      firstNamePlaceholder: 'Ex. Camille',
+      firstNamePlaceholder: 'Ex : Anass',
       lastNameLabel: 'Nom',
-      lastNamePlaceholder: 'Ex. Martin',
+      lastNamePlaceholder: 'Ex : Karabila',
+      emailLabel: 'Email professionnel',
+      emailPlaceholder: 'Ex : anass@monentreprise.fr',
       phoneLabel: 'Téléphone',
-      phonePlaceholder: 'Ex. 06 12 34 56 78',
-      emailLabel: 'E-mail',
-      emailPlaceholder: 'Ex. camille@monentreprise.fr',
-      websiteLabel: 'Site internet',
-      websitePlaceholder: 'Ex. www.monentreprise.fr',
-      websiteOptionalHint: 'Optionnel',
-      ctaLabel: 'Recevoir mon diagnostic gratuit',
+      phonePlaceholder: 'Ex : 06 12 34 56 78',
     },
+    submitLabel: 'ANALYSER MA VISIBILITÉ',
+    microProof: ['Diagnostic personnalisé', 'Sans engagement', 'Moins d’une minute'],
+    privacy: 'Vos informations restent confidentielles.',
     consent: {
       before:
-        'J’accepte que mes informations soient utilisées afin de traiter ma demande, conformément à la ',
+        'J’accepte que mes informations soient utilisées pour traiter ma demande, conformément à la ',
       linkLabel: 'politique de confidentialité',
       after: '.',
       error: 'Merci de cocher cette case pour envoyer votre demande.',
     },
     errors: {
-      required: 'Ce champ est obligatoire.',
+      required: 'Merci de compléter correctement tous les champs obligatoires.',
       email: 'Merci de renseigner une adresse e-mail valide.',
       phone: 'Merci de renseigner un numéro de téléphone valide.',
-      website: 'Merci de renseigner une adresse de site valide.',
-      generic: 'Merci de vérifier ce champ.',
     },
     submitError:
       'Une erreur temporaire est survenue. Votre demande n’a pas pu être finalisée. Merci de réessayer dans quelques instants.',
   },
+
+  trust: {
+    establishments: 'Plus de 500 établissements nous font confiance',
+    ratingScore: '4.8/5',
+    ratingLabel: 'Satisfaction de nos clients',
+    googlePartner: 'Google Partner',
+    rgpd: 'Sécurisé & conforme RGPD',
+    madeInFrance: 'Solution développée en France',
+  },
+
+  mobileCtaLabel: 'ANALYSER MA VISIBILITÉ →',
 
   privacy: {
     // Bump this whenever the privacy policy text shown on the landing changes.

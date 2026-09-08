@@ -5,9 +5,7 @@ import { submitLead } from '@/lib/api';
 import { PATHS } from '@/lib/paths';
 import { normalizePhone } from '@/lib/phone';
 import { track } from '@/lib/tracking';
-import { normalizeWebsiteUrl } from '@/lib/url';
-import { validateStep1, validateStep2, type FieldErrorCode } from '@/lib/validation';
-import type { LeadStep1, LeadStep2 } from '@/types/lead';
+import { validateLead, type FieldErrorCode, type LeadFields } from '@/lib/validation';
 
 /** RFC4122 v4 UUID — used as the CRM idempotency key for one submission. */
 function newSubmissionId(): string {
@@ -18,21 +16,19 @@ function newSubmissionId(): string {
   }
 }
 
-const EMPTY_STEP1: LeadStep1 = { establishmentName: '', city: '', activity: '' };
-const EMPTY_STEP2: LeadStep2 = {
+const EMPTY: LeadFields = {
+  establishmentName: '',
+  city: '',
   firstName: '',
   lastName: '',
-  phone: '',
   email: '',
-  website: '',
-  companyWebsiteHp: '',
+  phone: '',
 };
 
 /** Key the /merci page reads once to greet the visitor, then clears. */
 export const MERCI_CONTEXT_KEY = 'nfcr_merci_ctx';
 
-type Step1Errors = Partial<Record<keyof LeadStep1, FieldErrorCode>>;
-type Step2Errors = Partial<Record<keyof Omit<LeadStep2, 'companyWebsiteHp'>, FieldErrorCode>>;
+type Errors = Partial<Record<keyof LeadFields, FieldErrorCode>>;
 
 function goToMerci(firstName: string, establishmentName: string): void {
   try {
@@ -42,22 +38,24 @@ function goToMerci(firstName: string, establishmentName: string): void {
   }
 }
 
+/**
+ * Single-step lead form (the poster form). Collects establishment + city +
+ * contact, requires an explicit consent tick, then POSTs the lead and routes
+ * to /merci. The submission id is stable for the form's lifetime so a retry
+ * after a failed submit is de-duplicated by the CRM.
+ */
 export function useLeadForm() {
   const router = useRouter();
-  const [step, setStep] = useState<1 | 2>(1);
-  const [step1, setStep1] = useState<LeadStep1>(EMPTY_STEP1);
-  const [step2, setStep2] = useState<LeadStep2>(EMPTY_STEP2);
-  const [step1Errors, setStep1Errors] = useState<Step1Errors>({});
-  const [step2Errors, setStep2Errors] = useState<Step2Errors>({});
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
+  const [values, setValues] = useState<LeadFields>(EMPTY);
+  const [errors, setErrors] = useState<Errors>({});
+  const [honeypot, setHoneypotState] = useState('');
   const [consent, setConsent] = useState(false);
   const [consentError, setConsentError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const hasStarted = useRef(false);
   const formRenderedAt = useRef(new Date().toISOString());
-  // One idempotency key for the whole lifetime of this form — reused as-is if
-  // the visitor retries after a failed submit, so the CRM de-duplicates.
   const submissionId = useRef(newSubmissionId());
 
   const markStarted = useCallback(() => {
@@ -67,22 +65,19 @@ export function useLeadForm() {
     }
   }, []);
 
-  const updateStep1 = useCallback(
-    (field: keyof LeadStep1, value: string) => {
+  const updateField = useCallback(
+    (field: keyof LeadFields, value: string) => {
       markStarted();
-      setStep1((prev) => ({ ...prev, [field]: value }));
-      setStep1Errors((prev) => ({ ...prev, [field]: undefined }));
+      setValues((prev) => ({ ...prev, [field]: value }));
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
     },
     [markStarted],
   );
 
-  const updateStep2 = useCallback(
-    (field: keyof LeadStep2, value: string) => {
+  const setHoneypot = useCallback(
+    (value: string) => {
       markStarted();
-      setStep2((prev) => ({ ...prev, [field]: value }));
-      if (field !== 'companyWebsiteHp') {
-        setStep2Errors((prev) => ({ ...prev, [field]: undefined }));
-      }
+      setHoneypotState(value);
     },
     [markStarted],
   );
@@ -96,35 +91,20 @@ export function useLeadForm() {
     [markStarted],
   );
 
-  const goBackToStep1 = useCallback(() => setStep(1), []);
-
-  const submitStep1 = useCallback(
-    (event: FormEvent) => {
-      event.preventDefault();
-      const errors = validateStep1(step1);
-      setStep1Errors(errors);
-      if (Object.keys(errors).length > 0) return;
-      track('form_step_1_complete');
-      setStep(2);
-      track('form_step_2_view');
-    },
-    [step1],
-  );
-
-  const submitStep2 = useCallback(
+  const submit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault();
 
-      if (step2.companyWebsiteHp.trim()) {
+      if (honeypot.trim()) {
         // Honeypot triggered: behave as a normal success without ever calling the API.
-        goToMerci(step2.firstName, step1.establishmentName);
+        goToMerci(values.firstName, values.establishmentName);
         router.push(PATHS.merci);
         return;
       }
 
-      const errors = validateStep2(step2);
-      setStep2Errors(errors);
-      if (Object.keys(errors).length > 0) return;
+      const nextErrors = validateLead(values);
+      setErrors(nextErrors);
+      if (Object.keys(nextErrors).length > 0) return;
 
       if (!consent) {
         setConsentError(true);
@@ -137,10 +117,11 @@ export function useLeadForm() {
         track('form_complete');
         await submitLead(
           {
-            ...step1,
-            ...step2,
-            phone: normalizePhone(step2.phone),
-            website: normalizeWebsiteUrl(step2.website) ?? '',
+            ...values,
+            activity: '',
+            website: '',
+            companyWebsiteHp: '',
+            phone: normalizePhone(values.phone),
           },
           {
             formRenderedAt: formRenderedAt.current,
@@ -153,7 +134,7 @@ export function useLeadForm() {
           },
         );
         track('generate_lead');
-        goToMerci(step2.firstName, step1.establishmentName);
+        goToMerci(values.firstName, values.establishmentName);
         router.push(PATHS.merci);
       } catch {
         setSubmitError(true);
@@ -161,24 +142,20 @@ export function useLeadForm() {
         setSubmitting(false);
       }
     },
-    [step1, step2, consent, router],
+    [values, honeypot, consent, router],
   );
 
   return {
-    step,
-    step1,
-    step2,
-    step1Errors,
-    step2Errors,
-    submitting,
-    submitError,
+    values,
+    errors,
+    honeypot,
     consent,
     consentError,
-    updateStep1,
-    updateStep2,
+    submitting,
+    submitError,
+    updateField,
+    setHoneypot,
     toggleConsent,
-    goBackToStep1,
-    submitStep1,
-    submitStep2,
+    submit,
   };
 }
