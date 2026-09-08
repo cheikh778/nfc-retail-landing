@@ -65,6 +65,13 @@ describe('leadSchema', () => {
     }
   });
 
+  it('treats activity as optional and defaults it to an empty string', () => {
+    const { activity: _a, ...rest } = validPayload;
+    const result = leadSchema.safeParse(rest);
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.activity).toBe('');
+  });
+
   it('rejects a payload missing attribution', () => {
     const { attribution: _a, ...rest } = validPayload;
     expect(leadSchema.safeParse(rest).success).toBe(false);

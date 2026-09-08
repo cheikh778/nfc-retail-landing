@@ -64,11 +64,11 @@ export interface LandingContent {
     submitLabel: string;
     microProof: string[];
     privacy: string;
+    /** Implicit-consent line shown under the submit button (no visible checkbox). */
     consent: {
       before: string;
       linkLabel: string;
       after: string;
-      error: string;
     };
     errors: {
       required: string;

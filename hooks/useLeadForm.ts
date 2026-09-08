@@ -40,17 +40,17 @@ function goToMerci(firstName: string, establishmentName: string): void {
 
 /**
  * Single-step lead form (the poster form). Collects establishment + city +
- * contact, requires an explicit consent tick, then POSTs the lead and routes
- * to /merci. The submission id is stable for the form's lifetime so a retry
- * after a failed submit is de-duplicated by the CRM.
+ * contact, then POSTs the lead and routes to /merci. Consent is implicit —
+ * submitting the form is the opt-in (an "En envoyant… vous acceptez" line +
+ * a hidden pre-checked checkbox sit next to the button); `marketingConsent`
+ * is always sent as true. The submission id is stable for the form's lifetime
+ * so a retry after a failed submit is de-duplicated by the CRM.
  */
 export function useLeadForm() {
   const router = useRouter();
   const [values, setValues] = useState<LeadFields>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
   const [honeypot, setHoneypotState] = useState('');
-  const [consent, setConsent] = useState(false);
-  const [consentError, setConsentError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(false);
 
@@ -82,15 +82,6 @@ export function useLeadForm() {
     [markStarted],
   );
 
-  const toggleConsent = useCallback(
-    (value: boolean) => {
-      markStarted();
-      setConsent(value);
-      if (value) setConsentError(false);
-    },
-    [markStarted],
-  );
-
   const submit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault();
@@ -105,11 +96,6 @@ export function useLeadForm() {
       const nextErrors = validateLead(values);
       setErrors(nextErrors);
       if (Object.keys(nextErrors).length > 0) return;
-
-      if (!consent) {
-        setConsentError(true);
-        return;
-      }
 
       setSubmitting(true);
       setSubmitError(false);
@@ -142,20 +128,17 @@ export function useLeadForm() {
         setSubmitting(false);
       }
     },
-    [values, honeypot, consent, router],
+    [values, honeypot, router],
   );
 
   return {
     values,
     errors,
     honeypot,
-    consent,
-    consentError,
     submitting,
     submitError,
     updateField,
     setHoneypot,
-    toggleConsent,
     submit,
   };
 }

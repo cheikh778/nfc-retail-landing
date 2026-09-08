@@ -68,11 +68,9 @@ export const fr: LandingContent = {
     microProof: ['Diagnostic personnalisé', 'Sans engagement', 'Moins d’une minute'],
     privacy: 'Vos informations restent confidentielles.',
     consent: {
-      before:
-        'J’accepte que mes informations soient utilisées pour traiter ma demande, conformément à la ',
+      before: 'En envoyant ce formulaire, vous acceptez notre ',
       linkLabel: 'politique de confidentialité',
       after: '.',
-      error: 'Merci de cocher cette case pour envoyer votre demande.',
     },
     errors: {
       required: 'Merci de compléter correctement tous les champs obligatoires.',

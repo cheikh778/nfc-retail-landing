@@ -1,10 +1,9 @@
 import { expect, test } from '@playwright/test';
-import { acceptConsent, dismissConsentBanner, fillLeadForm, LANDING, MERCI_RE, stubLeadApi } from './helpers';
+import { dismissConsentBanner, fillLeadForm, LANDING, MERCI_RE, stubLeadApi } from './helpers';
 
 test('required fields are flagged and clear once corrected', async ({ page }) => {
   await page.goto(LANDING);
   await dismissConsentBanner(page);
-  await acceptConsent(page);
 
   await page.getByTestId('lead-submit').click();
   await expect(page.getByTestId('field-establishment-name')).toHaveAttribute('aria-invalid', 'true');
@@ -28,7 +27,6 @@ test('an invalid email and phone are rejected, then succeed once fixed', async (
     phone: 'abc',
     email: 'not-an-email',
   });
-  await acceptConsent(page);
   await page.getByTestId('lead-submit').click();
 
   await expect(page.getByTestId('field-phone')).toHaveAttribute('aria-invalid', 'true');
@@ -41,19 +39,19 @@ test('an invalid email and phone are rejected, then succeed once fixed', async (
   await expect(page).toHaveURL(MERCI_RE);
 });
 
-test('submit is blocked with a consent error until the box is ticked', async ({ page }) => {
-  await stubLeadApi(page);
+test('consent is implicit — a valid form submits with no checkbox to tick', async ({ page }) => {
+  const getBody = await stubLeadApi(page);
   await page.goto(LANDING);
   await dismissConsentBanner(page);
+
+  await expect(page.getByTestId('field-consent')).toBeHidden();
+
   await fillLeadForm(page);
-
-  await page.getByTestId('lead-submit').click();
-  await expect(page.getByTestId('form-message')).toContainText('cocher cette case');
-  await expect(page).toHaveURL(/\/fr\/visibilite\/?$/);
-
-  await acceptConsent(page);
   await page.getByTestId('lead-submit').click();
   await expect(page).toHaveURL(MERCI_RE);
+
+  const payload = JSON.parse(getBody()!);
+  expect(payload.consent.marketingConsent).toBe(true);
 });
 
 test('a failing API surfaces the retry message and stays on the form', async ({ page }) => {
@@ -61,7 +59,6 @@ test('a failing API surfaces the retry message and stays on the form', async ({ 
   await page.goto(LANDING);
   await dismissConsentBanner(page);
   await fillLeadForm(page);
-  await acceptConsent(page);
   await page.getByTestId('lead-submit').click();
 
   await expect(page.getByTestId('submit-error')).toBeVisible();

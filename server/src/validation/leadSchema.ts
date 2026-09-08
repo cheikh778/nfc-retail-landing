@@ -31,7 +31,9 @@ export const leadSchema = z.object({
   submissionId: z.string().regex(SUBMISSION_ID_RE),
   establishmentName: z.string().trim().min(1).max(200),
   city: z.string().trim().min(1).max(120),
-  activity: z.string().trim().min(1).max(120),
+  // The France "visibilité" form (validated mock) does not ask for an activity;
+  // it stays in the schema for other entry points / markets but is optional.
+  activity: z.string().trim().max(120).optional().default(''),
   firstName: z.string().trim().min(1).max(100),
   lastName: z.string().trim().min(1).max(100),
   phone: z.string().trim().min(1).max(40),

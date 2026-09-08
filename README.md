@@ -15,9 +15,10 @@ anneaux de logos en orbite + aperçu produit, formulaire en **modale**
 - **Tailwind CSS v4** (via `@tailwindcss/postcss`) + tokens dans `app/globals.css`.
 - Polices auto-hébergées via `next/font` : **Space Grotesk** (titres) +
   **Public Sans** (texte).
-- **Vitest** (unitaires `lib/`) + **Playwright** (E2E `e2e/`).
-- Pas d'API dans ce repo. Les leads sont envoyés à une **API Symfony
-  distincte** (autre repo) — voir `lib/api.ts`.
+- **Vitest** (unitaires `lib/` + `server/`) + **Playwright** (E2E `e2e/`).
+- **API leads incluse** : `server/` (Node/Express). Reçoit le POST du
+  formulaire, l'envoie au CRM France, garde une copie locale. Voir
+  `deploy/DEPLOYMENT.md`.
 
 ## Démarrage
 
@@ -85,10 +86,16 @@ Variables `NEXT_PUBLIC_*` (inlinées dans le bundle — jamais de secret) :
 
 ## Déploiement
 
-Voir `deploy/DEPLOYMENT.md`. En bref : `next build` produit `out/` (statique)
-servi par Cloudflare Pages ; un Cloudflare Worker route `nfcretail.com/fr/*`
-(+ `/assets`, `/_next`, `robots.txt`, `sitemap.xml`) vers Pages et le reste
-vers WordPress. L'API Symfony est déployée depuis son propre repo.
+Guide complet pas-à-pas : **`deploy/DEPLOYMENT.md`**.
+
+En bref :
+- **Landing** : `next build` → `out/` (statique) servi par **Cloudflare Pages** ;
+  un **Cloudflare Worker** route `nfcretail.com/fr/*` (+ `/assets`, `/_next`,
+  `robots.txt`, `sitemap.xml`) vers Pages et le reste vers WordPress.
+- **API** (`server/`) : app **Node.js sur Hostinger** (hPanel), sur
+  `api.nfcretail.com`. Build du bundle : `bash deploy/build-api-bundle.sh`.
+
+Dev local des deux : `npm run dev:all` (front `:3000` + API `:3001`).
 
 ## À faire avant la production
 

@@ -40,13 +40,7 @@ export function LeadForm({ content }: Props) {
   const engine = useEngine(content.engineDefault);
 
   const hasErrors = Object.keys(form.errors).length > 0;
-  const message = form.submitError
-    ? content.submitError
-    : hasErrors
-      ? content.errors.required
-      : form.consentError
-        ? content.consent.error
-        : '';
+  const message = form.submitError ? content.submitError : hasErrors ? content.errors.required : '';
 
   const fieldProps = (name: keyof LeadFields, autoComplete: string) => ({
     id: `${uid}-${name}`,
@@ -145,6 +139,19 @@ export function LeadForm({ content }: Props) {
           />
         </div>
 
+        {/* Consent is implicit — submitting the form is the opt-in. Hidden,
+            pre-checked box kept for form semantics / the payload trail. */}
+        <input
+          type="checkbox"
+          name="consent"
+          data-testid="field-consent"
+          defaultChecked
+          hidden
+          readOnly
+          aria-hidden
+          tabIndex={-1}
+        />
+
         <button type="submit" data-testid="lead-submit" disabled={form.submitting}>
           {form.submitting ? '…' : content.submitLabel}
           <ArrowRight aria-hidden />
@@ -159,27 +166,18 @@ export function LeadForm({ content }: Props) {
           ))}
         </div>
 
-        <label className="consent-row">
-          <input
-            type="checkbox"
-            data-testid="field-consent"
-            checked={form.consent}
-            onChange={(e) => form.toggleConsent(e.target.checked)}
-            aria-invalid={form.consentError || undefined}
-          />
-          <span>
-            {content.consent.before}
-            <a href={PATHS.politiqueConfidentialite} target="_blank" rel="noopener noreferrer">
-              {content.consent.linkLabel}
-            </a>
-            {content.consent.after}
-          </span>
-        </label>
-
         <small className="privacy">
           <Lock aria-hidden />
           {content.privacy}
         </small>
+
+        <p className="consent-note">
+          {content.consent.before}
+          <a href={PATHS.politiqueConfidentialite} target="_blank" rel="noopener noreferrer">
+            {content.consent.linkLabel}
+          </a>
+          {content.consent.after}
+        </p>
 
         <div
           className={`form-message${message ? ' error' : ''}`}

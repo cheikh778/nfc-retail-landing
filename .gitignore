@@ -47,3 +47,6 @@ SecureVest_ReactJs/
 *.njsproj
 *.sln
 *.sw?
+
+# API prod bundle (généré par deploy/build-api-bundle.sh)
+deploy/api-bundle/

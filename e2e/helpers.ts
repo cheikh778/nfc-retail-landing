@@ -48,19 +48,16 @@ export async function fillLeadForm(page: Page, data = VALID_LEAD): Promise<void>
   await page.getByTestId('field-phone').fill(data.phone);
 }
 
-/** The consent box is unchecked by default and gates the submit button. */
-export async function acceptConsent(page: Page): Promise<void> {
-  await page.getByTestId('field-consent').check();
-}
-
 export async function submitLeadForm(page: Page): Promise<void> {
   await page.getByTestId('lead-submit').click();
 }
 
-/** Full happy path: fresh landing → fill the single form → tick consent → submit. */
+/**
+ * Full happy path: fresh landing → fill the single form → submit.
+ * Consent is implicit (no visible checkbox) — submitting is the opt-in.
+ */
 export async function completeLeadForm(page: Page): Promise<void> {
   await dismissConsentBanner(page);
   await fillLeadForm(page);
-  await acceptConsent(page);
   await submitLeadForm(page);
 }

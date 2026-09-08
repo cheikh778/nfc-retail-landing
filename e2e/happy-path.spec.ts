@@ -35,7 +35,6 @@ test('the honeypot silently short-circuits to the confirmation without calling t
   await page.getByTestId('field-email').fill('bot@example.com');
   await page.getByTestId('field-phone').fill('0600000000');
   await page.locator('#company_website').fill('http://spam.example');
-  await page.getByTestId('field-consent').check();
   await page.getByTestId('lead-submit').click();
 
   await expect(page).toHaveURL(MERCI_RE);
