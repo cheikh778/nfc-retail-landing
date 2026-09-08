@@ -1,3 +1,8 @@
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+import { ArrowUpRight, ChevronRight } from 'lucide-react';
 import type { LandingContent } from '@/content/types';
 import { VisibilityGauge } from './VisibilityGauge';
 
@@ -6,43 +11,64 @@ interface Props {
   gauge: LandingContent['hero']['gauge'];
 }
 
-function Step({ n, label, detail }: { n: number; label: string; detail: string }) {
-  return (
-    <li className="morbit__step">
-      <span className="morbit__step-index">{n}</span>
-      <span className="morbit__step-label">{label}</span>
-      <span className="morbit__step-detail">{detail}</span>
-    </li>
-  );
-}
-
 /**
- * "Votre marketing piloté" folded around the score gauge — the 4 steps fill the
- * space that flanked the gauge, so the hero has no dead zone. Stacks on mobile.
+ * "Votre marketing piloté" — score gauge on top, then an accordion of the 4
+ * steps: opening a card reveals its illustrative photo in the panel beside it,
+ * so the space around the block is always filled (cf. the reference video).
  */
 export function MarketingOrbit({ journey, gauge }: Props) {
-  const [s1, s2, s3, s4] = journey.steps;
+  const [open, setOpen] = useState(0);
 
   return (
     <div className="morbit">
       <h2 className="morbit__title">{journey.title}</h2>
       <p className="morbit__subtitle">{journey.subtitle}</p>
 
-      <div className="morbit__grid">
-        <ol className="morbit__col morbit__col--left">
-          <Step n={1} label={s1.label} detail={s1.detail} />
-          <Step n={2} label={s2.label} detail={s2.detail} />
+      <VisibilityGauge gauge={gauge} />
+      <p className="morbit__caption">{gauge.caption}</p>
+
+      <div className="morbit__panel">
+        <ol className="morbit__list">
+          {journey.steps.map((step, i) => {
+            const isOpen = i === open;
+            return (
+              <li key={step.label} className={`morbit__item${isOpen ? ' is-open' : ''}`}>
+                <button
+                  type="button"
+                  className="morbit__itembtn"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpen(i)}
+                >
+                  <span className="morbit__num">{i + 1}</span>
+                  <span className="morbit__label">{step.label}</span>
+                  {isOpen ? (
+                    <ArrowUpRight className="morbit__icon" aria-hidden />
+                  ) : (
+                    <ChevronRight className="morbit__icon" aria-hidden />
+                  )}
+                </button>
+                <p className="morbit__detail" hidden={!isOpen}>
+                  {step.detail}
+                </p>
+              </li>
+            );
+          })}
         </ol>
 
-        <div className="morbit__center">
-          <VisibilityGauge gauge={gauge} />
-          <p className="morbit__caption">{gauge.caption}</p>
+        <div className="morbit__visual">
+          {journey.steps.map((step, i) => (
+            <Image
+              key={step.image}
+              src={step.image}
+              alt={step.imageAlt}
+              width={1000}
+              height={760}
+              className={`morbit__img${i === open ? ' is-shown' : ''}`}
+              sizes="(min-width: 1024px) 460px, 90vw"
+              priority={i === 0}
+            />
+          ))}
         </div>
-
-        <ol className="morbit__col morbit__col--right">
-          <Step n={3} label={s3.label} detail={s3.detail} />
-          <Step n={4} label={s4.label} detail={s4.detail} />
-        </ol>
       </div>
 
       <p className="morbit__outcome">{journey.outcome}</p>

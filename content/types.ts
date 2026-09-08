@@ -46,12 +46,13 @@ export interface LandingContent {
     };
   };
 
-  /** Section 2 of the brief — the 5-step "piloté pour vous" strip. */
+  /** Section 2 of the brief — the "piloté pour vous" steps, folded around the gauge. */
   journey: {
     title: string;
     subtitle: string;
-    steps: { label: string; detail: string }[];
-    /** The pay-off step, rendered as the highlighted end of the strip. */
+    /** Each step is an accordion card; opening it shows `image` in the visual panel. */
+    steps: { label: string; detail: string; image: string; imageAlt: string }[];
+    /** The pay-off step, rendered as the highlighted end. */
     outcome: string;
   };
 
