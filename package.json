@@ -1,34 +1,28 @@
 {
   "name": "nfc-retail-landing",
   "private": true,
-  "version": "0.1.0",
-  "type": "module",
+  "version": "0.2.0",
   "scripts": {
-    "dev": "vite",
-    "dev:server": "npm run dev --workspace server",
-    "dev:all": "concurrently -n web,api -c blue,magenta \"npm run dev\" \"npm run dev:server\"",
-    "build": "tsc -b && vite build",
-    "build:server": "npm run build --workspace server",
-    "build:all": "npm run build && npm run build:server",
-    "preview": "vite preview",
+    "dev": "next dev",
+    "dev:api": "npm --prefix server run dev",
+    "build": "next build",
+    "start": "next start",
     "lint": "oxlint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:server": "npm --prefix server test",
+    "build:server": "npm --prefix server run build"
   },
-  "workspaces": [
-    "server"
-  ],
   "dependencies": {
-    "lucide-react": "^1.41.0",
+    "lucide-react": "^1.42.0",
+    "next": "^16.3.4",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "react-router-dom": "^7.9.4",
-    "zod": "^3.25.76"
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
-    "@tailwindcss/vite": "^4.3.3",
+    "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
@@ -36,12 +30,10 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
-    "concurrently": "^9.2.1",
     "jsdom": "^27.2.0",
     "oxlint": "^1.79.0",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.2",
-    "vite": "^8.2.2",
     "vitest": "^5.0.0"
   }
 }

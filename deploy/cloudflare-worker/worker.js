@@ -15,11 +15,12 @@
 // Your Pages project's *.pages.dev host (Pages dashboard -> project -> "Domains").
 const PAGES_HOST = 'nfcretail-web.pages.dev';
 
-// Paths owned by the landing. Keep the market list in sync with
-// SUPPORTED_MARKETS (src/lib/routes.ts). `/assets/` covers both the hashed
-// build output and public/assets/landing/*. Adjust if the WordPress theme
-// ever serves something from `/assets/` at the root.
-const SPA_PATH = /^\/(fr|ma|sn)(\/|$)|^\/assets\/|^\/favicon\.svg$/;
+// Paths owned by the Next.js landing (static export). `/_next/` is the hashed
+// build output, `/assets/` is public/assets/landing/*. `robots.txt` and
+// `sitemap.xml` belong to the landing too. Adjust if the WordPress theme ever
+// serves something from these paths at the root.
+const SPA_PATH =
+  /^\/fr(\/|$)|^\/_next\/|^\/assets\/|^\/favicon\.svg$|^\/robots\.txt$|^\/sitemap\.xml$/;
 
 export default {
   /** @param {Request} request */

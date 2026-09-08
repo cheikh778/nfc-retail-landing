@@ -1,0 +1,320 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens — values taken 1:1 from the submitted design canvas
+ * (scratchpad/design/*.dc.html). Flame #E2452C + Night blue #213F74.
+ */
+@theme {
+  --font-display: var(--font-space-grotesk), 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-public-sans), 'Public Sans', ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: #fcfbfa;
+  --color-foreground: #213f74;
+  --color-card: #ffffff;
+  --color-navy: #213f74;
+  --color-navy-soft: #33394a;
+  --color-flame: #e2452c;
+  --color-cream: #fcfbfa;
+  --color-border: #ece9e6;
+  --color-border-strong: #e2dfdb;
+  --color-muted: #4b5563;
+  --color-muted-soft: #8a8f99;
+  --color-field: #fbfbfc;
+  --color-field-border: #e2e5e9;
+  --color-destructive: #cf3721;
+
+  --shadow-chip: 0 2px 6px rgba(16, 20, 30, 0.04);
+  --shadow-card: 0 20px 45px -20px rgba(20, 30, 60, 0.22), 0 2px 8px rgba(16, 20, 30, 0.05);
+  --shadow-badge: 0 10px 26px -10px rgba(20, 30, 60, 0.28), 0 2px 6px rgba(16, 20, 30, 0.06);
+  --shadow-glow-flame: 0 18px 32px -14px rgba(226, 69, 44, 0.55);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  input {
+    font-family: inherit;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-navy);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  background: var(--color-navy);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  z-index: 80;
+  transition: top 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---------- Scattered "coin" field — each badge floats on its own drift
+ *            vector, phase and duration, so the constellation never looks
+ *            mechanical. See OrbitField.tsx. ---------- */
+@keyframes field-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(var(--drift-x, 0), var(--drift-y, -14px), 0);
+  }
+}
+
+@keyframes field-in {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes overlay-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sheet-slide-up { from { transform: translateY(110%); } to { transform: translateY(0); } }
+@keyframes modal-pop {
+  from { opacity: 0; transform: scale(0.965); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility reveal {
+  animation: reveal-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* ---------- Hero composition geometry ----------
+ * < 1120px : stacked — text block, then the floating field + preview card in
+ *            their own .hero-visual box, below the copy.
+ * >= 1120px: layered — .hero-visual is absolute behind the centred copy, so the
+ *            coin field drifts around the headline and the card sits under it.
+ */
+.hero {
+  --content-top: 84px;
+  --visual-h: 500px;
+  --card-top: 168px;
+  --card-w: 336px;
+  --card-scale: 0.92;
+  --badge: 46px;
+}
+.hero-visual {
+  position: relative;
+  height: var(--visual-h);
+  margin-top: 8px;
+}
+@media (min-width: 768px) {
+  .hero {
+    --content-top: 104px;
+    --visual-h: 660px;
+    --card-top: 214px;
+    --card-w: 560px;
+    --card-scale: 0.85;
+    --badge: 60px;
+  }
+}
+@media (min-width: 1120px) {
+  .hero {
+    --content-top: 132px;
+    --card-top: 596px;
+    --card-w: 760px;
+    --card-scale: 0.82;
+    --badge: 72px;
+    min-height: 1148px;
+  }
+  .hero-visual {
+    position: absolute;
+    inset: 0;
+    height: auto;
+    margin-top: 0;
+  }
+}
+
+.field-badge {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(var(--badge) * var(--scale, 1));
+  height: calc(var(--badge) * var(--scale, 1));
+  margin: calc(var(--badge) * var(--scale, 1) / -2);
+  opacity: 0;
+  animation: field-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--in-delay, 0s) both;
+}
+.field-badge__inner {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--shadow-badge);
+  animation: field-float var(--float-dur, 9s) ease-in-out var(--float-delay, 0s) infinite;
+}
+.field-badge__inner img {
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Badges that would sit under the preview card on narrow layouts. */
+@media (max-width: 1119px) {
+  .field-badge--wide {
+    display: none;
+  }
+}
+
+/* ---------- Triple concentric "orbit" rings (OrbitField.tsx) ----------
+ * Primary colour, kept barely-there: a hint of structure behind the field. */
+.orbit-rings {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: min(760px, 118%);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  color: var(--color-flame);
+  opacity: 0.09;
+  overflow: visible;
+  animation: orbit-rings-breathe 15s ease-in-out infinite;
+}
+.orbit-rings__spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: orbit-rings-spin 64s linear infinite;
+}
+@keyframes orbit-rings-breathe {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+}
+@keyframes orbit-rings-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (min-width: 1120px) {
+  .orbit-rings {
+    top: 52%;
+    width: min(880px, 82%);
+  }
+}
+
+/* ---------- Cursor-reveal grid of "carreaux" (CursorGrid.tsx) ----------
+ * A faint primary-colour lattice that only shows through a soft circle around
+ * the pointer, so moving over empty hero space uncovers graph paper. */
+.cursor-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  --cx: -999px;
+  --cy: -999px;
+  --on: 0;
+  --grid-step: 44px;
+  --grid-line: color-mix(in srgb, var(--color-flame) 42%, transparent);
+  opacity: calc(var(--on) * 0.6);
+  transition: opacity 0.45s ease;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-step) var(--grid-step);
+  -webkit-mask-image: radial-gradient(
+    circle 170px at var(--cx) var(--cy),
+    #000 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    circle 170px at var(--cx) var(--cy),
+    #000 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    transparent 72%
+  );
+}
+@media (min-width: 768px) {
+  .cursor-grid {
+    --grid-step: 54px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .field-badge,
+  .field-badge__inner,
+  .orbit-rings,
+  .orbit-rings__spin,
+  [class*='animate-'] {
+    animation: none !important;
+  }
+  .field-badge {
+    opacity: 1;
+  }
+  .cursor-grid {
+    display: none;
+  }
+}

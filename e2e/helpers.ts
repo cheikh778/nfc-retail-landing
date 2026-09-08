@@ -1,5 +1,10 @@
 import type { Page } from '@playwright/test';
 
+export const LANDING = '/fr/visibilite/';
+export const MERCI_RE = /\/fr\/visibilite\/merci\/?$/;
+/** Client builds `${NEXT_PUBLIC_API_BASE_URL}/fr/visibilite/lead` — see lib/api.ts. */
+export const LEAD_URL_GLOB = '**/fr/visibilite/lead';
+
 export const VALID_STEP1 = {
   establishment: 'Boulangerie Saint-Antoine',
   city: 'Lyon',
@@ -14,14 +19,27 @@ export const VALID_STEP2 = {
   website: 'boulangerie-saint-antoine.fr',
 };
 
-export async function dismissConsentBanner(page: Page): Promise<void> {
-  const acceptButton = page.getByTestId('consent-accept');
-  if (await acceptButton.isVisible().catch(() => false)) {
-    await acceptButton.click();
-  }
+/** Intercept the external lead API. Returns a getter for the captured POST body. */
+export function stubLeadApi(page: Page, status = 204): () => string | null {
+  let body: string | null = null;
+  page.route(LEAD_URL_GLOB, async (route) => {
+    if (route.request().method() === 'POST') body = route.request().postData();
+    await route.fulfill({ status, contentType: 'application/json', body: '{}' });
+  });
+  return () => body;
 }
 
-export async function fillStep1(page: Page, data: typeof VALID_STEP1 = VALID_STEP1): Promise<void> {
+export async function dismissConsentBanner(page: Page): Promise<void> {
+  const accept = page.getByTestId('consent-accept');
+  if (await accept.isVisible().catch(() => false)) await accept.click();
+}
+
+export async function openModal(page: Page): Promise<void> {
+  await page.getByTestId('hero-cta').click();
+  await page.getByTestId('lead-form-step-1').waitFor({ state: 'visible' });
+}
+
+export async function fillStep1(page: Page, data = VALID_STEP1): Promise<void> {
   await page.getByTestId('field-establishment-name').fill(data.establishment);
   await page.getByTestId('field-city').fill(data.city);
   await page.getByTestId('field-activity').fill(data.activity);
@@ -37,7 +55,7 @@ export async function acceptConsent(page: Page): Promise<void> {
   await page.getByTestId('field-consent').check();
 }
 
-export async function fillStep2(page: Page, data: typeof VALID_STEP2 = VALID_STEP2): Promise<void> {
+export async function fillStep2(page: Page, data = VALID_STEP2): Promise<void> {
   await page.getByTestId('field-first-name').fill(data.firstName);
   await page.getByTestId('field-last-name').fill(data.lastName);
   await page.getByTestId('field-phone').fill(data.phone);
@@ -46,16 +64,12 @@ export async function fillStep2(page: Page, data: typeof VALID_STEP2 = VALID_STE
   await acceptConsent(page);
 }
 
-export async function submitStep2(page: Page): Promise<void> {
-  await page.getByTestId('step-2-submit').click();
-}
-
-/** Full happy path from a fresh landing to the confirmation page. */
+/** Full happy path: fresh landing → CTA → step 1 → step 2 → submit. */
 export async function completeLeadForm(page: Page): Promise<void> {
   await dismissConsentBanner(page);
-  await page.getByTestId('hero-cta').click();
+  await openModal(page);
   await fillStep1(page);
   await submitStep1(page);
   await fillStep2(page);
-  await submitStep2(page);
+  await page.getByTestId('step-2-submit').click();
 }

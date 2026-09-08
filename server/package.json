@@ -8,6 +8,7 @@
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "start": "node --env-file-if-exists=.env --env-file-if-exists=.env.local dist/index.js",
     "replay:leads": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local src/scripts/replayPendingLeads.ts",
+    "leads:list": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local src/scripts/listLeads.ts",
     "test": "vitest run"
   },
   "//": "typescript + the @types used in src/ live in dependencies (not devDependencies) so a host that installs prod-only and then runs `npm run build` still has tsc — e.g. Hostinger Deployments.",
