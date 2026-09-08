@@ -8,7 +8,7 @@ interface HeaderProps {
 
 export function Header({ content }: HeaderProps) {
   return (
-    <header className="absolute inset-x-0 top-0 z-30 flex h-[72px] items-center px-5 sm:h-[88px] sm:px-10 lg:px-16">
+    <header className="relative z-20 flex h-[58px] items-center border-b border-border bg-background px-5 sm:h-[64px] sm:px-10 lg:px-16">
       <a href={PATHS.visibilite} aria-label={content.logoAlt}>
         <Logo src={content.logoSrc} alt={content.logoAlt} priority />
       </a>

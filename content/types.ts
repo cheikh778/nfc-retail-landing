@@ -28,17 +28,31 @@ export interface LandingContent {
     /** Supporting paragraph under the lead line. */
     body: string;
     ctaPrimaryLabel: string;
-    ctaSecondaryLabel: string;
+    /** Fragment id (without #) the hero CTA scrolls to. */
+    formAnchor: string;
     reassurance: string[];
-    preview: {
-      browserBar: string;
-      dashboardSrc: string;
-      dashboardAlt: string;
-      statVisibiliteLabel: string;
-      statVisibiliteValue: string;
-      statAvisLabel: string;
-      statAvisValue: string;
+    /** Solocal-style "visibility score" gauge with the search/AI engines on an arc. */
+    gauge: {
+      /** 0–100, drives the needle + coloured arc. */
+      score: number;
+      scoreLabel: string;
+      caption: string;
+      /** Logos placed along the gauge arc — order = left→right. */
+      engines: { src: string; alt: string }[];
     };
+    /** Real product screenshots — 3 phones on desktop, shots[0] alone on mobile. */
+    showcase: {
+      shots: { src: string; alt: string; caption: string }[];
+    };
+  };
+
+  /** Section 2 of the brief — the 5-step "piloté pour vous" strip. */
+  journey: {
+    title: string;
+    subtitle: string;
+    steps: { label: string; detail: string }[];
+    /** The pay-off step, rendered as the highlighted end of the strip. */
+    outcome: string;
   };
 
   modal: {

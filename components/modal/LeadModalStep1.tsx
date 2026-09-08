@@ -53,10 +53,10 @@ export function LeadModalStep1({ content, form }: Props) {
       <button
         type="submit"
         data-testid="step-1-submit"
-        className="relative inline-flex w-full items-center justify-center rounded-full bg-flame py-[18px] pl-6 pr-14 text-[14.5px] font-bold uppercase tracking-[0.02em] text-white shadow-[0_16px_28px_-14px_rgba(226,69,44,0.6)] transition-transform duration-200 hover:-translate-y-0.5"
+        className="group relative inline-flex w-full items-center justify-center rounded-full bg-flame py-[18px] pl-6 pr-14 text-[14.5px] font-bold uppercase tracking-[0.02em] text-white shadow-[0_16px_28px_-14px_rgba(226,69,44,0.6)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_22px_36px_-14px_rgba(226,69,44,0.7)] active:translate-y-0 active:scale-[0.99]"
       >
         {content.step1.ctaLabel}
-        <span className="absolute right-1.5 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white">
+        <span className="absolute right-1.5 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white transition-transform duration-200 group-hover:translate-x-0.5 group-hover:rotate-6">
           <ArrowUpRight className="h-4 w-4 text-flame" aria-hidden />
         </span>
       </button>

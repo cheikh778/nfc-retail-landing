@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { completeLeadForm, LANDING, LEAD_URL_GLOB, MERCI_RE, stubLeadApi } from './helpers';
 
 test('visitor completes the 2-step modal and reaches the confirmation page', async ({ page }) => {
-  const getBody = stubLeadApi(page);
+  const getBody = await stubLeadApi(page);
   let leadStatus: number | null = null;
   page.on('response', (res) => {
     if (res.url().match(/\/fr\/visibilite\/lead$/)) leadStatus = res.status();

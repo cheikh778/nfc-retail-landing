@@ -102,36 +102,6 @@
   top: 1rem;
 }
 
-/* ---------- Scattered "coin" field — each badge floats on its own drift
- *            vector, phase and duration, so the constellation never looks
- *            mechanical. See OrbitField.tsx. ---------- */
-@keyframes field-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(var(--drift-x, 0), var(--drift-y, -14px), 0);
-  }
-}
-
-@keyframes field-in {
-  from {
-    opacity: 0;
-    transform: scale(0.55);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes overlay-fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes sheet-slide-up { from { transform: translateY(110%); } to { transform: translateY(0); } }
-@keyframes modal-pop {
-  from { opacity: 0; transform: scale(0.965); }
-  to { opacity: 1; transform: scale(1); }
-}
 @keyframes reveal-in {
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
@@ -142,83 +112,356 @@
   animation-delay: var(--reveal-delay, 0ms);
 }
 
-/* ---------- Hero composition geometry ----------
- * < 1120px : stacked — text block, then the floating field + preview card in
- *            their own .hero-visual box, below the copy.
- * >= 1120px: layered — .hero-visual is absolute behind the centred copy, so the
- *            coin field drifts around the headline and the card sits under it.
- */
+@keyframes overlay-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sheet-slide-up { from { transform: translateY(110%); } to { transform: translateY(0); } }
+@keyframes modal-pop {
+  from { opacity: 0; transform: scale(0.965); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- Hero — the whole first screen: copy → CTA (opens the modal) →
+ *            score gauge → 3 dashboards. The only thing below it is the
+ *            parcours band. ---------- */
 .hero {
-  --content-top: 84px;
-  --visual-h: 500px;
-  --card-top: 168px;
-  --card-w: 336px;
-  --card-scale: 0.92;
-  --badge: 46px;
-}
-.hero-visual {
   position: relative;
-  height: var(--visual-h);
-  margin-top: 8px;
+  padding: clamp(22px, 3vw, 38px) 0 clamp(14px, 1.8vw, 22px);
 }
-@media (min-width: 768px) {
-  .hero {
-    --content-top: 104px;
-    --visual-h: 660px;
-    --card-top: 214px;
-    --card-w: 560px;
-    --card-scale: 0.85;
-    --badge: 60px;
-  }
+.hero-inner {
+  position: relative;
+  z-index: 10;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1120px;
+  padding-inline: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
-@media (min-width: 1120px) {
-  .hero {
-    --content-top: 132px;
-    --card-top: 596px;
-    --card-w: 760px;
-    --card-scale: 0.82;
-    --badge: 72px;
-    min-height: 1148px;
-  }
-  .hero-visual {
-    position: absolute;
-    inset: 0;
-    height: auto;
-    margin-top: 0;
+@media (min-width: 640px) {
+  .hero-inner {
+    padding-inline: 32px;
   }
 }
 
-.field-badge {
+/* Merged Google × ChatGPT marks, blown up and blurred behind the gauge. */
+.hero-backdrop {
   position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: calc(var(--badge) * var(--scale, 1));
-  height: calc(var(--badge) * var(--scale, 1));
-  margin: calc(var(--badge) * var(--scale, 1) / -2);
-  opacity: 0;
-  animation: field-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--in-delay, 0s) both;
+  left: 50%;
+  top: clamp(260px, 40vw, 420px);
+  width: min(680px, 96%);
+  aspect-ratio: 2 / 1;
+  transform: translateX(-50%);
 }
-.field-badge__inner {
+.hero-backdrop__mark {
+  position: absolute;
+  top: 0;
+  width: 42%;
+  opacity: 0.035;
+  filter: grayscale(1) blur(3px);
+}
+.hero-backdrop__mark--a { left: 4%; }
+.hero-backdrop__mark--b { right: 4%; }
+
+/* ---------- "Votre marketing piloté" wrapped around the gauge (MarketingOrbit.tsx) ---------- */
+.morbit {
+  width: 100%;
+  margin-top: clamp(14px, 2.4vw, 26px);
+  text-align: center;
+}
+.morbit__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.5vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-navy);
+}
+.morbit__subtitle {
+  margin: 6px auto 0;
+  max-width: 500px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+.morbit__grid {
+  margin-top: clamp(12px, 2vw, 22px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.morbit__center {
+  order: -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.morbit__caption {
+  margin-top: 2px;
+  max-width: 380px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--color-muted-soft);
+}
+.morbit__col {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 440px;
+}
+.morbit__step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: 'i l' 'i d';
+  gap: 1px 10px;
+  align-items: center;
+  padding: 10px 13px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-card);
+  text-align: left;
+  box-shadow: var(--shadow-chip);
+}
+.morbit__step-index {
+  grid-area: i;
   display: grid;
   place-items: center;
-  width: 100%;
-  height: 100%;
+  width: 23px;
+  height: 23px;
   border-radius: 999px;
-  background: #fff;
-  box-shadow: var(--shadow-badge);
-  animation: field-float var(--float-dur, 9s) ease-in-out var(--float-delay, 0s) infinite;
+  background: color-mix(in srgb, var(--color-flame) 12%, white);
+  color: var(--color-flame);
+  font-size: 11px;
+  font-weight: 800;
 }
-.field-badge__inner img {
-  display: block;
-  height: auto;
-  object-fit: contain;
+.morbit__step-label {
+  grid-area: l;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+}
+.morbit__step-detail {
+  grid-area: d;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--color-muted-soft);
+}
+.morbit__outcome {
+  display: inline-block;
+  margin-top: clamp(12px, 2vw, 18px);
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: var(--color-flame);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-glow-flame);
+}
+@media (min-width: 1024px) {
+  .morbit__grid {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(14px, 2.4vw, 40px);
+  }
+  .morbit__center {
+    order: 0;
+    flex-shrink: 0;
+  }
+  .morbit__col {
+    flex: 1;
+    max-width: 300px;
+  }
+  .morbit__col--left .morbit__step {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'l i' 'd i';
+    text-align: right;
+  }
 }
 
-/* Badges that would sit under the preview card on narrow layouts. */
-@media (max-width: 1119px) {
-  .field-badge--wide {
-    display: none;
+/* ---------- Visibility gauge (VisibilityGauge.tsx) ---------- */
+.visibility-gauge {
+  width: min(268px, 66vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.visibility-gauge svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  margin-bottom: 6px;
+}
+.visibility-gauge__readout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.visibility-gauge__score {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-navy);
+}
+.visibility-gauge__score i {
+  font-style: normal;
+  font-size: 16px;
+  color: var(--color-muted-soft);
+}
+.visibility-gauge__label {
+  margin-top: 5px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-muted-soft);
+  text-transform: uppercase;
+}
+
+/* ---------- Closing section: product screenshots in a browser frame (DashboardShowcase.tsx) ---------- */
+.showcase {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(20px, 3vw, 32px) 20px clamp(24px, 3.5vw, 40px);
+  border-top: 1px solid var(--color-border);
+}
+@media (min-width: 640px) {
+  .showcase {
+    padding-inline: 32px;
   }
+}
+.showcase__grid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(12px, 2vw, 26px);
+}
+.showcase__screen {
+  margin: 0;
+  width: min(360px, 88vw);
+  flex-shrink: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 12px;
+  background: var(--color-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.showcase__screen[data-pos='1'],
+.showcase__screen[data-pos='2'] {
+  display: none;
+}
+.showcase__bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  padding-inline: 11px;
+  border-bottom: 1px solid var(--color-border);
+  background: #f7f6f4;
+}
+.showcase__bar span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-border-strong);
+}
+.showcase__viewport {
+  height: 150px;
+  overflow: hidden;
+}
+.showcase__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.showcase__caption {
+  padding: 7px 12px 9px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted-soft);
+  border-top: 1px solid var(--color-border);
+}
+@media (min-width: 1024px) {
+  .showcase__screen {
+    width: 33%;
+    max-width: 380px;
+  }
+  .showcase__screen[data-pos='1'],
+  .showcase__screen[data-pos='2'] {
+    display: block;
+  }
+  .showcase__viewport {
+    height: 168px;
+  }
+}
+
+/* ---------- Hero CTA (opens the lead modal) ---------- */
+.hero-cta-row {
+  margin-top: clamp(10px, 1.5vw, 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.hero-cta-button {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  max-width: 420px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--color-flame);
+  padding: 17px 60px 17px 28px;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #fff;
+  box-shadow: var(--shadow-glow-flame);
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.18s ease;
+  animation: cta-attention 3.4s ease-in-out infinite;
+}
+.hero-cta-button:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 24px 40px -14px rgba(226, 69, 44, 0.62);
+  animation-play-state: paused;
+}
+.hero-cta-button:active {
+  transform: translateY(0) scale(0.99);
+}
+.hero-cta-button__icon {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  display: grid;
+  height: 36px;
+  width: 36px;
+  translate: 0 -50%;
+  place-items: center;
+  border-radius: 999px;
+  background: #fff;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-cta-button:hover .hero-cta-button__icon {
+  transform: translateX(3px) rotate(8deg);
+}
+@keyframes cta-attention {
+  0%, 92%, 100% { box-shadow: var(--shadow-glow-flame); }
+  96% { box-shadow: 0 18px 32px -14px rgba(226, 69, 44, 0.55), 0 0 0 6px rgba(226, 69, 44, 0.12); }
 }
 
 /* ---------- Triple concentric "orbit" rings (OrbitField.tsx) ----------
@@ -231,7 +474,7 @@
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   color: var(--color-flame);
-  opacity: 0.09;
+  opacity: 0.06;
   overflow: visible;
   animation: orbit-rings-breathe 15s ease-in-out infinite;
 }
@@ -304,15 +547,11 @@
     scroll-behavior: auto;
   }
   .reveal,
-  .field-badge,
-  .field-badge__inner,
   .orbit-rings,
   .orbit-rings__spin,
+  .hero-cta-button,
   [class*='animate-'] {
     animation: none !important;
-  }
-  .field-badge {
-    opacity: 1;
   }
   .cursor-grid {
     display: none;

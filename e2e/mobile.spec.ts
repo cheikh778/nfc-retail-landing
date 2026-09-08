@@ -4,7 +4,7 @@ import { completeLeadForm, dismissConsentBanner, LANDING, MERCI_RE, stubLeadApi 
 test.use({ viewport: { width: 390, height: 844 } });
 
 test('the full flow works on a mobile viewport with no horizontal overflow', async ({ page }) => {
-  stubLeadApi(page);
+  await stubLeadApi(page);
   await page.goto(LANDING);
   await dismissConsentBanner(page);
 
@@ -17,7 +17,7 @@ test('the full flow works on a mobile viewport with no horizontal overflow', asy
   await expect(page).toHaveURL(MERCI_RE);
 });
 
-test('the modal opens as a bottom sheet and closes on the overlay / Escape', async ({ page }) => {
+test('the modal opens as a bottom sheet and closes on Escape', async ({ page }) => {
   await page.goto(LANDING);
   await dismissConsentBanner(page);
 

@@ -31,19 +31,52 @@ export const fr: LandingContent = {
     h1Highlight: 'vraiment',
     subtitle:
       'Soyez visible là où vos clients vous cherchent : Google, ChatGPT et les nouveaux moteurs IA.',
-    body: "NFC Retail pilote votre visibilité, votre e-réputation et votre acquisition digitale pour attirer de nouveaux clients et développer votre chiffre d'affaires.",
+    body: "NFC Retail pilote votre visibilité, votre e-réputation et votre acquisition digitale pour vous aider à attirer de nouveaux clients et développer votre chiffre d'affaires.",
     ctaPrimaryLabel: 'Analyser gratuitement ma visibilité',
-    ctaSecondaryLabel: 'Voir un exemple de diagnostic',
+    formAnchor: 'analyser',
     reassurance: ['Audit gratuit', 'Sans engagement', 'Analyse personnalisée'],
-    preview: {
-      browserBar: 'app.nfcretail.com/avis',
-      dashboardSrc: '/assets/landing/fr/dashboard-avis.webp',
-      dashboardAlt: 'Tableau de bord NFC Retail — suivi des avis Google',
-      statVisibiliteLabel: 'Visibilité',
-      statVisibiliteValue: '87 %',
-      statAvisLabel: 'Avis clients',
-      statAvisValue: '4,8 ★',
+    gauge: {
+      score: 78,
+      scoreLabel: 'Score de visibilité estimé',
+      caption: 'Un commerce non accompagné passe à côté de la majorité des recherches locales.',
+      engines: [
+        { src: '/assets/landing/fr/google-logo.png', alt: 'Google' },
+        { src: '/assets/landing/fr/maps-icon.png', alt: 'Google Maps' },
+        { src: '/assets/landing/fr/chatgpt-logo.png', alt: 'ChatGPT' },
+        { src: '/assets/landing/fr/ads-icon.png', alt: 'Google Ads' },
+      ],
     },
+    showcase: {
+      shots: [
+        {
+          src: '/assets/landing/fr/dashboard-1.webp',
+          alt: 'Tableau de bord NFC Retail — note Google et avis par établissement',
+          caption: 'Réputation',
+        },
+        {
+          src: '/assets/landing/fr/page_avis.png',
+          alt: 'Tableau de bord NFC Retail — parc de dispositifs NFC et répartition des scans',
+          caption: 'Visibilité',
+        },
+        {
+          src: '/assets/landing/fr/statistiques_avis.png',
+          alt: 'Tableau de bord NFC Retail — évolution des scans et des interactions sur la période',
+          caption: 'Acquisition',
+        },
+      ],
+    },
+  },
+
+  journey: {
+    title: 'Votre marketing digital piloté pour vous.',
+    subtitle: 'Vous gérez votre activité. NFC Retail s’occupe de votre visibilité et de votre acquisition.',
+    steps: [
+      { label: 'Être trouvé', detail: 'Google, Maps et nouveaux moteurs IA.' },
+      { label: 'Être choisi', detail: 'Avis, réputation et présence digitale.' },
+      { label: 'Attirer', detail: 'Acquisition et campagnes.' },
+      { label: 'Fidéliser', detail: 'Données clients, WhatsApp / SMS et fidélisation.' },
+    ],
+    outcome: 'Développer votre chiffre d’affaires',
   },
 
   modal: {

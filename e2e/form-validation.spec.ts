@@ -28,7 +28,7 @@ test('step 1 shows required-field errors and clears them once corrected', async 
 });
 
 test('step 2 rejects an invalid email and phone, then succeeds once fixed', async ({ page }) => {
-  stubLeadApi(page);
+  await stubLeadApi(page);
   await page.goto(LANDING);
   await dismissConsentBanner(page);
   await openModal(page);
@@ -53,7 +53,7 @@ test('step 2 rejects an invalid email and phone, then succeeds once fixed', asyn
 });
 
 test('submit stays blocked until the consent box is ticked', async ({ page }) => {
-  stubLeadApi(page);
+  await stubLeadApi(page);
   await page.goto(LANDING);
   await dismissConsentBanner(page);
   await openModal(page);
@@ -73,7 +73,7 @@ test('submit stays blocked until the consent box is ticked', async ({ page }) =>
 });
 
 test('an implausible website is rejected while the field stays optional', async ({ page }) => {
-  stubLeadApi(page);
+  await stubLeadApi(page);
   await page.goto(LANDING);
   await dismissConsentBanner(page);
   await openModal(page);
@@ -95,7 +95,7 @@ test('an implausible website is rejected while the field stays optional', async 
 });
 
 test('a failing API surfaces the retry message and stays on the form', async ({ page }) => {
-  stubLeadApi(page, 500);
+  await stubLeadApi(page, 500);
   await page.goto(LANDING);
   await dismissConsentBanner(page);
   await openModal(page);

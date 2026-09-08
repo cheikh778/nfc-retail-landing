@@ -7,6 +7,7 @@ import { getContent } from '@/content';
 import { useAnalyticsBootstrap } from '@/hooks/useAnalyticsBootstrap';
 import { track } from '@/lib/tracking';
 import { captureAttribution } from '@/lib/utm';
+import { DashboardShowcase } from './DashboardShowcase';
 import { Header } from './Header';
 import { Hero } from './Hero';
 
@@ -31,7 +32,8 @@ export function LandingClient() {
       </a>
       <Header content={content.header} />
       <main id="contenu">
-        <Hero content={content.hero} onOpenModal={openModal} />
+        <Hero content={content.hero} journey={content.journey} onOpenModal={openModal} />
+        <DashboardShowcase showcase={content.hero.showcase} />
       </main>
       <LeadModal open={modalOpen} onClose={closeModal} content={content.modal} />
       <ConsentBanner />
