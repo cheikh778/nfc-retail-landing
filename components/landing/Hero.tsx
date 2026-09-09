@@ -32,13 +32,10 @@ export function Hero({ content, form }: HeroProps) {
           Sur{' '}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="lead-logo" src="/assets/landing/fr/google-g.svg" alt="Google" />
-          Google. Sur{' '}
+          . Sur{' '}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="lead-logo" src="/assets/landing/fr/chatgpt.svg" alt="ChatGPT" />
-          ChatGPT. Sur{' '}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="lead-logo" src="/assets/landing/fr/ai-stars.svg" alt="" />
-          les moteurs IA.
+          et sur les autres moteurs IA.
         </p>
 
         <p className="sublead">{content.sublead}</p>
