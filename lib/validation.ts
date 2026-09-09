@@ -21,6 +21,34 @@ export function validateStep1(data: LeadStep1): Partial<Record<keyof LeadStep1, 
   return errors;
 }
 
+/** Fields collected by the single-step poster form. */
+export interface LeadFields {
+  establishmentName: string;
+  city: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+}
+
+export function validateLead(data: LeadFields): Partial<Record<keyof LeadFields, FieldErrorCode>> {
+  const errors: Partial<Record<keyof LeadFields, FieldErrorCode>> = {};
+
+  for (const field of ['establishmentName', 'city', 'firstName', 'lastName', 'email', 'phone'] as const) {
+    const missing = required(data[field]);
+    if (missing) errors[field] = missing;
+  }
+
+  if (!errors.email && !EMAIL_RE.test(data.email.trim())) {
+    errors.email = 'invalid_email';
+  }
+  if (!errors.phone && !isValidPhone(data.phone)) {
+    errors.phone = 'invalid_phone';
+  }
+
+  return errors;
+}
+
 export function validateStep2(
   data: Omit<LeadStep2, 'companyWebsiteHp'>,
 ): Partial<Record<keyof Omit<LeadStep2, 'companyWebsiteHp'>, FieldErrorCode>> {

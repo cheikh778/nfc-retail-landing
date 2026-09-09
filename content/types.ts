@@ -1,6 +1,10 @@
 /**
  * Shape of the France landing content. V1 is FR-only; a second market would
  * add another file satisfying this interface, not a component rewrite.
+ *
+ * The landing reproduces the validated France mock: header → hero (copy +
+ * Google/ChatGPT discovery scene on the left, lead form on the right) → trust
+ * bar, plus a mobile sticky CTA.
  */
 export interface LandingContent {
   locale: string;
@@ -14,77 +18,78 @@ export interface LandingContent {
   };
 
   header: {
-    logoSrc: string;
-    logoAlt: string;
+    brandStrong: string;
+    brandRest: string;
+    brandTagline: string;
+    /** Engine chips on the right of the header. */
+    channels: string[];
+    /** Two-line growth line after the divider. */
+    growth: [string, string];
+    countryLabel: string;
   };
 
   hero: {
-    chips: string[];
-    h1: string;
-    /** The word inside h1 that gets the flame highlight. */
-    h1Highlight: string;
-    /** Bold lead line under the h1. */
-    subtitle: string;
-    /** Supporting paragraph under the lead line. */
-    body: string;
-    ctaPrimaryLabel: string;
-    ctaSecondaryLabel: string;
-    reassurance: string[];
-    preview: {
-      browserBar: string;
-      dashboardSrc: string;
-      dashboardAlt: string;
-      statVisibiliteLabel: string;
-      statVisibiliteValue: string;
-      statAvisLabel: string;
-      statAvisValue: string;
-    };
+    eyebrow: string;
+    h1Line1: string;
+    /** Second line of the h1, shown in flame red. */
+    h1Line2: string;
+    /** Bold "Sur Google. Sur ChatGPT…" line is rendered with logos in Hero.tsx. */
+    sublead: string;
+    /** 4-up value props. */
+    benefits: { title: string; sub: string }[];
+    /** Hand-written notes on the discovery scene. */
+    scribbles: { left: string; right: string };
   };
 
-  modal: {
-    closeLabel: string;
-    stepIndicator: (step: 1 | 2) => string;
-    step1: {
+  form: {
+    /** "Découvrez si vos clients peuvent vous trouver sur " + engine word. */
+    titleLead: string;
+    /** Default engine word (with trailing dot), e.g. "CHATGPT." */
+    engineDefault: string;
+    subtitle: string;
+    fields: {
       establishmentLabel: string;
       establishmentPlaceholder: string;
       cityLabel: string;
       cityPlaceholder: string;
-      activityLabel: string;
-      activityPlaceholder: string;
-      ctaLabel: string;
-    };
-    step2: {
-      backLabel: string;
       firstNameLabel: string;
       firstNamePlaceholder: string;
       lastNameLabel: string;
       lastNamePlaceholder: string;
-      phoneLabel: string;
-      phonePlaceholder: string;
       emailLabel: string;
       emailPlaceholder: string;
-      websiteLabel: string;
-      websitePlaceholder: string;
-      websiteOptionalHint: string;
-      ctaLabel: string;
+      phoneLabel: string;
+      phonePlaceholder: string;
     };
+    submitLabel: string;
+    microProof: string[];
+    privacy: string;
+    /** Implicit-consent line shown under the submit button (no visible checkbox). */
     consent: {
       before: string;
       linkLabel: string;
       after: string;
-      error: string;
     };
     errors: {
       required: string;
       email: string;
       phone: string;
-      website: string;
-      generic: string;
     };
     submitError: string;
   };
 
-  /** Privacy notice metadata sent with every lead (CRM `privacy.notice_version`). */
+  trust: {
+    establishments: string;
+    ratingScore: string;
+    ratingLabel: string;
+    googlePartner: string;
+    rgpd: string;
+    madeInFrance: string;
+  };
+
+  mobileCtaLabel: string;
+
+  /** Privacy notice metadata sent with every lead (CRM `consent.notice_version`). */
   privacy: {
     noticeVersion: string;
   };

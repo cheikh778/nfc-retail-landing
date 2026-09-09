@@ -2,8 +2,8 @@ import { captureAttribution, getStoredAttribution } from './utm';
 import type { ConsentData, LeadFormData, LeadSubmissionPayload } from '@/types/lead';
 
 /*
- * Lead submission → the NFC Retail lead API (this repo's `server/`, an Express
- * app deployed at NEXT_PUBLIC_API_BASE_URL — see server/ and deploy/DEPLOYMENT.md).
+ * Lead submission → the NFC Retail lead API (separate repo: `nfcretail-api`, an
+ * Express app deployed at NEXT_PUBLIC_API_BASE_URL — see deploy/DEPLOYMENT.md).
  *
  * Flow, all same-site (landing on nfcretail.com, API on api.nfcretail.com):
  *   1. GET  {base}/api/csrf-token        → { csrfToken }, sets a signed cookie

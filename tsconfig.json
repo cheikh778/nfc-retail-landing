@@ -40,7 +40,6 @@
     "node_modules",
     "out",
     ".next",
-    "e2e",
-    "server"
+    "e2e"
   ]
 }

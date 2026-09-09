@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Public_Sans, Space_Grotesk } from 'next/font/google';
+import { Caveat, Public_Sans, Space_Grotesk } from 'next/font/google';
 import { ORGANIZATION_JSON_LD, SITE_NAME, SITE_URL, WEBSITE_JSON_LD } from '@/lib/seo';
 import './globals.css';
 
@@ -17,6 +17,13 @@ const publicSans = Public_Sans({
   display: 'swap',
 });
 
+const caveat = Caveat({
+  subsets: ['latin'],
+  weight: ['600', '700'],
+  variable: '--font-caveat',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -30,8 +37,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${spaceGrotesk.variable} ${publicSans.variable}`}>
-      <body>
+    <html
+      lang="fr"
+      className={`${spaceGrotesk.variable} ${publicSans.variable} ${caveat.variable}`}
+      suppressHydrationWarning
+    >
+      <body suppressHydrationWarning>
         {children}
         <script
           type="application/ld+json"

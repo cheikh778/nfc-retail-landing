@@ -25,14 +25,9 @@ playwright-report
 blob-report
 playwright/.cache
 
-# Env files (never commit secrets — see .env.example and server/.env.example)
+# Env files (never commit secrets — see .env.example)
 .env
 .env.local
-
-# Captured leads — PII, local fallback store only (also in server/.gitignore)
-server/data/*.jsonl
-
-
 
 # Third-party design reference (purchased template) — inspiration only, never ship it
 SecureVest_ReactJs/
