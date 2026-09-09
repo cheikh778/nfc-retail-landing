@@ -5,7 +5,7 @@ Ce guide déploie **les deux applications** :
 | # | Application | Repo | Où | Quoi |
 |---|---|---|---|---|
 | A | **Landing** (Next.js, export statique `out/`) | ce repo (`nfc-retail-landing`) | Cloudflare Pages | La page `nfcretail.com/fr/visibilite` |
-| B | **API leads** (Node/Express) | **[`nfcretail-api`](https://github.com/cheikh778/nfcretail-api)** (repo séparé) | Hostinger — app Node.js sur `api.nfcretail.com` | Reçoit le formulaire, l'envoie au CRM France, garde une copie locale |
+| B | **API leads** (Node/Express) | **[`nfcretail-api`](https://github.com/cheikh778/nfcretail-api)** (repo séparé) | VPS (Docker + nginx) sur `api.nfcretail.com` | Reçoit le formulaire, l'envoie au CRM France, garde une copie locale |
 
 Plus **Cloudflare Worker** : un petit routeur qui envoie `nfcretail.com/fr/*`
 vers la landing et **tout le reste vers ton WordPress existant** (qui n'est
