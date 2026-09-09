@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getContent } from '@/content';
 import { LegalPage } from '@/components/landing/LegalPage';
 
 export const metadata: Metadata = {
@@ -7,5 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function MentionsLegalesPage() {
-  return <LegalPage title="Mentions légales" />;
+  const content = getContent();
+  return <LegalPage title="Mentions légales" document={content.legal.mentionsLegales} />;
 }
