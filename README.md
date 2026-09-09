@@ -15,9 +15,9 @@ anneaux de logos en orbite + aperçu produit, formulaire en **modale**
 - **Tailwind CSS v4** (via `@tailwindcss/postcss`) + tokens dans `app/globals.css`.
 - Polices auto-hébergées via `next/font` : **Space Grotesk** (titres) +
   **Public Sans** (texte).
-- **Vitest** (unitaires `lib/` + `server/`) + **Playwright** (E2E `e2e/`).
-- **API leads incluse** : `server/` (Node/Express). Reçoit le POST du
-  formulaire, l'envoie au CRM France, garde une copie locale. Voir
+- **Vitest** (unitaires `lib/`) + **Playwright** (E2E `e2e/`).
+- **API leads** : repo séparé **`nfcretail-api`** (Node/Express). Reçoit le POST
+  du formulaire, l'envoie au CRM France, garde une copie locale. Voir
   `deploy/DEPLOYMENT.md`.
 
 ## Démarrage
@@ -92,10 +92,11 @@ En bref :
 - **Landing** : `next build` → `out/` (statique) servi par **Cloudflare Pages** ;
   un **Cloudflare Worker** route `nfcretail.com/fr/*` (+ `/assets`, `/_next`,
   `robots.txt`, `sitemap.xml`) vers Pages et le reste vers WordPress.
-- **API** (`server/`) : app **Node.js sur Hostinger** (hPanel), sur
-  `api.nfcretail.com`. Build du bundle : `bash deploy/build-api-bundle.sh`.
+- **API** (repo `nfcretail-api`) : app **Node.js sur Hostinger** (hPanel), sur
+  `api.nfcretail.com`, déployée **par Git** (voir son `README.md`).
 
-Dev local des deux : `npm run dev:all` (front `:3000` + API `:3001`).
+Dev local : `npm run dev` ici (front `:3000`) + `npm run dev` dans un clone de
+`nfcretail-api` (API `:3001`).
 
 ## À faire avant la production
 

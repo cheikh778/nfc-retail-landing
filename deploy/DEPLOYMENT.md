@@ -1,11 +1,11 @@
 # Guide de déploiement en production — `nfcretail.com`
 
-Ce guide déploie **les deux applications** de ce repo :
+Ce guide déploie **les deux applications** :
 
-| # | Application | Où | Quoi |
-|---|---|---|---|
-| A | **Landing** (Next.js, export statique `out/`) | Cloudflare Pages | La page `nfcretail.com/fr/visibilite` |
-| B | **API leads** (`server/`, Node/Express) | Hostinger — app Node.js sur `api.nfcretail.com` | Reçoit le formulaire, l'envoie au CRM France, garde une copie locale |
+| # | Application | Repo | Où | Quoi |
+|---|---|---|---|---|
+| A | **Landing** (Next.js, export statique `out/`) | ce repo (`nfc-retail-landing`) | Cloudflare Pages | La page `nfcretail.com/fr/visibilite` |
+| B | **API leads** (Node/Express) | **[`nfcretail-api`](https://github.com/cheikh778/nfcretail-api)** (repo séparé) | Hostinger — app Node.js sur `api.nfcretail.com` | Reçoit le formulaire, l'envoie au CRM France, garde une copie locale |
 
 Plus **Cloudflare Worker** : un petit routeur qui envoie `nfcretail.com/fr/*`
 vers la landing et **tout le reste vers ton WordPress existant** (qui n'est
@@ -41,8 +41,9 @@ jamais touché).
       zone « Active »).
 - [ ] Accès au **repo GitHub** + un compte **Cloudflare**.
 - [ ] La **vraie clé Bearer du CRM France** (prod), pas la clé temporaire de
-      `server/.env.local`.
-- [ ] **Node 20+** installé en local (pour construire les bundles).
+      `.env.local` du repo `nfcretail-api`.
+- [ ] Accès au repo **[`nfcretail-api`](https://github.com/cheikh778/nfcretail-api)** (l'API).
+- [ ] **Node 20+** installé en local.
 - [ ] *(Recommandé, non bloquant)* : pages **Mentions légales** /
       **Confidentialité** rédigées, `public/assets/landing/fr/og-image.png` réel,
       `NEXT_PUBLIC_GA4_MEASUREMENT_ID` renseigné dans `.env.production`.
@@ -53,15 +54,37 @@ Fais les étapes **dans l'ordre**. Chacune est testable seule.
 
 ## Étape A — L'API leads sur Hostinger (`api.nfcretail.com`)
 
+> L'API vit dans son **propre repo**,
+> **[`nfcretail-api`](https://github.com/cheikh778/nfcretail-api)**.
+> Déploiement **par Git** : Hostinger clone le repo et lance `npm install`, ce
+> qui déclenche `postinstall` → `npm run build` (tsc) → `dist/`.
+> **N'utilise pas** l'assistant « Déploiement / Importer un site » de hPanel
+> (celui qui demande un `.zip`) : il est pour les sites statiques, il extrait
+> dans un sous-dossier de `public_html` et son `npm install` échoue. On passe
+> **uniquement** par **Avancé → GIT** + **Avancé → Node.js**.
+>
+> Le `README.md` de `nfcretail-api` contient la version détaillée de cette
+> étape ; ce qui suit en est le résumé, intégré au reste du déploiement.
+
 ### A.1 — Créer le sous-domaine
 
 1. hPanel → **Domaines → Sous-domaines**.
 2. Crée `api` (→ `api.nfcretail.com`).
 3. Note le **dossier** affiché, par ex.
-   `/home/u123456789/domains/api.nfcretail.com/public_html`
-   (le « dossier racine de l'app » sera ce dossier, ou son parent — voir A.2).
+   `/home/u123456789/domains/api.nfcretail.com` (ce sera l'`Application root`).
 
-### A.2 — Créer l'application Node.js
+### A.2 — Cloner le repo via Git
+
+1. hPanel → **Avancé → GIT** → **Create a new repository**.
+2. Renseigne :
+   | Champ | Valeur |
+   |---|---|
+   | **Repository** | `https://github.com/cheikh778/nfcretail-api.git` (ou l'URL SSH + clé de déploiement) |
+   | **Branch** | `main` |
+   | **Directory** | l'`Application root` (ex. `domains/api.nfcretail.com`) — **pas** `public_html` |
+3. **Create**. Hostinger clone le repo dans ce dossier.
+
+### A.3 — Créer l'application Node.js
 
 1. hPanel → **Avancé → Node.js** → **Create application**.
 2. Renseigne :
@@ -69,12 +92,12 @@ Fais les étapes **dans l'ordre**. Chacune est testable seule.
    |---|---|
    | **Node.js version** | `22` (ou `20`) |
    | **Application mode** | `Production` |
-   | **Application root** | le dossier du sous-domaine (ex. `domains/api.nfcretail.com`) |
+   | **Application root** | le **même dossier** qu'en A.2 (là où le repo est cloné) |
    | **Application URL** | `api.nfcretail.com` |
    | **Application startup file** | `dist/index.js` |
-3. Valide. hPanel crée le dossier + un `tmp/` (pour le redémarrage).
+3. Valide. hPanel crée un `tmp/` (pour le redémarrage).
 
-### A.3 — Variables d'environnement
+### A.4 — Variables d'environnement
 
 Toujours dans l'écran de l'app Node.js → section **Environment variables** →
 ajoute **une par une** :
@@ -92,50 +115,24 @@ ajoute **une par une** :
 | `LEAD_STORE_PATH` | chemin **absolu** : `/home/u123456789/domains/api.nfcretail.com/data/leads.jsonl` (adapte `u123456789`) |
 
 > **Ne définis PAS `PORT`** — Passenger le fournit tout seul.
+> Aucun fichier `.env` à téléverser ici (sauf le `.env` du cron, A.8).
 
-### A.4 — Construire le bundle (en local)
+### A.5 — Installer les dépendances, builder, démarrer
 
-Depuis la racine du repo :
+1. hPanel → **Node.js** → **Run NPM install**.
+   `npm install` déclenche `postinstall` → `npm run build` → `dist/` est compilé.
+2. **Restart**.
 
-```bash
-bash deploy/build-api-bundle.sh
-```
+> Si ton offre lance `npm install` avec `--ignore-scripts` (pas de build auto),
+> en SSH : `cd <application root> && npm run build && touch tmp/restart.txt`.
 
-Ça produit `deploy/api-bundle/` avec `dist/`, `node_modules/` (prod uniquement),
-`package.json`, `data/`.
-
-### A.5 — Téléverser
-
-hPanel → **Fichiers → Gestionnaire de fichiers** (ou SFTP), va dans le
-**Application root** défini en A.2, et **téléverse le contenu** de
-`deploy/api-bundle/` :
-
-```
-<application root>/
-├── dist/            ← contenu de deploy/api-bundle/dist/
-├── node_modules/    ← contenu de deploy/api-bundle/node_modules/
-├── package.json
-├── package-lock.json
-└── data/            ← dossier vide, doit être accessible en écriture
-```
-
-> Pour un gros `node_modules/`, compresse-le en `.zip` en local, téléverse le
-> zip, puis « Extraire » dans le Gestionnaire de fichiers.
-> **Ne téléverse aucun fichier `.env`.**
-
-### A.6 — Démarrer / redémarrer
-
-hPanel → **Node.js** → bouton **Restart** (ou **Run NPM install** puis
-**Restart** si tu n'as pas uploadé `node_modules/`).
-Alternative SSH : `touch <application root>/tmp/restart.txt`.
-
-### A.7 — Activer le SSL
+### A.6 — Activer le SSL
 
 hPanel → **Sécurité → SSL** → active sur `api.nfcretail.com`
 (**obligatoire** : en prod le cookie CSRF est `Secure` + préfixe `__Host-`).
 Attends que le certificat soit « Actif » (quelques minutes).
 
-### A.8 — Vérifier
+### A.7 — Vérifier
 
 ```bash
 curl https://api.nfcretail.com/api/health
@@ -147,8 +144,10 @@ curl -i https://api.nfcretail.com/api/csrf-token
 
 Si `502` / `503` : l'app n'a pas démarré → hPanel → Node.js → **Logs**
 (souvent : une variable d'env manquante — le message dit laquelle).
+Si `Cannot find module '…/dist/index.js'` : le build ne s'est pas fait →
+relance **Run NPM install**, ou build en SSH (voir A.5).
 
-### A.9 — Cron de rattrapage des leads (recommandé)
+### A.8 — Cron de rattrapage des leads (recommandé)
 
 Si le CRM est momentanément injoignable, le lead est quand même sauvé en
 local avec le statut `pending`. Ce cron les renvoie.
@@ -163,7 +162,7 @@ local avec le statut `pending`. Ce cron les renvoie.
    CRM_FR_SOURCE=nfc-retail-landing-fr
    LEAD_STORE_PATH=/home/u123456789/domains/api.nfcretail.com/data/leads.jsonl
    ```
-   *(Ce `.env` ne sert QU'AU cron. L'app web, elle, lit les variables de A.3.)*
+   *(Ce `.env` ne sert QU'AU cron. L'app web, elle, lit les variables de A.4.)*
 2. hPanel → **Avancé → Cron Jobs** → toutes les 15 min :
    ```
    cd /home/u123456789/domains/api.nfcretail.com && /usr/bin/node --env-file=.env dist/scripts/replayPendingLeads.js
@@ -301,7 +300,7 @@ Cloudflare → **SSL/TLS** :
   - [ ] le lead apparaît dans `data/leads.jsonl` sur le serveur avec
         `"status":"sent"`
   - [ ] **supprimer ce lead de test** dans moncrm
-- [ ] Retirer l'URL `*.pages.dev` de `ALLOWED_ORIGIN` (A.3) → **Restart** l'app
+- [ ] Retirer l'URL `*.pages.dev` de `ALLOWED_ORIGIN` (A.4) → **Restart** l'app
 - [ ] `console` du navigateur sur la landing → aucune erreur CORS / réseau
 
 ---
@@ -311,7 +310,7 @@ Cloudflare → **SSL/TLS** :
 | Quoi a changé | Action |
 |---|---|
 | Code / contenu **de la landing** | `git push main` → Cloudflare Pages rebuild auto |
-| Code **de l'API** (`server/`) | `bash deploy/build-api-bundle.sh` → re-téléverser `dist/` (et `node_modules/` si `package.json` a changé) → **Restart** |
+| Code **de l'API** | `git push main` sur `nfcretail-api` → hPanel → **GIT → Deploy** → **Run NPM install** (si `package.json` a changé) → **Restart** |
 | **`worker.js`** | `git push` (si Action activée) ou `npx wrangler deploy` |
 | Une **variable d'env de l'API** | hPanel → Node.js → Environment variables → modifier → **Restart** |
 
@@ -323,9 +322,11 @@ Cloudflare → **SSL/TLS** :
 |---|---|---|
 | `ERR_CONNECTION_REFUSED` sur `…/api/csrf-token` | L'app Node ne tourne pas | hPanel → Node.js → **Restart** ; vérifier les **Logs** |
 | `502` / `503` sur `api.nfcretail.com` | App plantée au démarrage (env manquant) | hPanel → Node.js → **Logs** — le message nomme la variable |
+| L'assistant « Déploiement » de hPanel extrait un `.zip` dans `public_html/<nom>/…` et/ou lance `npm install` seul, qui échoue | Mauvais outil : c'est pour les sites statiques | Ne l'utilise pas. Déploie l'API via **Avancé → GIT** (A.2) + **Node.js** (A.3), jamais dans `public_html` |
+| `Cannot find module '…/dist/index.js'` dans les Logs | `dist/` pas compilé (build `postinstall` non exécuté) | hPanel → Node.js → **Run NPM install** ; sinon SSH : `cd <app root> && npm run build && touch tmp/restart.txt` |
 | Erreur **CORS** (`No 'Access-Control-Allow-Origin'`) | `ALLOWED_ORIGIN` ≠ l'origine réelle | Mettre exactement `https://nfcretail.com` (ou l'URL `*.pages.dev` en test) → **Restart** |
 | **403** sur `…/visibilite/lead` | Cookie CSRF absent/rejeté | SSL bien actif sur `api` ? `NODE_ENV=production` ? Les deux hôtes bien en `*.nfcretail.com` ? Pas de bloqueur de cookies tiers |
-| Formulaire : « Une erreur temporaire est survenue » | L'API a répondu ≠ 2xx, **ou** le CRM a rejeté | Regarder `data/leads.jsonl` : si `"status":"pending"` → l'API va bien, c'est le CRM (clé/URL). Le cron A.9 renverra le lead |
+| Formulaire : « Une erreur temporaire est survenue » | L'API a répondu ≠ 2xx, **ou** le CRM a rejeté | Regarder `data/leads.jsonl` : si `"status":"pending"` → l'API va bien, c'est le CRM (clé/URL). Le cron A.8 renverra le lead |
 | **404** sur `/fr/visibilite/merci` en direct | Le Worker ne route pas ce chemin | Vérifier `SPA_PATH` dans `worker.js` (doit matcher `^/fr(/|$)`) et que le Worker est déployé |
 | La landing ne se met pas à jour | Cache Cloudflare | Pages redéploie sur push ; sinon Cloudflare → **Caching → Purge Everything** |
 | `/assets/...` ou `/_next/...` renvoie du WordPress | Le thème WP sert ces chemins | Ajuster `SPA_PATH` dans `worker.js` |
@@ -343,13 +344,14 @@ node --env-file=.env dist/scripts/replayPendingLeads.js   # relancer les "pendin
 
 ## Sécurité
 
-- **Clé CRM** : uniquement dans les variables d'env Hostinger (A.3) + le `.env`
-  du cron (A.9). Jamais dans le repo, jamais dans le bundle front.
-  Après validation prod, **révoque la clé temporaire** de `server/.env.local`.
+- **Clé CRM** : uniquement dans les variables d'env Hostinger (A.4) + le `.env`
+  du cron (A.8). Jamais dans un repo, jamais dans le bundle front.
+  Après validation prod, **révoque la clé temporaire** du `.env.local` de
+  `nfcretail-api`.
 - **`CSRF_SECRET`** : long, aléatoire, propre à la prod. Le changer invalide
   les formulaires ouverts au moment du changement (sans gravité).
-- **`server/.env` et `server/.env.local`** locaux : gitignorés, ne jamais les
-  committer ni les téléverser en prod.
+- **`.env` / `.env.local`** locaux (repo `nfcretail-api`) : gitignorés, ne
+  jamais les committer ni les téléverser en prod.
 
 ---
 

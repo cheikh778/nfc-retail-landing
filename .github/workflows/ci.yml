@@ -18,7 +18,3 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
-      # API (server/) — tests + compilation
-      - run: npm ci --prefix server
-      - run: npm run test:server
-      - run: npm run build:server
