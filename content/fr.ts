@@ -49,9 +49,9 @@ export const fr: LandingContent = {
   form: {
     titleLead: 'Découvrez si vos clients peuvent vous trouver sur ',
     engineDefault: 'CHATGPT.',
-    subtitle: 'Recevez votre diagnostic de visibilité en moins d’une minute.',
+    subtitle: 'Recevez votre diagnostic de visibilité rapidement.',
     fields: {
-      establishmentLabel: 'Nom de votre établissement',
+      establishmentLabel: 'Nom de votre établissement sur Google (fiche Google My Business)',
       establishmentPlaceholder: 'Ex : Maison Zayna',
       cityLabel: 'Ville',
       cityPlaceholder: 'Ex : Paris',
