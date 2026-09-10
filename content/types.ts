@@ -110,7 +110,14 @@ export interface LandingContent {
     copyright: string;
   };
 
-  legalPlaceholder: {
-    body: string;
+  /** A legal page's body: a list of sections, each with a heading and one or more paragraphs. */
+  legal: {
+    mentionsLegales: LegalDocument;
+    politiqueConfidentialite: LegalDocument;
   };
+}
+
+export interface LegalDocument {
+  lastUpdated: string;
+  sections: { heading: string; paragraphs: string[]; list?: string[] }[];
 }
