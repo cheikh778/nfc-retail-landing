@@ -593,9 +593,12 @@
   display: none;
 }
 
-/* On large screens the trust bar is pinned to the bottom of the viewport
- * so it stays visible without scrolling. Body reserves its height. */
-@media (min-width: 901px) {
+/* On large, tall screens the trust bar is pinned to the bottom of the viewport
+ * so it stays visible without scrolling. Body reserves its height. Gated to
+ * min-height too: on shorter screens (most 10-14" laptops) the hero content
+ * doesn't fit above the fold, so pinning here would overlap it as the page
+ * scrolls — instead the trust bar just flows after the hero, like on mobile. */
+@media (min-width: 901px) and (min-height: 840px) {
   .trustbar {
     position: fixed;
     left: 0;
@@ -605,6 +608,17 @@
   }
   body {
     padding-bottom: 52px;
+  }
+}
+
+/* Laptop-height screens (under 840px, e.g. most 10-14" laptops at native
+ * resolution): the phones illustration is tall enough that its -96px bottom
+ * offset pushes its top edge above the discovery-scene box, overlapping the
+ * benefits row above it. Extra top margin keeps clearance since this bracket
+ * doesn't get the flex-fitted sizing the tall-screen block below applies. */
+@media (min-width: 901px) and (max-height: 839px) {
+  .discovery-scene {
+    margin-top: 130px;
   }
 }
 
@@ -695,7 +709,7 @@
 /* ============================================================
  * Responsive (ported from the mock)
  * ============================================================ */
-@media (max-width: 1180px) {
+@media (max-width: 1600px) {
   .channels .growth {
     display: none;
   }
@@ -810,13 +824,9 @@
   .benefits {
     grid-template-columns: 1fr;
   }
-  .benefits article:nth-child(3),
-  .benefits article:nth-child(4) {
-    display: none;
-  }
   .discovery-scene {
     height: 250px;
-    margin-top: 4px;
+    margin-top: 130px;
     margin-bottom: -30px;
   }
   .discovery-scene__img {
