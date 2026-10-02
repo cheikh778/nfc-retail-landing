@@ -152,7 +152,7 @@ export function LeadForm({ content }: Props) {
           tabIndex={-1}
         />
 
-        <button type="submit" data-testid="lead-submit" disabled={form.submitting}>
+        <button type="submit" data-testid="lead-submit" data-analytics-id="lead_submit" data-analytics-location="lead_form" data-analytics-event="cta_click" disabled={form.submitting}>
           {form.submitting ? '…' : content.submitLabel}
           <ArrowRight aria-hidden />
         </button>
@@ -173,7 +173,7 @@ export function LeadForm({ content }: Props) {
 
         <p className="consent-note">
           {content.consent.before}
-          <a href={PATHS.politiqueConfidentialite} target="_blank" rel="noopener noreferrer">
+          <a href={PATHS.politiqueConfidentialite} target="_blank" rel="noopener noreferrer" data-analytics-id="privacy_policy" data-analytics-location="lead_form">
             {content.consent.linkLabel}
           </a>
           {content.consent.after}

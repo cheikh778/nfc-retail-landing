@@ -1,24 +1,40 @@
-import { useEffect } from 'react';
-import { CONSENT_CHANGE_EVENT, getConsent, type ConsentStatus } from '@/lib/consent';
-import { loadGA4 } from '@/lib/ga4';
+import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+import { CONSENT_CHANGE_EVENT, CONSENT_KEY, getConsent } from '@/lib/consent';
+import { updateGA4Consent } from '@/lib/ga4';
+import { PATHS } from '@/lib/paths';
+import { track } from '@/lib/tracking';
 
-const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
+const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID ?? '';
 
-/** Loads GA4 only once analytics consent is granted, and reacts to later consent changes. */
+/** Runs once in the root layout, across full loads and Next client navigation. */
 export function useAnalyticsBootstrap(): void {
+  const pathname = usePathname();
+  const lastPage = useRef<string | null>(null);
   useEffect(() => {
-    if (!GA4_MEASUREMENT_ID) return;
-
-    const maybeLoad = (status: ConsentStatus) => {
-      if (status === 'accepted') loadGA4(GA4_MEASUREMENT_ID);
+    const sync = () => {
+      const status = getConsent();
+      if (GA4_MEASUREMENT_ID) updateGA4Consent(status, GA4_MEASUREMENT_ID);
+      if (status !== 'accepted') {
+        lastPage.current = null;
+        return;
+      }
+      const path = window.location.pathname.replace(/\/$/, '') || '/';
+      if (path === '/' || lastPage.current === path) return;
+      lastPage.current = path;
+      track('page_view');
+      if (path === PATHS.visibilite) track('landing_view');
+      if (path === PATHS.merci) track('confirmation_view');
     };
-
-    maybeLoad(getConsent());
-
-    const onConsentChange = (event: Event) => {
-      maybeLoad((event as CustomEvent<ConsentStatus>).detail);
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === CONSENT_KEY || event.key === null) sync();
     };
-    window.addEventListener(CONSENT_CHANGE_EVENT, onConsentChange);
-    return () => window.removeEventListener(CONSENT_CHANGE_EVENT, onConsentChange);
-  }, []);
+    sync();
+    window.addEventListener(CONSENT_CHANGE_EVENT, sync);
+    window.addEventListener('storage', onStorage);
+    return () => {
+      window.removeEventListener(CONSENT_CHANGE_EVENT, sync);
+      window.removeEventListener('storage', onStorage);
+    };
+  }, [pathname]);
 }

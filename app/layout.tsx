@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Caveat, Public_Sans, Space_Grotesk } from 'next/font/google';
 import { ORGANIZATION_JSON_LD, SITE_NAME, SITE_URL, WEBSITE_JSON_LD } from '@/lib/seo';
 import './globals.css';
+import { AnalyticsTracker } from '@/components/consent/AnalyticsTracker';
+import { ConsentBanner } from '@/components/consent/ConsentBanner';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -44,6 +46,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body suppressHydrationWarning>
         {children}
+        <AnalyticsTracker />
+        <ConsentBanner />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger

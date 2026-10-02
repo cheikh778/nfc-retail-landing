@@ -57,11 +57,12 @@ export function useLeadForm() {
   const hasStarted = useRef(false);
   const formRenderedAt = useRef(new Date().toISOString());
   const submissionId = useRef(newSubmissionId());
+  const submitInFlight = useRef(false);
 
   const markStarted = useCallback(() => {
     if (!hasStarted.current) {
       hasStarted.current = true;
-      track('form_start');
+      track('form_start', { form_id: 'visibility_diagnostic' });
     }
   }, []);
 
@@ -85,6 +86,7 @@ export function useLeadForm() {
   const submit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault();
+      if (submitInFlight.current) return;
 
       if (honeypot.trim()) {
         // Honeypot triggered: behave as a normal success without ever calling the API.
@@ -95,12 +97,18 @@ export function useLeadForm() {
 
       const nextErrors = validateLead(values);
       setErrors(nextErrors);
-      if (Object.keys(nextErrors).length > 0) return;
+      const invalidCount = Object.keys(nextErrors).length;
+      if (invalidCount > 0) {
+        track('form_validation_error', { form_id: 'visibility_diagnostic', invalid_field_count: invalidCount });
+        return;
+      }
 
+      submitInFlight.current = true;
       setSubmitting(true);
       setSubmitError(false);
+      let captured = false;
       try {
-        track('form_complete');
+        track('form_submit', { form_id: 'visibility_diagnostic' });
         await submitLead(
           {
             ...values,
@@ -119,13 +127,20 @@ export function useLeadForm() {
             },
           },
         );
-        track('generate_lead');
+        captured = true;
+        track('form_complete', { form_id: 'visibility_diagnostic' });
+        track('generate_lead', { form_id: 'visibility_diagnostic', method: 'visibility_diagnostic' });
         goToMerci(values.firstName, values.establishmentName);
         router.push(PATHS.merci);
       } catch {
+        track('form_submit_error', { form_id: 'visibility_diagnostic', error_type: 'submission_failed' });
         setSubmitError(true);
       } finally {
-        setSubmitting(false);
+        // Navigation is asynchronous: keep a captured lead locked until unmount.
+        if (!captured) {
+          submitInFlight.current = false;
+          setSubmitting(false);
+        }
       }
     },
     [values, honeypot, router],

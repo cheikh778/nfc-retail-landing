@@ -1,0 +1,842 @@
+{
+  "entries": {
+    "cmd-1790931919709": {
+      "key": "cmd-1790931919709",
+      "value": "{\"command\":\"git status --short --branch; git log -5 --oneline --decorate\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:05:19.709Z",
+      "lastAccessed": "2026-10-02T09:05:19.709Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:05:19.709Z"
+    },
+    "cmd-1790931935919": {
+      "key": "cmd-1790931935919",
+      "value": "{\"command\":\"git log -8 --name-status --oneline; rg --files -g '!node_modules' | Select-Object -First 60\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:05:35.919Z",
+      "lastAccessed": "2026-10-02T09:05:35.919Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:05:35.919Z"
+    },
+    "cmd-1790933227773": {
+      "key": "cmd-1790933227773",
+      "value": "{\"command\":\"Get-Location; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:27:07.773Z",
+      "lastAccessed": "2026-10-02T09:27:07.773Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:27:07.773Z"
+    },
+    "cmd-1790933228298": {
+      "key": "cmd-1790933228298",
+      "value": "{\"command\":\"Get-ChildItem -LiteralPath node_modules/next/dist/docs -Name\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:27:08.298Z",
+      "lastAccessed": "2026-10-02T09:27:08.298Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:27:08.298Z"
+    },
+    "cmd-1790933232242": {
+      "key": "cmd-1790933232242",
+      "value": "{\"command\":\"rg --files -g AGENTS.md -g package.json -g '*analytics*' -g '*gtag*' -g 'next.config.*' -g '.env*' -g '!node_modules' -g '!package-lock.json' -g '!pnpm-lock.yaml'; rg -n 'google|gtag|analytics|G-[A-Z0-9]+|GTM-' src app components lib --glob '!*.svg'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:27:12.242Z",
+      "lastAccessed": "2026-10-02T09:27:12.242Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:27:12.242Z"
+    },
+    "cmd-1790933260305": {
+      "key": "cmd-1790933260305",
+      "value": "{\"command\":\"Get-Content AGENTS.md; Get-Content package.json; Get-Content lib/ga4.ts; Get-Content lib/tracking.ts; Get-Content lib/consent.ts; Get-Content components/consent/ConsentBanner.tsx; Get-Content app/layout.tsx; Get-Content .env.example\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:27:40.305Z",
+      "lastAccessed": "2026-10-02T09:27:40.305Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:27:40.305Z"
+    },
+    "cmd-1790933260638": {
+      "key": "cmd-1790933260638",
+      "value": "{\"command\":\"rg --files app components lib tests public | Select-Object -First 130; rg -n 'track\\\\(|trackEvent|Tracking|onClick|href=|<button|<form|submit' components app lib --glob '!*.css' --glob '!*.json'; rg -n 'GA|ANALYTICS|MEASUREMENT' .env.production; Get-ChildItem -Name; Get-Content C:/Users/Cheikh/.agents/skills/coding-standards/SKILL.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:27:40.638Z",
+      "lastAccessed": "2026-10-02T09:27:40.638Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:27:40.638Z"
+    },
+    "cmd-1790933305854": {
+      "key": "cmd-1790933305854",
+      "value": "{\"command\":\"Get-ChildItem -LiteralPath C:/Users/Cheikh/.codex/plugins/cache/ruflo -Recurse -Filter SKILL.md | Select-Object -ExpandProperty FullName; Get-Content C:/Users/Cheikh/.agents/skills/ecc-guide/SKILL.md; Get-ChildItem -LiteralPath C:/Users/Cheikh/.codex/plugins/cache/ecc/ecc/2.2.3/skills -Name | Where-Object { $_ -match 'secur|audit|review' }; Get-Content .github/workflows/*; Get-Content deploy/*\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:28:25.854Z",
+      "lastAccessed": "2026-10-02T09:28:25.854Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:28:25.854Z"
+    },
+    "cmd-1790933306233": {
+      "key": "cmd-1790933306233",
+      "value": "{\"command\":\"Get-Content README.md; Get-Content next.config.ts; Get-Content hooks/useConsent.ts; Get-Content hooks/useLeadForm.ts; Get-Content components/landing/LandingClient.tsx; Get-Content components/landing/MerciClient.tsx; Get-Content components/landing/LegalPage.tsx; Get-Content components/landing/LeadForm.tsx; Get-Content lib/api.ts; Get-Content lib/tracking.test.ts; Get-Content playwright.config.ts; Get-Content vitest.config.mts; Get-Content test/setup.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:28:26.233Z",
+      "lastAccessed": "2026-10-02T09:28:26.233Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:28:26.233Z"
+    },
+    "cmd-1790933338001": {
+      "key": "cmd-1790933338001",
+      "value": "{\"command\":\"Get-ChildItem -LiteralPath C:/Users/Cheikh/.codex/plugins/cache/ruflo -Recurse -Filter SKILL.md | Select-Object -ExpandProperty FullName; Get-ChildItem -LiteralPath C:/Users/Cheikh/.codex/plugins/cache/ecc/ecc/2.2.3/skills -Name | Where-Object { $_ -match 'secur|audit|review' }; Get-Content C:/Users/Cheikh/.agents/skills/ecc-guide/SKILL.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:28:58.001Z",
+      "lastAccessed": "2026-10-02T09:28:58.001Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:28:58.001Z"
+    },
+    "cmd-1790933338769": {
+      "key": "cmd-1790933338769",
+      "value": "{\"command\":\"Get-Content hooks/useAnalyticsBootstrap.ts; Get-Content lib/api.ts; Get-Content lib/tracking.test.ts; Get-Content components/landing/Footer.tsx; Get-Content components/landing/Header.tsx; Get-Content components/landing/Hero.tsx; Get-Content playwright.config.ts; Get-Content vitest.config.mts; rg --files e2e hooks test; Get-Content .github/workflows/*\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:28:58.769Z",
+      "lastAccessed": "2026-10-02T09:28:58.769Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:28:58.769Z"
+    },
+    "cmd-1790933369179": {
+      "key": "cmd-1790933369179",
+      "value": "{\"command\":\"if (Test-Path node_modules/next/dist/docs) { rg --files node_modules/next/dist/docs | Select-String 'use-pathname|use-search-params|layouts-and-pages|server-and-client|use-router|static-exports' }; rg --files deploy; Get-Content deploy/cloudflare-worker/index.js; Get-Content lib/utm.ts; Get-Content lib/seo.ts; Get-Content e2e/happy-path.spec.ts; Get-Content e2e/helpers.ts; Get-Content test/setup.ts; rg -n 'cookies|cookie|Analytics|marketing|consent' content\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:29:29.179Z",
+      "lastAccessed": "2026-10-02T09:29:29.179Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:29:29.179Z"
+    },
+    "cmd-1790933370563": {
+      "key": "cmd-1790933370563",
+      "value": "{\"command\":\"Get-Content C:/Users/Cheikh/.codex/plugins/cache/ecc/ecc/2.2.3/skills/security-review/SKILL.md; Get-Content C:/Users/Cheikh/.codex/plugins/cache/ruflo/ruflo-core/0.2.6/skills/ruflo-status/SKILL.md; Get-Content C:/Users/Cheikh/.codex/plugins/cache/ruflo/ruflo-rag-memory/0.2.1/skills/memory-search/SKILL.md; Get-Content C:/Users/Cheikh/.codex/plugins/cache/ruflo/ruflo-swarm/0.2.1/skills/swarm-init/SKILL.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:29:30.563Z",
+      "lastAccessed": "2026-10-02T09:29:30.563Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:29:30.563Z"
+    },
+    "cmd-1790933394931": {
+      "key": "cmd-1790933394931",
+      "value": "{\"command\":\"npm ci\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:29:54.931Z",
+      "lastAccessed": "2026-10-02T09:29:54.931Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:29:54.931Z"
+    },
+    "cmd-1790933404053": {
+      "key": "cmd-1790933404053",
+      "value": "{\"command\":\"rg --files .claude-flow | Select-Object -First 25; Get-Content deploy/cloudflare-worker/worker.js; Get-Content .gitignore; Get-Command node,npm,npx | Select-Object Name,Source; Get-Process node -ErrorAction SilentlyContinue | Select-Object Id,StartTime\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:30:04.053Z",
+      "lastAccessed": "2026-10-02T09:30:04.053Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:30:04.053Z"
+    },
+    "cmd-1790933441891": {
+      "key": "cmd-1790933441891",
+      "value": "{\"command\":\"rg --files -g AGENTS.md -g package.json -g '*csrf*' -g '*cors*' -g '*rate*' -g '*security*' -g '!node_modules' -g '!package-lock.json'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:30:41.891Z",
+      "lastAccessed": "2026-10-02T09:30:41.891Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:30:41.891Z"
+    },
+    "cmd-1790933441937": {
+      "key": "cmd-1790933441937",
+      "value": "{\"command\":\"Get-Content C:/Users/Cheikh/AppData/Local/npm-cache/_logs/2026-10-02T09_29_46_712Z-debug-0.log -Tail 12; Get-ChildItem C:/Users/Cheikh/AppData/Local/npm-cache/_logs -Filter '*debug*' | Sort-Object LastWriteTime -Descending | Select-Object -First 4 Name; if (Test-Path node_modules/next/dist/docs) { Get-ChildItem node_modules/next/dist/docs -Name }; Get-Content .claude-flow/memory/store.json; Get-Content C:/Users/Cheikh/.codex/plugins/cache/ruflo/ruflo-core/0.2.6/skills/ruflo-doctor/SKILL.md; Get-Content C:/Users/Cheikh/.codex/plugins/cache/ruflo/ruflo-core/0.2.6/skills/witness/SKILL.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:30:41.937Z",
+      "lastAccessed": "2026-10-02T09:30:41.937Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:30:41.937Z"
+    },
+    "cmd-1790933486567": {
+      "key": "cmd-1790933486567",
+      "value": "{\"command\":\"npm audit --json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:31:26.567Z",
+      "lastAccessed": "2026-10-02T09:31:26.567Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:31:26.567Z"
+    },
+    "cmd-1790933492550": {
+      "key": "cmd-1790933492550",
+      "value": "{\"command\":\"rg --files node_modules/next/dist/docs | Select-String 'use-pathname|use-search-params|layouts-and-pages|server-and-client|use-router|static-exports'; Get-Content node_modules/next/dist/docs/01-app/03-api-reference/02-components/script.mdx -TotalCount 55; Get-Content C:/Users/Cheikh/AppData/Local/npm-cache/_logs/2026-10-02T09_28_21_492Z-debug-0.log -Tail 14; Get-Content C:/Users/Cheikh/.codex/plugins/cache/ruflo/ruflo-core/0.2.6/skills/ruflo-doctor/SKILL.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:31:32.550Z",
+      "lastAccessed": "2026-10-02T09:31:32.550Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:31:32.550Z"
+    },
+    "cmd-1790933500298": {
+      "key": "cmd-1790933500298",
+      "value": "{\"command\":\"if (Test-Path -LiteralPath 'AGENTS.md') { Get-Content -LiteralPath 'AGENTS.md' }; rg --files -g '!node_modules' -g '!package-lock.json' -g '!bun.lock*' -g '!yarn.lock' -g '!pnpm-lock.yaml' -g '!\\\\.git'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:31:40.298Z",
+      "lastAccessed": "2026-10-02T09:31:40.298Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:31:40.298Z"
+    },
+    "cmd-1790933500669": {
+      "key": "cmd-1790933500669",
+      "value": "{\"command\":\"Get-Content -LiteralPath 'AGENTS.md'; rg --files -g '!node_modules' -g '!package-lock.json' -g '!bun.lock*' -g '!yarn.lock' -g '!pnpm-lock.yaml' -g '!\\\\.git'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:31:40.669Z",
+      "lastAccessed": "2026-10-02T09:31:40.669Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:31:40.669Z"
+    },
+    "cmd-1790933502985": {
+      "key": "cmd-1790933502985",
+      "value": "{\"command\":\"Get-Content -LiteralPath 'C:\\\\Users\\\\Cheikh\\\\.codex\\\\plugins\\\\cache\\\\ecc\\\\ecc\\\\2.2.3\\\\skills\\\\security-review\\\\SKILL.md'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:31:42.985Z",
+      "lastAccessed": "2026-10-02T09:31:42.985Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:31:42.985Z"
+    },
+    "cmd-1790933524261": {
+      "key": "cmd-1790933524261",
+      "value": "{\"command\":\"Get-Content node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-pathname.md; Get-Content node_modules/next/dist/docs/01-app/01-getting-started/03-layouts-and-pages.md -TotalCount 90; Get-Content node_modules/next/dist/docs/01-app/02-guides/static-exports.md -TotalCount 90; Get-Content node_modules/next/dist/docs/01-app/01-getting-started/05-server-and-client-components.md -TotalCount 100\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:32:04.261Z",
+      "lastAccessed": "2026-10-02T09:32:04.261Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:32:04.261Z"
+    },
+    "cmd-1790933539751": {
+      "key": "cmd-1790933539751",
+      "value": "{\"command\":\"$paths = @('package.json','src/app.ts','src/config/env.ts','src/middleware/csrf.ts','src/middleware/rateLimit.ts','src/middleware/market.ts','src/config/markets.ts','src/routes/api.ts','src/controllers/leadController.ts','src/validation/leadSchema.ts','src/lib/antiSpam.ts','src/lib/logger.ts','deploy-nginx-api.conf','docker-compose.yml','.gitignore'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); Get-Content -LiteralPath $p }; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:32:19.751Z",
+      "lastAccessed": "2026-10-02T09:32:19.751Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:32:19.751Z"
+    },
+    "cmd-1790933542642": {
+      "key": "cmd-1790933542642",
+      "value": "{\"command\":\"$paths = @('package.json','next.config.ts','deploy/cloudflare-worker/worker.js','deploy/cloudflare-worker/wrangler.toml','deploy/DEPLOYMENT.md','lib/api.ts','lib/validation.ts','lib/tracking.ts','lib/ga4.ts','lib/consent.ts','lib/utm.ts','hooks/useLeadForm.ts','.gitignore'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); Get-Content -LiteralPath $p }; git status --short; rg --files node_modules/next/dist/docs -g '*headers*' -g '*security*' -g '*static*' -g '*script*'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:32:22.642Z",
+      "lastAccessed": "2026-10-02T09:32:22.642Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:32:22.642Z"
+    },
+    "cmd-1790933579873": {
+      "key": "cmd-1790933579873",
+      "value": "{\"command\":\"$paths = @('lib/api.ts','lib/validation.ts','lib/tracking.ts','lib/ga4.ts','lib/consent.ts','lib/utm.ts','hooks/useLeadForm.ts','.gitignore'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); Get-Content -LiteralPath $p }; rg --files node_modules/next/dist/docs -g '*headers*' -g '*security*' -g '*static*' -g '*script*'; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:32:59.873Z",
+      "lastAccessed": "2026-10-02T09:32:59.873Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:32:59.873Z"
+    },
+    "cmd-1790933580490": {
+      "key": "cmd-1790933580490",
+      "value": "{\"command\":\"npm audit --audit-level=high --json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:33:00.490Z",
+      "lastAccessed": "2026-10-02T09:33:00.490Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:33:00.490Z"
+    },
+    "cmd-1790933580699": {
+      "key": "cmd-1790933580699",
+      "value": "{\"command\":\"$paths = @('src/services/LeadService.ts','src/services/LeadStore.ts','src/services/crm/HttpCrmClient.ts','src/services/crm/resolveCrmClient.ts','src/services/replayPendingLeads.ts','src/app.test.ts','src/services/crm/HttpCrmClient.test.ts','Dockerfile'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); Get-Content -LiteralPath $p }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:33:00.699Z",
+      "lastAccessed": "2026-10-02T09:33:00.699Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:33:00.699Z"
+    },
+    "cmd-1790933583709": {
+      "key": "cmd-1790933583709",
+      "value": "{\"command\":\"npm audit --audit-level=high --json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:33:03.709Z",
+      "lastAccessed": "2026-10-02T09:33:03.709Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:33:03.709Z"
+    },
+    "cmd-1790933625256": {
+      "key": "cmd-1790933625256",
+      "value": "{\"command\":\"Get-Content lib/paths.ts; Get-Content app/page.tsx; Get-Content app/fr/visibilite/page.tsx; Get-Content .oxlintrc.json; Get-Content content/fr.ts | Select-Object -Skip 95 -First 45; Get-Content lib/utm.test.ts; Get-Content e2e/form-validation.spec.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:33:45.256Z",
+      "lastAccessed": "2026-10-02T09:33:45.256Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:33:45.256Z"
+    },
+    "cmd-1790933628068": {
+      "key": "cmd-1790933628068",
+      "value": "{\"command\":\"$paths = @('components/landing/LeadForm.tsx','components/landing/MerciClient.tsx','app/layout.tsx','lib/seo.ts','public/_redirects','hooks/useAnalyticsBootstrap.ts'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); $n=0; Get-Content -LiteralPath $p | ForEach-Object { $n++; '{0}: {1}' -f $n, $_ } }; rg -n --hidden -g '!node_modules/**' -g '!out/**' -g '!.next/**' -g '!package-lock.json' -g '!.git/**' -g '!.claude-flow/**' -g '!.swarm/**' 'dangerouslySetInnerHTML|innerHTML|eval\\\\(|new Function|console\\\\.(log|error)|document\\\\.cookie|location\\\\.href|target=\\\"_blank\\\"|NEXT_PUBLIC_|Content-Security-Policy|X-Frame-Options' .\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:33:48.068Z",
+      "lastAccessed": "2026-10-02T09:33:48.068Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:33:48.068Z"
+    },
+    "cmd-1790933629672": {
+      "key": "cmd-1790933629672",
+      "value": "{\"command\":\"$paths = @('src/services/LeadService.ts','src/services/LeadStore.ts','src/services/crm/HttpCrmClient.ts','src/services/crm/CrmClient.ts'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); $n=0; Get-Content -LiteralPath $p | ForEach-Object { $n++; '{0}: {1}' -f $n, $_ } }; npm ls ip-address --all\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:33:49.672Z",
+      "lastAccessed": "2026-10-02T09:33:49.672Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:33:49.672Z"
+    },
+    "cmd-1790933635696": {
+      "key": "cmd-1790933635696",
+      "value": "{\"command\":\"npx --yes @claude-flow/cli@latest swarm init --topology hierarchical --max-agents 3 --strategy specialized\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:33:55.696Z",
+      "lastAccessed": "2026-10-02T09:33:55.696Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:33:55.696Z"
+    },
+    "cmd-1790933678909": {
+      "key": "cmd-1790933678909",
+      "value": "{\"command\":\"$paths = @('app/layout.tsx','lib/seo.ts','components/landing/MerciClient.tsx','hooks/useAnalyticsBootstrap.ts'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); $n=0; Get-Content -LiteralPath $p | ForEach-Object { $n++; '{0}: {1}' -f $n, $_ } }; rg -n --hidden -g '!node_modules/**' -g '!out/**' -g '!.next/**' -g '!package-lock.json' -g '!.git/**' -g '!.claude-flow/**' -g '!.swarm/**' 'dangerouslySetInnerHTML|innerHTML|eval\\\\(|new Function|document\\\\.cookie|target=\\\"_blank\\\"|Content-Security-Policy|X-Frame-Options' .; git ls-files '*env*' '*pem' '*key'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:34:38.909Z",
+      "lastAccessed": "2026-10-02T09:34:38.909Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:34:38.909Z"
+    },
+    "cmd-1790933679118": {
+      "key": "cmd-1790933679118",
+      "value": "{\"command\":\"$paths = @('src/middleware/rateLimit.ts','src/app.ts','deploy-nginx-api.conf','src/config/env.ts'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); $n=0; Get-Content -LiteralPath $p | ForEach-Object { $n++; '{0}: {1}' -f $n, $_ } }; git ls-files '*env*' '*pem' '*key'; if (Test-Path -LiteralPath 'node_modules') { Write-Output 'NODE_MODULES_PRESENT' }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:34:39.118Z",
+      "lastAccessed": "2026-10-02T09:34:39.118Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:34:39.118Z"
+    },
+    "cmd-1790933757952": {
+      "key": "cmd-1790933757952",
+      "value": "{\"command\":\"$lock=Get-Content -LiteralPath 'package-lock.json' -Raw | ConvertFrom-Json; $ip=$lock.packages.'node_modules/ip-address'; $ip | Select-Object version,dev; $lock.packages.PSObject.Properties | ForEach-Object { if ($_.Value.dependencies.'ip-address') { Write-Output ('IP_ADDRESS_PARENT ' + $_.Name + ' ' + $_.Value.dependencies.'ip-address') } }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:35:57.952Z",
+      "lastAccessed": "2026-10-02T09:35:57.952Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:35:57.952Z"
+    },
+    "cmd-1790933758519": {
+      "key": "cmd-1790933758519",
+      "value": "{\"command\":\"$files = git ls-files; $patterns = @('-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----','(?:sk-proj-|ghp_|github_pat_|AKIA)[A-Za-z0-9_-]{16,}','(?i)(?:api[_-]?key|client[_-]?secret|csrf[_-]?secret|password)\\\\s*[:=]\\\\s*[''\\\"][^''\\\"]{16,}[''\\\"]'); foreach ($p in $files) { if (($p -notmatch '(package-lock\\\\.json|\\\\.(png|jpe?g|webp|ico)$)') -and (Test-Path -LiteralPath $p -PathType Leaf)) { $n=0; Get-Content -LiteralPath $p | ForEach-Object { $n++; $line=$_; foreach ($pattern in $patterns) { if ($line -match $pattern) { Write-Output ('POTENTIAL_LITERAL ' + $p + ':' + $n); break } } } } }; git log --all --format=%h --name-only -G 'BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|sk-proj-|github_pat_|AKIA[A-Z0-9]{16}'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:35:58.519Z",
+      "lastAccessed": "2026-10-02T09:35:58.519Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:35:58.519Z"
+    },
+    "cmd-1790933758769": {
+      "key": "cmd-1790933758769",
+      "value": "{\"command\":\"$files = git ls-files; $patterns = @('-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----','(?:sk-proj-|ghp_|github_pat_|AKIA)[A-Za-z0-9_-]{16,}','(?i)(?:api[_-]?key|client[_-]?secret|csrf[_-]?secret|password)\\\\s*[:=]\\\\s*[''\\\"][^''\\\"]{16,}[''\\\"]'); foreach ($p in $files) { if (($p -notmatch '(package-lock\\\\.json|\\\\.(png|jpe?g|webp|ico)$)') -and (Test-Path -LiteralPath $p -PathType Leaf)) { $n=0; Get-Content -LiteralPath $p | ForEach-Object { $n++; $line=$_; foreach ($pattern in $patterns) { if ($line -match $pattern) { Write-Output ('POTENTIAL_LITERAL ' + $p + ':' + $n); break } } } } }; git log --all --format=%h --name-only -G 'BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|sk-proj-|github_pat_|AKIA[A-Z0-9]{16}'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:35:58.769Z",
+      "lastAccessed": "2026-10-02T09:35:58.769Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:35:58.769Z"
+    },
+    "cmd-1790933797672": {
+      "key": "cmd-1790933797672",
+      "value": "{\"command\":\"$lock=Get-Content -LiteralPath 'package-lock.json' -Raw | ConvertFrom-Json -AsHashtable; $ip=$lock.packages['node_modules/ip-address']; Write-Output ('IP_ADDRESS_VERSION ' + $ip.version + ' DEV_ONLY ' + $ip.dev); foreach ($p in $lock.packages.Keys) { if ($lock.packages[$p].dependencies.'ip-address') { Write-Output ('IP_ADDRESS_PARENT ' + $p + ' ' + $lock.packages[$p].dependencies.'ip-address') } }; Get-Content -LiteralPath 'vitest.config.ts' | ForEach-Object { if ($_ -match '(NODE_ENV|CSRF_SECRET)') { Write-Output 'TEST_ENV_VARIABLE configured in vitest.config.ts' } }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:36:37.672Z",
+      "lastAccessed": "2026-10-02T09:36:37.672Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:36:37.672Z"
+    },
+    "cmd-1790933797862": {
+      "key": "cmd-1790933797862",
+      "value": "{\"command\":\"$envFiles = git ls-files '*.env*' '.env*'; foreach ($p in $envFiles) { if (Test-Path -LiteralPath $p) { Get-Content -LiteralPath $p | ForEach-Object { if ($_ -match '^([A-Za-z][A-Za-z0-9_]*)=') { Write-Output ('TRACKED_ENV_KEY ' + $p + ' ' + $matches[1]) } } } }; $n=0; Get-Content -LiteralPath 'next.config.ts' | ForEach-Object { $n++; '{0}: {1}' -f $n, $_ }; $n=0; Get-Content -LiteralPath 'deploy/cloudflare-worker/worker.js' | ForEach-Object { $n++; if ($n -ge 35 -and $n -le 49) { '{0}: {1}' -f $n, $_ } }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:36:37.862Z",
+      "lastAccessed": "2026-10-02T09:36:37.862Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:36:37.862Z"
+    },
+    "cmd-1790934138662": {
+      "key": "cmd-1790934138662",
+      "value": "{\"command\":\"npx --yes @claude-flow/cli@latest memory search --query 'nfc-retail analytics consent security' --namespace security --limit 5\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:42:18.662Z",
+      "lastAccessed": "2026-10-02T09:42:18.662Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:42:18.662Z"
+    },
+    "cmd-1790934140726": {
+      "key": "cmd-1790934140726",
+      "value": "{\"command\":\"npm install 'next@^16.3.6'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:42:20.726Z",
+      "lastAccessed": "2026-10-02T09:42:20.726Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:42:20.726Z"
+    },
+    "cmd-1790934310207": {
+      "key": "cmd-1790934310207",
+      "value": "{\"command\":\"npm run lint\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:45:10.207Z",
+      "lastAccessed": "2026-10-02T09:45:10.207Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:45:10.207Z"
+    },
+    "cmd-1790934313444": {
+      "key": "cmd-1790934313444",
+      "value": "{\"command\":\"npm audit --json; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:45:13.444Z",
+      "lastAccessed": "2026-10-02T09:45:13.444Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:45:13.444Z"
+    },
+    "cmd-1790934355336": {
+      "key": "cmd-1790934355336",
+      "value": "{\"command\":\"git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:45:55.336Z",
+      "lastAccessed": "2026-10-02T09:45:55.336Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:45:55.336Z"
+    },
+    "cmd-1790934355356": {
+      "key": "cmd-1790934355356",
+      "value": "{\"command\":\"git diff --staged\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:45:55.356Z",
+      "lastAccessed": "2026-10-02T09:45:55.356Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:45:55.356Z"
+    },
+    "cmd-1790934356935": {
+      "key": "cmd-1790934356935",
+      "value": "{\"command\":\"git diff\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:45:56.935Z",
+      "lastAccessed": "2026-10-02T09:45:56.935Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:45:56.935Z"
+    },
+    "cmd-1790934360146": {
+      "key": "cmd-1790934360146",
+      "value": "{\"command\":\"Get-Content AGENTS.md; Get-Content package.json; rg --files node_modules/next/dist/docs | Select-Object -First 15\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:00.146Z",
+      "lastAccessed": "2026-10-02T09:46:00.146Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:00.146Z"
+    },
+    "cmd-1790934381270": {
+      "key": "cmd-1790934381270",
+      "value": "{\"command\":\"Get-Location; rg --files -g AGENTS.md -g package.json -g '*Analytics*' -g '*analytics*' -g '*LeadForm*' -g '*Consent*' -g '*consent*' -g '*layout*' -g '*eslint*' -g tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:21.270Z",
+      "lastAccessed": "2026-10-02T09:46:21.270Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:21.270Z"
+    },
+    "cmd-1790934381358": {
+      "key": "cmd-1790934381358",
+      "value": "{\"command\":\"npm run build\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:21.358Z",
+      "lastAccessed": "2026-10-02T09:46:21.358Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:21.358Z"
+    },
+    "cmd-1790934382001": {
+      "key": "cmd-1790934382001",
+      "value": "{\"command\":\"npm test\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:22.001Z",
+      "lastAccessed": "2026-10-02T09:46:22.001Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:22.001Z"
+    },
+    "cmd-1790934393027": {
+      "key": "cmd-1790934393027",
+      "value": "{\"command\":\"git diff --stat; Get-ChildItem -LiteralPath .swarm -Recurse | Select-Object FullName,Length; Get-Content package.json -TotalCount 25; Get-Content node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-pathname.md -TotalCount 48; Get-Content .env.production; Test-Path .env.local; Get-ChildItem C:/Users/Cheikh/AppData/Local/ms-playwright -ErrorAction SilentlyContinue -Name; Get-Content tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:33.027Z",
+      "lastAccessed": "2026-10-02T09:46:33.027Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:33.027Z"
+    },
+    "cmd-1790934395513": {
+      "key": "cmd-1790934395513",
+      "value": "{\"command\":\"Get-Content next.config.ts; Get-Content public/_headers; Get-Content lib/api.ts; Get-Content app/page.tsx; rg --files app; Get-Content lib/paths.ts; Get-Content lib/utm.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:35.513Z",
+      "lastAccessed": "2026-10-02T09:46:35.513Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:35.513Z"
+    },
+    "cmd-1790934395856": {
+      "key": "cmd-1790934395856",
+      "value": "{\"command\":\"Get-Content components/consent/AnalyticsTracker.tsx; Get-Content lib/analytics-context.ts; Get-Content lib/ga4.test.ts; Get-Content hooks/useAnalyticsBootstrap.test.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:35.856Z",
+      "lastAccessed": "2026-10-02T09:46:35.856Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:35.856Z"
+    },
+    "cmd-1790934396827": {
+      "key": "cmd-1790934396827",
+      "value": "{\"command\":\"Get-Content e2e/analytics.spec.ts; Get-Content hooks/useLeadForm.ts; Get-Content components/consent/ConsentBanner.tsx; Get-Content lib/consent.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:36.827Z",
+      "lastAccessed": "2026-10-02T09:46:36.827Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:36.827Z"
+    },
+    "cmd-1790934410403": {
+      "key": "cmd-1790934410403",
+      "value": "{\"command\":\"Get-Content tsconfig.json; Test-Path node_modules/eslint/bin/eslint.js; Get-Content AGENTS.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:50.403Z",
+      "lastAccessed": "2026-10-02T09:46:50.403Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:50.403Z"
+    },
+    "cmd-1790934411130": {
+      "key": "cmd-1790934411130",
+      "value": "{\"command\":\"Get-Content app/layout.tsx; Get-Content components/consent/ConsentBanner.tsx; Get-Content lib/consent.ts; rg --files node_modules/next/dist/docs | Select-Object -First 35; git diff --stat; git status --short; rg --files -g '*eslint*' -g '*biome*' -g '*vitest*'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:51.130Z",
+      "lastAccessed": "2026-10-02T09:46:51.130Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:51.130Z"
+    },
+    "cmd-1790934411183": {
+      "key": "cmd-1790934411183",
+      "value": "{\"command\":\"Get-Content AGENTS.md; Get-Content package.json; Get-Content components/consent/AnalyticsTracker.tsx; Get-Content hooks/useAnalyticsBootstrap.ts; Get-Content hooks/useLeadForm.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:46:51.183Z",
+      "lastAccessed": "2026-10-02T09:46:51.183Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:46:51.183Z"
+    },
+    "cmd-1790934423777": {
+      "key": "cmd-1790934423777",
+      "value": "{\"command\":\"rg -n \\\"<a|<button|onClick|track\\\\(|gtag|data-analytics|form_step\\\" app components hooks lib e2e --glob '!*.test.*'; Get-Content playwright.config.ts; Get-Content components/landing/LeadForm.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:47:03.777Z",
+      "lastAccessed": "2026-10-02T09:47:03.777Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:47:03.777Z"
+    },
+    "cmd-1790934423909": {
+      "key": "cmd-1790934423909",
+      "value": "{\"command\":\"Get-Content next.config.ts; Get-Content public/_headers; Get-Content app/page.tsx; Get-Content lib/paths.ts; Get-Content lib/api.ts; Get-Content lib/consent.ts; Get-Content components/landing/Hero.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:47:03.909Z",
+      "lastAccessed": "2026-10-02T09:47:03.909Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:47:03.909Z"
+    },
+    "cmd-1790934432733": {
+      "key": "cmd-1790934432733",
+      "value": "{\"command\":\"npx tsc --noEmit -p tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:47:12.733Z",
+      "lastAccessed": "2026-10-02T09:47:12.733Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:47:12.733Z"
+    },
+    "cmd-1790934444634": {
+      "key": "cmd-1790934444634",
+      "value": "{\"command\":\"git diff -- '*.tsx' '*.jsx' hooks/useLeadForm.ts hooks/useAnalyticsBootstrap.ts; Get-Content components/landing/LeadForm.tsx; rg -n 'CONSENT_REOPEN|reopenConsent|data-analytics|aria-|onSubmit|disabled' components/landing/Footer.tsx components/landing/Header.tsx components/landing/MerciClient.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:47:24.634Z",
+      "lastAccessed": "2026-10-02T09:47:24.634Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:47:24.634Z"
+    },
+    "cmd-1790934444788": {
+      "key": "cmd-1790934444788",
+      "value": "{\"command\":\"npm run lint\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:47:24.788Z",
+      "lastAccessed": "2026-10-02T09:47:24.788Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:47:24.788Z"
+    },
+    "cmd-1790934448570": {
+      "key": "cmd-1790934448570",
+      "value": "{\"command\":\"rg --files node_modules/next/dist/docs | rg 'use-pathname|use-router|layouts-and-pages|react-strict-mode|server-and-client'; Get-Content node_modules/next/dist/docs/01-app/03-api-reference/02-components/script.md -TotalCount 85; Get-Content .oxlintrc.json; Get-Content lib/ga4.ts; Get-Content lib/tracking.ts; Get-Content lib/analytics-context.ts; Get-Content hooks/useAnalyticsBootstrap.test.tsx; Get-Content e2e/analytics.spec.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:47:28.570Z",
+      "lastAccessed": "2026-10-02T09:47:28.570Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:47:28.570Z"
+    },
+    "cmd-1790934453893": {
+      "key": "cmd-1790934453893",
+      "value": "{\"command\":\"npm run lint\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:47:33.893Z",
+      "lastAccessed": "2026-10-02T09:47:33.893Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:47:33.893Z"
+    },
+    "cmd-1790934484962": {
+      "key": "cmd-1790934484962",
+      "value": "{\"command\":\"npx tsc --noEmit\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:48:04.962Z",
+      "lastAccessed": "2026-10-02T09:48:04.962Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:48:04.962Z"
+    },
+    "cmd-1790934485313": {
+      "key": "cmd-1790934485313",
+      "value": "{\"command\":\"git diff -- lib/ga4.ts lib/tracking.ts lib/consent.ts lib/tracking.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:48:05.313Z",
+      "lastAccessed": "2026-10-02T09:48:05.313Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:48:05.313Z"
+    },
+    "cmd-1790934487613": {
+      "key": "cmd-1790934487613",
+      "value": "{\"command\":\"Test-Path 'C:/Program Files/Google/Chrome/Application/chrome.exe'; Test-Path 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'; Get-Content out/_headers; git diff --check\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:48:07.613Z",
+      "lastAccessed": "2026-10-02T09:48:07.613Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:48:07.613Z"
+    },
+    "cmd-1790934490177": {
+      "key": "cmd-1790934490177",
+      "value": "{\"command\":\"$reviewFiles = @('lib/ga4.ts','lib/tracking.ts','lib/analytics-context.ts','lib/consent.ts','lib/ga4.test.ts','lib/tracking.test.ts'); foreach ($reviewFile in $reviewFiles) { Write-Output \\\"FILE: $reviewFile\\\"; $lineNumber = 0; Get-Content -LiteralPath $reviewFile | ForEach-Object { $lineNumber++; '{0,4}: {1}' -f $lineNumber, $_ } }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:48:10.177Z",
+      "lastAccessed": "2026-10-02T09:48:10.177Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:48:10.177Z"
+    },
+    "cmd-1790934493078": {
+      "key": "cmd-1790934493078",
+      "value": "{\"command\":\"Get-Content node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-pathname.md -TotalCount 120; Get-Content node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-router.md -TotalCount 140; Get-Content node_modules/next/dist/docs/01-app/01-getting-started/03-layouts-and-pages.md -TotalCount 75; rg -n 'observeForm|storage|formViewed|threshold|finally|submitInFlight|router.push|visible|reopen|setVisible|useEffect|rules-of-hooks|exhaustive' components/consent/AnalyticsTracker.tsx components/consent/ConsentBanner.tsx hooks/useAnalyticsBootstrap.ts hooks/useLeadForm.ts .oxlintrc.json; Get-Content components/landing/Footer.tsx; Get-Content app/fr/visibilite/page.tsx; Get-Content app/fr/visibilite/merci/page.tsx; Get-Content lib/api.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:48:13.078Z",
+      "lastAccessed": "2026-10-02T09:48:13.078Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:48:13.078Z"
+    },
+    "cmd-1790934509777": {
+      "key": "cmd-1790934509777",
+      "value": "{\"command\":\"$reviewPaths = @('lib/consent.ts','lib/tracking.ts','lib/ga4.ts','components/consent/AnalyticsTracker.tsx','hooks/useAnalyticsBootstrap.ts'); foreach ($reviewPath in $reviewPaths) { Write-Output $reviewPath; $lineNumber = 0; Get-Content -LiteralPath $reviewPath | ForEach-Object { $lineNumber++; \\\"${lineNumber}: $_\\\" } }; Get-Content app/fr/mentions-legales/page.tsx; Get-Content app/fr/politique-de-confidentialite/page.tsx; Get-Content components/landing/MerciClient.tsx; Get-Content content/fr.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:48:29.777Z",
+      "lastAccessed": "2026-10-02T09:48:29.777Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:48:29.777Z"
+    },
+    "cmd-1790934520938": {
+      "key": "cmd-1790934520938",
+      "value": "{\"command\":\"Get-Content hooks/useAnalyticsBootstrap.ts; Get-Content vitest.config.ts; Get-Content lib/paths.ts; rg -n 'sendGA4Event|updateGA4Consent|getAnalyticsPage|gtag|dataLayer' --glob '!package-lock.json' --glob '!*.md' --glob '!node_modules/**' .\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:48:40.938Z",
+      "lastAccessed": "2026-10-02T09:48:40.938Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:48:40.938Z"
+    },
+    "cmd-1790934539002": {
+      "key": "cmd-1790934539002",
+      "value": "{\"command\":\"node --input-type=module -e \\\"globalThis.localStorage={getItem(){return null},setItem(){throw new DOMException('full','QuotaExceededError')}};globalThis.window={dispatchEvent(){}};globalThis.CustomEvent=class{};const {setConsent,getConsent}=await import('./lib/consent.ts');setConsent('accepted');console.log('After accepting with read-only/full storage:',getConsent())\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:48:59.002Z",
+      "lastAccessed": "2026-10-02T09:48:59.002Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:48:59.002Z"
+    },
+    "cmd-1790934548838": {
+      "key": "cmd-1790934548838",
+      "value": "{\"command\":\"npx oxlint --list-rules | Select-String -Pattern 'exhaustive-deps|rules-of-hooks' -Context 4,4; Get-Content vitest.config.mts; rg -n 'focus|consent|StrictMode|double|pending|submitInFlight|router.push' hooks/useLeadForm.test.tsx components/consent e2e hooks/useAnalyticsBootstrap.test.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:49:08.838Z",
+      "lastAccessed": "2026-10-02T09:49:08.838Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:49:08.838Z"
+    },
+    "cmd-1790934557787": {
+      "key": "cmd-1790934557787",
+      "value": "{\"command\":\"node --experimental-strip-types --input-type=module -e 'globalThis.localStorage = {getItem: () => \\\"accepted\\\", setItem: () => { throw new Error(\\\"storage write denied\\\"); }}; globalThis.window = {dispatchEvent() {}}; const consent = await import(\\\"./lib/consent.ts\\\"); consent.setConsent(\\\"rejected\\\"); console.log({consentAfterRejection: consent.getConsent()});'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:49:17.787Z",
+      "lastAccessed": "2026-10-02T09:49:17.787Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:49:17.787Z"
+    },
+    "cmd-1790934566858": {
+      "key": "cmd-1790934566858",
+      "value": "{\"command\":\"npx oxlint --help | Select-String -Pattern 'rules|deps' -Context 1,1; rg -n 'exhaustive-deps' node_modules/oxlint; Get-Content components/consent/AnalyticsTracker.tsx; Get-Content components/consent/ConsentBanner.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:49:26.858Z",
+      "lastAccessed": "2026-10-02T09:49:26.858Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:49:26.858Z"
+    },
+    "cmd-1790934618989": {
+      "key": "cmd-1790934618989",
+      "value": "{\"command\":\"npm run test -- lib/ga4.test.ts lib/tracking.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:50:18.989Z",
+      "lastAccessed": "2026-10-02T09:50:18.989Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:50:18.989Z"
+    },
+    "cmd-1790934626291": {
+      "key": "cmd-1790934626291",
+      "value": "{\"command\":\"@'\\nimport { useEffect } from 'react';\\nexport function HookDependencyProbe({ value }: { value: string }) {\\n  useEffect(() => { console.log(value); }, []);\\n  return null;\\n}\\n'@ | npx oxlint --stdin-filename hook-dependency-probe.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:50:26.291Z",
+      "lastAccessed": "2026-10-02T09:50:26.291Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:50:26.291Z"
+    },
+    "cmd-1790934780176": {
+      "key": "cmd-1790934780176",
+      "value": "{\"command\":\"npm run test:e2e\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:53:00.176Z",
+      "lastAccessed": "2026-10-02T09:53:00.176Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:53:00.176Z"
+    },
+    "cmd-1790934872617": {
+      "key": "cmd-1790934872617",
+      "value": "{\"command\":\"npm run lint\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:54:32.617Z",
+      "lastAccessed": "2026-10-02T09:54:32.617Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:54:32.617Z"
+    },
+    "cmd-1790934992989": {
+      "key": "cmd-1790934992989",
+      "value": "{\"command\":\"npm run build\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:56:32.989Z",
+      "lastAccessed": "2026-10-02T09:56:32.989Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:56:32.989Z"
+    },
+    "cmd-1790934993099": {
+      "key": "cmd-1790934993099",
+      "value": "{\"command\":\"npm test\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:56:33.099Z",
+      "lastAccessed": "2026-10-02T09:56:33.099Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:56:33.099Z"
+    },
+    "cmd-1790934998263": {
+      "key": "cmd-1790934998263",
+      "value": "{\"command\":\"$reviewFiles = @('lib/consent.ts','lib/consent.test.ts'); foreach ($reviewFile in $reviewFiles) { Write-Output \\\"FILE: $reviewFile\\\"; $lineNumber = 0; Get-Content -LiteralPath $reviewFile | ForEach-Object { $lineNumber++; '{0,4}: {1}' -f $lineNumber, $_ } }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:56:38.263Z",
+      "lastAccessed": "2026-10-02T09:56:38.263Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:56:38.263Z"
+    },
+    "cmd-1790935013749": {
+      "key": "cmd-1790935013749",
+      "value": "{\"command\":\"Get-Content components/consent/ConsentBanner.tsx; Get-Content hooks/useLeadForm.ts | Select-Object -Skip 80 -First 85; Get-Content components/consent/AnalyticsTracker.tsx | Select-Object -Skip 60 -First 12\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:56:53.749Z",
+      "lastAccessed": "2026-10-02T09:56:53.749Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:56:53.749Z"
+    },
+    "cmd-1790935023413": {
+      "key": "cmd-1790935023413",
+      "value": "{\"command\":\"git diff --check; git status --short; rg -l 'G-EHR9YE7E24' out/_next/static/chunks\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:57:03.413Z",
+      "lastAccessed": "2026-10-02T09:57:03.413Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:57:03.413Z"
+    },
+    "cmd-1790935026259": {
+      "key": "cmd-1790935026259",
+      "value": "{\"command\":\"npm run test:e2e\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:57:06.259Z",
+      "lastAccessed": "2026-10-02T09:57:06.259Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:57:06.259Z"
+    },
+    "cmd-1790935044337": {
+      "key": "cmd-1790935044337",
+      "value": "{\"command\":\"Get-Content test-results/happy-path-the-honeypot-si-4ac3b-ion-without-calling-the-API/error-context.md -TotalCount 100; Get-Content hooks/useLeadForm.ts | Select-Object -Skip 76 -First 85\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:57:24.337Z",
+      "lastAccessed": "2026-10-02T09:57:24.337Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:57:24.337Z"
+    },
+    "cmd-1790935050150": {
+      "key": "cmd-1790935050150",
+      "value": "{\"command\":\"Get-Content next.config.ts; rg -n 'Activity|preserve.*state|preserves.*state|unmount|bfcacheId|Client Cache|back/forward' node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-router.md node_modules/next/dist/docs/01-app/02-guides/caching.md node_modules/next/dist/docs/01-app/01-getting-started/05-server-and-client-components.md node_modules/next/dist/docs/01-app/04-glossary.md; rg -n 'client.*cache|Activity|unmount|state' node_modules/next/dist/docs/01-app/02-guides/cache-components.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:57:30.150Z",
+      "lastAccessed": "2026-10-02T09:57:30.150Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:57:30.150Z"
+    },
+    "cmd-1790935064390": {
+      "key": "cmd-1790935064390",
+      "value": "{\"command\":\"Get-Content components/landing/LeadForm.tsx | Select-Object -Skip 115 -First 62; Get-Content lib/validation.ts -TotalCount 120\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:57:44.390Z",
+      "lastAccessed": "2026-10-02T09:57:44.390Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:57:44.390Z"
+    },
+    "cmd-1790935068009": {
+      "key": "cmd-1790935068009",
+      "value": "{\"command\":\"npx playwright test e2e/happy-path.spec.ts --grep honeypot --workers=1\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:57:48.009Z",
+      "lastAccessed": "2026-10-02T09:57:48.009Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:57:48.009Z"
+    },
+    "cmd-1790935174535": {
+      "key": "cmd-1790935174535",
+      "value": "{\"command\":\"npm run test:e2e -- --workers=1\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:59:34.535Z",
+      "lastAccessed": "2026-10-02T09:59:34.535Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:59:34.535Z"
+    },
+    "cmd-1790935174609": {
+      "key": "cmd-1790935174609",
+      "value": "{\"command\":\"npm run build\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:59:34.609Z",
+      "lastAccessed": "2026-10-02T09:59:34.609Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:59:34.609Z"
+    },
+    "cmd-1790935179450": {
+      "key": "cmd-1790935179450",
+      "value": "{\"command\":\"git diff --check; npm audit --json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T09:59:39.450Z",
+      "lastAccessed": "2026-10-02T09:59:39.450Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T09:59:39.450Z"
+    }
+  },
+  "version": "3.0.0"
+}

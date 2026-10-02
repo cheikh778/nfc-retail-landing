@@ -56,6 +56,8 @@ export function MerciClient() {
 
           <a
             href={PATHS.visibilite}
+            data-analytics-id="back_home"
+            data-analytics-location="confirmation"
             className="inline-flex items-center justify-center rounded-full border border-border-strong bg-card px-6 py-3.5 text-sm font-bold text-navy transition-colors hover:bg-[#f2f3f5]"
           >
             {content.confirmation.backHomeLabel}
