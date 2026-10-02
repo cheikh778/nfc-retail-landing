@@ -34,6 +34,7 @@ export default defineConfig({
     timeout: 60_000,
     env: {
       NEXT_PUBLIC_API_BASE_URL: 'http://localhost:9', // stubbed by page.route in specs
+      NEXT_PUBLIC_GA4_MEASUREMENT_ID: 'G-TEST12345', // never send test events to the production property
     },
   },
 });

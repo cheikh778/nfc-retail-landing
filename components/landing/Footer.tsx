@@ -27,6 +27,8 @@ export function Footer({ content }: FooterProps) {
               {i > 0 && <span aria-hidden className="opacity-50">•</span>}
               <a
                 href={link.href}
+                data-analytics-id={link.external ? 'contact' : link.href.includes('mentions-legales') ? 'legal_notice' : 'privacy_policy'}
+                data-analytics-location="footer"
                 {...(link.external ? { rel: 'noopener' } : {})}
                 className="transition-colors hover:text-navy"
               >
@@ -36,7 +38,7 @@ export function Footer({ content }: FooterProps) {
           ))}
           <span className="inline-flex items-center gap-3">
             <span aria-hidden className="opacity-50">•</span>
-            <button type="button" onClick={reopenConsentBanner} className="transition-colors hover:text-navy">
+            <button type="button" onClick={reopenConsentBanner} data-analytics-id="manage_cookies" data-analytics-location="footer" className="transition-colors hover:text-navy">
               {content.manageCookiesLabel}
             </button>
           </span>

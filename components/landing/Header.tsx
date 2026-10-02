@@ -14,7 +14,7 @@ const CHANNEL_ICON: Record<string, string> = {
 export function Header({ content }: HeaderProps) {
   return (
     <header className="topbar">
-      <a className="brand" href={PATHS.visibilite} aria-label={`${content.brandStrong} ${content.brandRest}`}>
+      <a className="brand" href={PATHS.visibilite} aria-label={`${content.brandStrong} ${content.brandRest}`} data-analytics-id="brand_home" data-analytics-location="header">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/assets/landing/fr/logo.png" alt={`${content.brandStrong} ${content.brandRest}`} />
       </a>

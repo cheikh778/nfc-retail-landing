@@ -1,8 +1,19 @@
 export type ConsentStatus = 'accepted' | 'rejected' | 'unset';
 
-const CONSENT_KEY = 'nfcr_consent_analytics';
+export const CONSENT_KEY = 'nfcr_consent_analytics';
 export const CONSENT_CHANGE_EVENT = 'nfcr:consent-change';
 export const CONSENT_REOPEN_EVENT = 'nfcr:consent-reopen';
+let memoryConsent: ConsentStatus = 'unset';
+let memoryOnly = false;
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (event) => {
+    if (event.key === CONSENT_KEY || event.key === null) {
+      memoryOnly = false;
+      memoryConsent = 'unset';
+    }
+  });
+}
 
 /** Lets the footer's "Gérer les cookies" link reopen the banner on demand. */
 export function reopenConsentBanner(): void {
@@ -10,20 +21,24 @@ export function reopenConsentBanner(): void {
 }
 
 export function getConsent(): ConsentStatus {
+  if (memoryOnly) return memoryConsent;
   try {
     const value = localStorage.getItem(CONSENT_KEY);
     if (value === 'accepted' || value === 'rejected') return value;
   } catch {
-    // Storage unavailable — treat as unset, banner will just show again.
+    return memoryConsent;
   }
   return 'unset';
 }
 
 export function setConsent(status: 'accepted' | 'rejected'): void {
+  memoryConsent = status;
   try {
     localStorage.setItem(CONSENT_KEY, status);
+    memoryOnly = false;
   } catch {
-    // Best-effort only.
+    // Reads may still work while writes fail (quota); honor this tab's latest choice.
+    memoryOnly = true;
   }
   window.dispatchEvent(new CustomEvent(CONSENT_CHANGE_EVENT, { detail: status }));
 }

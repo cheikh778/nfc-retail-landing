@@ -1,0 +1,23 @@
+{
+  "swarms": {
+    "swarm-1790933538917-5lrs4i": {
+      "swarmId": "swarm-1790933538917-5lrs4i",
+      "topology": "hierarchical",
+      "maxAgents": 3,
+      "status": "running",
+      "agents": [],
+      "tasks": [],
+      "config": {
+        "topology": "hierarchical",
+        "maxAgents": 3,
+        "strategy": "specialized",
+        "communicationProtocol": "message-bus",
+        "autoScaling": true,
+        "consensusMechanism": "majority"
+      },
+      "createdAt": "2026-10-02T09:32:18.917Z",
+      "updatedAt": "2026-10-02T09:32:18.917Z"
+    }
+  },
+  "version": "3.0.0"
+}

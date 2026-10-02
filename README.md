@@ -74,6 +74,13 @@ Variables `NEXT_PUBLIC_*` (inlinées dans le bundle — jamais de secret) :
 
 `.env.production` (committé) porte les valeurs de build prod.
 
+## Analytics et sécurité
+
+La configuration du suivi, les événements et les réglages à effectuer dans GA4
+sont documentés dans [`deploy/ANALYTICS.md`](deploy/ANALYTICS.md).
+La revue de sécurité et les constats concernant l'API sont dans
+[`deploy/SECURITY-REVIEW.md`](deploy/SECURITY-REVIEW.md).
+
 ## SEO
 
 - Rendu pré-généré : `<title>`, `<meta description>`, `<link canonical>`,
@@ -105,5 +112,5 @@ Dev local : `npm run dev` ici (front `:3000`) + `npm run dev` dans un clone de
 - Rédiger et faire valider les pages **Mentions légales** et **Politique de
   confidentialité** (placeholders aujourd'hui).
 - Fournir un vrai `og-image.png`.
-- Renseigner `NEXT_PUBLIC_GA4_MEASUREMENT_ID` et la copie du bandeau de
-  consentement (revue juridique).
+- Finaliser les réglages du flux GA4 décrits dans `deploy/ANALYTICS.md` ;
+  l'identifiant de production et le bandeau de consentement sont configurés.
