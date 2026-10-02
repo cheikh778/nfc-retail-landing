@@ -1,13 +1,15 @@
 # NFC Retail — Landing `/fr/visibilite`
 
 Landing page d'acquisition France pour NFC Retail : promesse de visibilité
-(Google, ChatGPT, moteurs IA), formulaire de diagnostic en 2 étapes (modale),
+(Google, ChatGPT, moteurs IA), formulaire de diagnostic intégré,
 tracking funnel. Construite en **Next.js (App Router)** pour un rendu
 pré-généré, indexable et rapide.
 
-Le design de référence est le canvas fourni (`*.dc.html`) : hero centré avec
-anneaux de logos en orbite + aperçu produit, formulaire en **modale**
-(centrée au desktop, bottom-sheet au mobile), footer.
+La landing affiche la promesse et le visuel à gauche, le formulaire à droite,
+puis la barre de confiance. Elle tient dans la hauteur des écrans desktop et
+portable, sans footer. Sur mobile, le contenu défile avec un CTA fixe.
+La gestion des cookies reste accessible dans l’en-tête ; les pages légales et
+la confirmation conservent leur footer.
 
 ## Stack
 

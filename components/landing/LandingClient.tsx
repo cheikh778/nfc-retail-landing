@@ -6,7 +6,6 @@ import { captureAttribution } from '@/lib/utm';
 import { Header } from './Header';
 import { Hero } from './Hero';
 import { TrustBar } from './TrustBar';
-import { Footer } from './Footer';
 
 export function LandingClient() {
   const content = getContent();
@@ -16,14 +15,13 @@ export function LandingClient() {
   }, []);
 
   return (
-    <>
+    <div className="landing-page">
       <a href="#top" className="skip-link" data-analytics-id="skip_to_content" data-analytics-location="header">
         Aller au contenu principal
       </a>
-      <Header content={content.header} />
+      <Header content={content.header} cookieSettingsLabel={content.footer.manageCookiesLabel} />
       <Hero content={content.hero} form={content.form} />
       <TrustBar content={content.trust} />
-      <Footer content={content.footer} />
       <a
         className="mobile-sticky-cta"
         href="#diagnostic"
@@ -33,6 +31,6 @@ export function LandingClient() {
       >
         {content.mobileCtaLabel}
       </a>
-    </>
+    </div>
   );
 }

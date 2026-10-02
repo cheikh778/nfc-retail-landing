@@ -6,6 +6,7 @@
 | `utm-attribution.spec.ts` | UTM params on the landing URL reach the submitted lead, and survive a param-less revisit |
 | `form-validation.spec.ts` | Invalid input → inline errors → correction → success; consent gate; API-failure retry message |
 | `mobile.spec.ts` | Mobile viewport: no horizontal overflow, bottom-sheet modal, full flow |
+| `desktop.spec.ts` | Desktop and laptop viewports: no footer, no scrolling or clipped form controls, including validation and API errors |
 
 ## The lead API is stubbed
 
