@@ -836,6 +836,393 @@
       "lastAccessed": "2026-10-02T09:59:39.450Z",
       "accessCount": 0,
       "expiresAt": "2026-11-01T09:59:39.450Z"
+    },
+    "cmd-1790936309487": {
+      "key": "cmd-1790936309487",
+      "value": "{\"command\":\"Get-Content .env.production; Get-Content hooks/useAnalyticsBootstrap.ts; Get-Content lib/ga4.ts; Get-Content deploy/DEPLOYMENT.md -TotalCount 220; Get-Content deploy/cloudflare-worker/wrangler.toml; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:18:29.487Z",
+      "lastAccessed": "2026-10-02T10:18:29.487Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:18:29.487Z"
+    },
+    "cmd-1790936356280": {
+      "key": "cmd-1790936356280",
+      "value": "{\"command\":\"$analyticsTargets = @('https://nfcretail.com/fr/visibilite/', 'https://nfcretail-web.pages.dev/fr/visibilite/'); foreach ($analyticsTarget in $analyticsTargets) { try { $analyticsResponse = Invoke-WebRequest -Uri $analyticsTarget -TimeoutSec 20; $analyticsScripts = [regex]::Matches($analyticsResponse.Content, '<script[^>]+src=\\\"([^\\\"]+)\\\"') | ForEach-Object { $_.Groups[1].Value }; [pscustomobject]@{Url=$analyticsTarget; Status=$analyticsResponse.StatusCode; FinalUrl=$analyticsResponse.BaseResponse.RequestMessage.RequestUri.ToString(); HasMeasurementId=$analyticsResponse.Content.Contains('G-EHR9YE7E24'); GoogleScripts=($analyticsScripts | Where-Object { $_ -match 'google' }); AppScripts=$analyticsScripts; Server=$analyticsResponse.Headers['Server'];} | ConvertTo-Json -Depth 3 } catch { [pscustomobject]@{Url=$analyticsTarget;Error=$_.Exception.Message} | ConvertTo-Json } }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:19:16.280Z",
+      "lastAccessed": "2026-10-02T10:19:16.280Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:19:16.280Z"
+    },
+    "cmd-1790936392892": {
+      "key": "cmd-1790936392892",
+      "value": "{\"command\":\"@'\\nconst url = 'https://nfcretail.com/fr/visibilite/';\\nconst html = await (await fetch(url)).text();\\nconst scripts = [...html.matchAll(/<script[^>]+src=\\\"([^\\\"]+)\\\"/g)].map(match => new URL(match[1], url)).filter(url => url.hostname === 'nfcretail.com');\\nawait Promise.all(scripts.map(async url => {\\n const response = await fetch(url);\\n const code = await response.text();\\n const report = {path:url.pathname,status:response.status,bytes:code.length,ids:[...new Set(code.match(/G-[A-Z0-9]{6,}/g) || [])],gaLoader:code.includes('googletagmanager.com/gtag/js'),clickTracking:code.includes('cta_click'),newTracking:code.includes('confirmation_view')};\\n if (report.gaLoader) { const pos = code.indexOf('nfcr:consent-change'); report.consentSnippet = pos >= 0 ? code.slice(Math.max(0,pos - 80),pos + 450) : ''; }\\n console.log(JSON.stringify(report));\\n}));\\n'@ | node --input-type=module\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:19:52.892Z",
+      "lastAccessed": "2026-10-02T10:19:52.892Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:19:52.892Z"
+    },
+    "cmd-1790936475102": {
+      "key": "cmd-1790936475102",
+      "value": "{\"command\":\"$analyticsHome = Invoke-WebRequest -Uri 'https://nfcretail.com/' -TimeoutSec 20; [pscustomobject]@{Url='https://nfcretail.com/';Status=$analyticsHome.StatusCode;HasId=$analyticsHome.Content.Contains('G-EHR9YE7E24');WordPress=$analyticsHome.Content.Contains('wp-content');GoogleTagIds=([regex]::Matches($analyticsHome.Content, 'G-[A-Z0-9]{6,}') | ForEach-Object {$_.Value} | Sort-Object -Unique);GoogleTagUrls=([regex]::Matches($analyticsHome.Content,'https://[^\\\"\\\\s<>]*googletagmanager[^\\\"\\\\s<>]*') | ForEach-Object {$_.Value}) } | ConvertTo-Json -Depth 3\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:21:15.102Z",
+      "lastAccessed": "2026-10-02T10:21:15.102Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:21:15.102Z"
+    },
+    "cmd-1790936475499": {
+      "key": "cmd-1790936475499",
+      "value": "{\"command\":\"rg --files node_modules/next/dist/docs | Select-String 'environment-variables'; Get-Content node_modules/next/dist/docs/01-app/02-guides/environment-variables.md | Select-String -Pattern 'build|process.env|Load Order|\\\\.env' -Context 1,2 | Select-Object -First 24\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:21:15.499Z",
+      "lastAccessed": "2026-10-02T10:21:15.499Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:21:15.499Z"
+    },
+    "cmd-1790936515741": {
+      "key": "cmd-1790936515741",
+      "value": "{\"command\":\"@'\\nimport { chromium } from '@playwright/test';\\nconst browser = await chromium.launch({headless:true});\\nconst page = await browser.newPage();\\nconst hits = [];\\nlet scriptStatus = null;\\nawait page.route('**/*', async route => {\\n const request = route.request();\\n const url = new URL(request.url());\\n if (url.hostname.endsWith('google-analytics.com')) {\\n   const params = new URLSearchParams(url.search);\\n   const body = request.postData() || '';\\n   hits.push({id:params.get('tid'),event:params.get('en'),path:params.get('dl'),body});\\n   await route.fulfill({status:204});\\n } else await route.continue();\\n});\\npage.on('response', response => { if(response.url().includes('googletagmanager.com/gtag/js')) scriptStatus = response.status(); });\\nconst firstHit = page.waitForRequest(request => new URL(request.url()).hostname.endsWith('google-analytics.com'), {timeout:25000}).catch(() => null);\\nawait page.goto('https://nfcretail.com/fr/visibilite/', {waitUntil:'networkidle',timeout:30000});\\nawait page.getByTestId('consent-accept').waitFor();\\nconsole.log(JSON.stringify({stage:'before_consent',gaScriptPresent:await page.locator('#nfcr-ga4').count(),hits:hits.length}));\\nawait page.getByTestId('consent-accept').click();\\nconst received = await firstHit;\\nif (received) {\\n const nextHit = page.waitForRequest(request => new URL(request.url()).hostname.endsWith('google-analytics.com') && (request.url() + (request.postData() || '')).includes('cta_click'), {timeout:10000}).catch(() => null);\\n await page.getByTestId('lead-submit').click();\\n await nextHit;\\n}\\nconsole.log(JSON.stringify({stage:'after_consent',gaScriptStatus:scriptStatus,gaScriptPresent:await page.locator('#nfcr-ga4').count(),hits:hits.map(hit=>({...hit,body:hit.body.slice(0,700)})),intercepted:true}));\\nawait browser.close();\\n'@ | node --input-type=module\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:21:55.741Z",
+      "lastAccessed": "2026-10-02T10:21:55.741Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:21:55.741Z"
+    },
+    "cmd-1790936520195": {
+      "key": "cmd-1790936520195",
+      "value": "{\"command\":\"$analyticsHomeCheck = Invoke-WebRequest -Uri 'https://nfcretail.com/' -TimeoutSec 15; [pscustomobject]@{FinalUrl=$analyticsHomeCheck.BaseResponse.RequestMessage.RequestUri.ToString();Title=([regex]::Match($analyticsHomeCheck.Content,'<title[^>]*>(.*?)</title>','Singleline')).Groups[1].Value;Bytes=$analyticsHomeCheck.Content.Length;NextApp=$analyticsHomeCheck.Content.Contains('/_next/');ConsentBanner=$analyticsHomeCheck.Content.Contains('consent-accept')} | ConvertTo-Json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:22:00.195Z",
+      "lastAccessed": "2026-10-02T10:22:00.195Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:22:00.195Z"
+    },
+    "cmd-1790937406345": {
+      "key": "cmd-1790937406345",
+      "value": "{\"command\":\"Get-Content deploy/cloudflare-worker/worker.js; Get-Content deploy/cloudflare-worker/wrangler.toml; rg -n '429|rate.?limit|WordPress|Hostinger|origin|Cloudflare|loop|looping|fetch\\\\(' deploy .github --glob '!*.png'; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:36:46.345Z",
+      "lastAccessed": "2026-10-02T10:36:46.345Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:36:46.345Z"
+    },
+    "cmd-1790937407702": {
+      "key": "cmd-1790937407702",
+      "value": "{\"command\":\"@'\\nconst targets = ['https://nfcretail.com/', 'https://www.nfcretail.com/', 'https://nfcretail.com/fr/visibilite/'];\\nfor (const url of targets) {\\n try {\\n  const res = await fetch(url, {redirect:'follow',signal:AbortSignal.timeout(15000)});\\n  const body = await res.text();\\n  const keys = ['server','cf-ray','cf-mitigated','retry-after','cf-cache-status','content-type','location','x-powered-by'];\\n  const headers = Object.fromEntries(keys.map(key=>[key,res.headers.get(key)]).filter(([,val])=>val!==null));\\n  console.log(JSON.stringify({requested:url,final:res.url,status:res.status,headers,bodyLength:body.length,title:(body.match(/<title[^>]*>(.*?)<\\\\/title>/is)||[])[1]||null,excerpt:body.slice(0,500)}));\\n } catch(err) {console.log(JSON.stringify({url,error:err.message}));}\\n}\\n'@ | node --input-type=module\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:36:47.702Z",
+      "lastAccessed": "2026-10-02T10:36:47.702Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:36:47.702Z"
+    },
+    "cmd-1790937481553": {
+      "key": "cmd-1790937481553",
+      "value": "{\"command\":\"@'\\nimport {chromium} from '@playwright/test';\\nconst browser = await chromium.launch({headless:true});\\ntry {\\n const page = await browser.newPage();\\n const errors = [];\\n page.on('response', res => { if (res.status() >= 400) errors.push({url:res.url(),status:res.status()}); });\\n const response = await page.goto('https://nfcretail.com/', {waitUntil:'load',timeout:20000});\\n const headers = await response.allHeaders();\\n console.log(JSON.stringify({status:response.status(),url:page.url(),title:await page.title(),body:(await page.locator('body').innerText()).slice(0,1000),errors,headers:Object.fromEntries(['server','cf-ray','cf-mitigated','retry-after','x-powered-by','content-type'].filter(key=>headers[key]).map(key=>[key,headers[key]]))}));\\n} finally {await browser.close();}\\n'@ | node --input-type=module\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:38:01.553Z",
+      "lastAccessed": "2026-10-02T10:38:01.553Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:38:01.553Z"
+    },
+    "cmd-1790937569893": {
+      "key": "cmd-1790937569893",
+      "value": "{\"command\":\"@'\\ntry {\\n const res = await fetch('https://nfcretail.com/wp-admin/', {redirect:'follow',signal:AbortSignal.timeout(15000)});\\n const body = await res.text();\\n const keys=['server','cf-ray','retry-after','cf-mitigated','x-powered-by','content-type','cf-cache-status'];\\n console.log(JSON.stringify({url:res.url,status:res.status,headers:Object.fromEntries(keys.map(key=>[key,res.headers.get(key)]).filter(([,value])=>value!==null)),bytes:body.length,title:(body.match(/<title[^>]*>(.*?)<\\\\/title>/is)||[])[1]||null,excerpt:body.slice(0,700)}));\\n} catch (error) {console.log(JSON.stringify({error:error.message}));}\\n'@ | node --input-type=module\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:39:29.893Z",
+      "lastAccessed": "2026-10-02T10:39:29.893Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:39:29.893Z"
+    },
+    "cmd-1790937735500": {
+      "key": "cmd-1790937735500",
+      "value": "{\"command\":\"node -e 'const urls=[\\\"https://www.nfcretail.com/\\\",\\\"https://nfcretail.com/wp-admin/plugins.php\\\",\\\"https://nfcretail.com/fr/visibilite/\\\"]; for (const u of urls) { const r=await fetch(u);const t=await r.text(); console.log(JSON.stringify({requested:u,final:r.url,status:r.status,title:t.match(/<title>([\\\\s\\\\S]*?)<\\\\/title>/i)?.[1],bytes:t.length,hasGaId:t.includes(\\\"G-EHR9YE7E24\\\"),themeMissing:t.includes(\\\"Divi\\\"),retryAfter:r.headers.get(\\\"retry-after\\\"),server:r.headers.get(\\\"server\\\")})); }'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T10:42:15.500Z",
+      "lastAccessed": "2026-10-02T10:42:15.500Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T10:42:15.500Z"
+    },
+    "cmd-1790939542926": {
+      "key": "cmd-1790939542926",
+      "value": "{\"command\":\"Get-Content 'C:\\\\Users\\\\Cheikh\\\\.codex\\\\plugins\\\\cache\\\\ecc\\\\ecc\\\\2.2.3\\\\skills\\\\frontend-patterns\\\\SKILL.md'; Get-Content 'C:\\\\Users\\\\Cheikh\\\\.agents\\\\skills\\\\browser-qa\\\\SKILL.md'; rg --files node_modules/next/dist/docs | Select-Object -First 50\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:12:22.926Z",
+      "lastAccessed": "2026-10-02T11:12:22.926Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:12:22.926Z"
+    },
+    "cmd-1790939542982": {
+      "key": "cmd-1790939542982",
+      "value": "{\"command\":\"Get-Content AGENTS.md; git status --short; rg --files -g 'AGENTS.md' -g 'package.json' -g '*Landing*' -g '*Footer*' -g '*Consent*' -g '*visibilite*' -g '*analytics*' -g '*viewport*' -g '*.spec.*' -g '*.test.*' -g '*globals*' -g '*page*' -g '*layout*' -g 'playwright.config.*' -g '!node_modules' -g '!package-lock.json'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:12:22.982Z",
+      "lastAccessed": "2026-10-02T11:12:22.982Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:12:22.982Z"
+    },
+    "cmd-1790939572610": {
+      "key": "cmd-1790939572610",
+      "value": "{\"command\":\"Get-Content app/globals.css; Get-Content package.json; Get-Content playwright.config.ts; Get-Content e2e/analytics.spec.ts; Get-Content e2e/mobile.spec.ts; rg --files node_modules/next/dist/docs/01-app | rg '(css|layouts-and-pages|static-exports)'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:12:52.610Z",
+      "lastAccessed": "2026-10-02T11:12:52.610Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:12:52.610Z"
+    },
+    "cmd-1790939572677": {
+      "key": "cmd-1790939572677",
+      "value": "{\"command\":\"Get-Content components/landing/LandingClient.tsx; Get-Content components/landing/Header.tsx; Get-Content components/landing/LeadForm.tsx; Get-Content components/landing/Footer.tsx; Get-Content components/consent/ConsentBanner.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:12:52.677Z",
+      "lastAccessed": "2026-10-02T11:12:52.677Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:12:52.677Z"
+    },
+    "cmd-1790939600841": {
+      "key": "cmd-1790939600841",
+      "value": "{\"command\":\"Get-Content app/globals.css -TotalCount 350\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:13:20.841Z",
+      "lastAccessed": "2026-10-02T11:13:20.841Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:13:20.841Z"
+    },
+    "cmd-1790939601760": {
+      "key": "cmd-1790939601760",
+      "value": "{\"command\":\"Get-Content components/landing/Hero.tsx; Get-Content components/landing/TrustBar.tsx; Get-Content app/layout.tsx; Get-Content content/fr.ts; Get-Content lib/tracking.ts; Get-Content node_modules/next/dist/docs/01-app/01-getting-started/11-css.md; Get-Content node_modules/next/dist/docs/01-app/01-getting-started/03-layouts-and-pages.md -TotalCount 120\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:13:21.760Z",
+      "lastAccessed": "2026-10-02T11:13:21.760Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:13:21.760Z"
+    },
+    "cmd-1790939618677": {
+      "key": "cmd-1790939618677",
+      "value": "{\"command\":\"Get-Content app/globals.css | Select-Object -Skip 345 -First 85; Get-Content components/landing/DiscoveryScene.tsx; Get-Content e2e/helpers.ts; rg -n 'cookies|footer|viewport|scroll|840|footer' README.md deploy/ANALYTICS.md e2e components app lib/tracking.test.ts; Get-Content next.config.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:13:38.677Z",
+      "lastAccessed": "2026-10-02T11:13:38.677Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:13:38.677Z"
+    },
+    "cmd-1790939677235": {
+      "key": "cmd-1790939677235",
+      "value": "{\"command\":\"rg -n '<Header|Footer|lead-card' components/landing/MerciClient.tsx components/landing/LegalPage.tsx README.md; node -e 'const {chromium}=require(\\\"@playwright/test\\\"); (async()=>{const b=await chromium.launch({headless:true}); const p=await b.newPage(); await p.goto(\\\"http://localhost:3100/fr/visibilite/\\\"); await p.getByTestId(\\\"consent-reject\\\").click(); for(const [width,height] of [[1920,1080],[1536,730],[1366,650],[1280,620],[1024,600]]){await p.setViewportSize({width,height});await p.evaluate(()=>document.fonts.ready); console.log(JSON.stringify(await p.evaluate(()=>({viewport:[innerWidth,innerHeight],pageHeight:document.documentElement.scrollHeight,parts:[...document.querySelectorAll(\\\".topbar,.hero,.hero-copy,.lead-card,.trustbar,footer,.discovery-scene,.benefits\\\")].map(e=>({name:e.className,height:Math.round(e.getBoundingClientRect().height),top:Math.round(e.getBoundingClientRect().top)}))}))));} await b.close();})()'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:14:37.235Z",
+      "lastAccessed": "2026-10-02T11:14:37.235Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:14:37.235Z"
+    },
+    "cmd-1790939718303": {
+      "key": "cmd-1790939718303",
+      "value": "{\"command\":\"node -e 'const {chromium}=require(\\\"@playwright/test\\\"); (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1366,height:650}});await p.goto(\\\"http://localhost:3100/fr/visibilite/\\\");await p.getByTestId(\\\"consent-reject\\\").click(); console.log(await p.locator(\\\".lead-card\\\").evaluate(e=>[...e.querySelectorAll(\\\".form-heading,h2,p,form,label,.field,input,button,.micro-proof,.privacy,.consent-note,.form-message\\\")].map(n=>({name:n.tagName+\\\".\\\"+n.className,height:Math.round(n.getBoundingClientRect().height),lineHeight:getComputedStyle(n).lineHeight,margin:getComputedStyle(n).margin,padding:getComputedStyle(n).padding})))); await p.screenshot({path:\\\"C:/Users/Cheikh/.codex/visualizations/2026/10/02/01a0fbee-c61f-7000-bce6-3e15b782bd8d/landing-before.png\\\"});await b.close();})()'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:15:18.303Z",
+      "lastAccessed": "2026-10-02T11:15:18.303Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:15:18.303Z"
+    },
+    "cmd-1790939934006": {
+      "key": "cmd-1790939934006",
+      "value": "{\"command\":\"git diff --staged; git diff --stat; git status --short; git diff -- app/globals.css components/landing/LandingClient.tsx components/landing/Header.tsx components/landing/Footer.tsx components/consent/ConsentBanner.tsx lib/consent.ts components/consent/AnalyticsTracker.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:18:54.006Z",
+      "lastAccessed": "2026-10-02T11:18:54.006Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:18:54.006Z"
+    },
+    "cmd-1790939937703": {
+      "key": "cmd-1790939937703",
+      "value": "{\"command\":\"git diff -- components/landing/LandingClient.tsx components/landing/Header.tsx e2e/desktop.spec.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:18:57.703Z",
+      "lastAccessed": "2026-10-02T11:18:57.703Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:18:57.703Z"
+    },
+    "cmd-1790939941203": {
+      "key": "cmd-1790939941203",
+      "value": "{\"command\":\"$reviewFiles = @('components/landing/LandingClient.tsx','components/landing/Header.tsx','e2e/desktop.spec.ts'); foreach ($reviewFile in $reviewFiles) { if (Test-Path -LiteralPath $reviewFile) { Write-Output \\\"FILE: $reviewFile\\\"; $lineNumber = 0; Get-Content -LiteralPath $reviewFile | ForEach-Object { $lineNumber++; '{0,4}: {1}' -f $lineNumber, $_ } } }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:19:01.203Z",
+      "lastAccessed": "2026-10-02T11:19:01.203Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:19:01.203Z"
+    },
+    "cmd-1790939961579": {
+      "key": "cmd-1790939961579",
+      "value": "{\"command\":\"Get-Content components/landing/Header.tsx; Get-Content components/landing/LandingClient.tsx; Get-Content app/globals.css; Get-Content package.json; Get-Content AGENTS.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:19:21.579Z",
+      "lastAccessed": "2026-10-02T11:19:21.579Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:19:21.579Z"
+    },
+    "cmd-1790939969121": {
+      "key": "cmd-1790939969121",
+      "value": "{\"command\":\"rg -n 'header|hero|lead-card|trust|sticky|height|overflow|media|viewport|cookie|skip' app/globals.css; Get-Content components/consent/ConsentBanner.tsx; Get-Content package.json; Get-Content playwright.config.ts; Get-Content e2e/analytics.spec.ts | Select-Object -Last 120\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:19:29.121Z",
+      "lastAccessed": "2026-10-02T11:19:29.121Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:19:29.121Z"
+    },
+    "cmd-1790939969193": {
+      "key": "cmd-1790939969193",
+      "value": "{\"command\":\"git diff -- components/landing/LandingClient.tsx components/landing/Header.tsx app/globals.css; Get-Content components/landing/LandingClient.tsx; Get-Content components/landing/Header.tsx; Get-Content components/landing/Hero.tsx; Get-Content components/landing/TrustBar.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:19:29.193Z",
+      "lastAccessed": "2026-10-02T11:19:29.193Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:19:29.193Z"
+    },
+    "cmd-1790939976804": {
+      "key": "cmd-1790939976804",
+      "value": "{\"command\":\"Get-Content app/globals.css | Select-Object -Skip 74 -First 112; Get-Content app/globals.css | Select-Object -Skip 295 -First 255; Get-Content app/globals.css | Select-Object -Skip 650 -First 165; Get-Content components/landing/TrustBar.tsx; rg -n 'mentions|links:|manageCookies' content\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:19:36.804Z",
+      "lastAccessed": "2026-10-02T11:19:36.804Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:19:36.804Z"
+    },
+    "cmd-1790939979536": {
+      "key": "cmd-1790939979536",
+      "value": "{\"command\":\"rg -n -A 8 -B 6 'channels|cookie-settings|landing-page' app/globals.css components/consent/ConsentBanner.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:19:39.536Z",
+      "lastAccessed": "2026-10-02T11:19:39.536Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:19:39.536Z"
+    },
+    "cmd-1790939991960": {
+      "key": "cmd-1790939991960",
+      "value": "{\"command\":\"node -e 'const {chromium}=require(\\\"@playwright/test\\\"); (async()=>{const b=await chromium.launch();for(const [width,height] of [[2560,1440],[1920,1080],[1920,900],[1680,850],[1600,800],[1536,730],[1440,700],[1366,650],[1280,620],[1280,600],[1024,600],[960,600],[390,844]]){const p=await b.newPage({viewport:{width,height}});await p.goto(\\\"http://localhost:3100/fr/visibilite/\\\");await p.getByTestId(\\\"consent-reject\\\").click();await p.evaluate(()=>document.fonts.ready);const info=await p.evaluate(()=>({viewport:[innerWidth,innerHeight],page:[document.documentElement.scrollWidth,document.documentElement.scrollHeight],parts:[...document.querySelectorAll(\\\".topbar,.hero,.hero-copy,.lead-card,.trustbar,.discovery-scene,.benefits\\\")].map(e=>({name:e.className,height:Math.round(e.getBoundingClientRect().height),top:Math.round(e.getBoundingClientRect().top)}))}));console.log(JSON.stringify(info));if([1920,1366,1024,390].includes(width)){await p.screenshot({path:\\\"C:/Users/Cheikh/.codex/visualizations/2026/10/02/01a0fbee-c61f-7000-bce6-3e15b782bd8d/landing-\\\"+width+\\\"x\\\"+height+\\\".png\\\"});}await p.close();}await b.close();})()'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:19:51.960Z",
+      "lastAccessed": "2026-10-02T11:19:51.960Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:19:51.960Z"
+    },
+    "cmd-1790940002588": {
+      "key": "cmd-1790940002588",
+      "value": "{\"command\":\"if (Test-Path -LiteralPath e2e/desktop.spec.ts) { $lineNumber = 0; Get-Content -LiteralPath e2e/desktop.spec.ts | ForEach-Object { $lineNumber++; '{0,4}: {1}' -f $lineNumber, $_ } }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:20:02.588Z",
+      "lastAccessed": "2026-10-02T11:20:02.588Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:20:02.588Z"
+    },
+    "cmd-1790940008863": {
+      "key": "cmd-1790940008863",
+      "value": "{\"command\":\"Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue | Where-Object { $_.LocalPort -in 3000,3100,3101,4173 } | Select-Object LocalAddress,LocalPort,OwningProcess; git diff --numstat; Get-Content node_modules/next/dist/docs/01-app/02-guides/analytics.md | Select-Object -First 100\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:20:08.863Z",
+      "lastAccessed": "2026-10-02T11:20:08.863Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:20:08.863Z"
+    },
+    "cmd-1790940009389": {
+      "key": "cmd-1790940009389",
+      "value": "{\"command\":\"Get-Content app/globals.css | Select-Object -Skip 705 -First 310; Get-Content components/landing/LeadForm.tsx | Select-Object -Skip 70 -First 130; Get-Content components/consent/ConsentBanner.tsx; Get-Content components/landing/TrustBar.tsx; Get-Content lib/tracking.ts; Get-Content lib/consent.ts; Get-Content components/consent/AnalyticsTracker.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:20:09.389Z",
+      "lastAccessed": "2026-10-02T11:20:09.389Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:20:09.389Z"
+    },
+    "cmd-1790940042049": {
+      "key": "cmd-1790940042049",
+      "value": "{\"command\":\"Get-NetTCPConnection -LocalPort 3100 -State Listen -ErrorAction SilentlyContinue | Select-Object LocalAddress,LocalPort; Get-ChildItem -LiteralPath \\\"$env:LOCALAPPDATA/ms-playwright\\\" -Directory -ErrorAction SilentlyContinue | Select-Object Name; npm run lint; npx tsc --noEmit\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:20:42.049Z",
+      "lastAccessed": "2026-10-02T11:20:42.049Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:20:42.049Z"
+    },
+    "cmd-1790940050699": {
+      "key": "cmd-1790940050699",
+      "value": "{\"command\":\"Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -ge 3000 -and $_.LocalPort -lt 4000 } | Select-Object LocalAddress,LocalPort; Get-Item -LiteralPath 'C:/Program Files/Google/Chrome/Application/chrome.exe','C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe' -ErrorAction SilentlyContinue | Select-Object FullName; Get-Content app/globals.css | Select-Object -Skip 540 -First 112; Get-Content content/fr.ts | Select-Object -First 125; rg -n 'landing|viewport|scrollHeight|no.*scroll|desktop' e2e\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:20:50.699Z",
+      "lastAccessed": "2026-10-02T11:20:50.699Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:20:50.699Z"
+    },
+    "cmd-1790940055916": {
+      "key": "cmd-1790940055916",
+      "value": "{\"command\":\"node -e \\\"const {chromium}=require('@playwright/test'); (async()=>{const browser=await chromium.launch({headless:true}); const page=await browser.newPage(); await page.goto('http://localhost:3100/fr/visibilite/'); await page.getByTestId('consent-reject').click(); await page.evaluate(()=>document.fonts.ready); for(const [width,height] of [[1920,1080],[1440,900],[1366,768],[1280,720],[1024,768],[901,600],[375,812],[320,800]]){await page.setViewportSize({width,height}); const stats=await page.evaluate(()=>{const r=(s)=>{const e=document.querySelector(s);const x=e.getBoundingClientRect();return {x:x.x,y:x.y,width:x.width,height:x.height,bottom:x.bottom,right:x.right}};return {viewport:[innerWidth,innerHeight],document:[document.documentElement.scrollWidth,document.documentElement.scrollHeight],header:r('.topbar'),form:r('.lead-card'),hero:r('.hero'),trust:r('.trustbar'),cookies:r('.cookie-settings'),footer:!!document.querySelector('footer')}}); console.log(JSON.stringify(stats));} await browser.close();})().catch(e=>{console.error(e.message);process.exitCode=1})\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:20:55.916Z",
+      "lastAccessed": "2026-10-02T11:20:55.916Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:20:55.916Z"
+    },
+    "cmd-1790940066638": {
+      "key": "cmd-1790940066638",
+      "value": "{\"command\":\"@'\\nconst { chromium } = require('playwright');\\nconsole.log(JSON.stringify({ browser: chromium.executablePath(), custom: process.env.PLAYWRIGHT_CHROMIUM_PATH || null }));\\n'@ | node\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:21:06.638Z",
+      "lastAccessed": "2026-10-02T11:21:06.638Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:21:06.638Z"
+    },
+    "cmd-1790940093044": {
+      "key": "cmd-1790940093044",
+      "value": "{\"command\":\"node -e \\\"const {chromium}=require('@playwright/test');(async()=>{const browser=await chromium.launch({headless:true});const page=await browser.newPage();await page.goto('http://localhost:3100/fr/visibilite/');await page.getByTestId('consent-reject').click();await page.evaluate(()=>document.fonts.ready);for(const [width,height] of [[1366,600],[1280,600],[1024,600],[1024,640],[1280,800],[320,800]]){await page.setViewportSize({width,height});console.log(JSON.stringify(await page.evaluate(()=>{const r=(s)=>{const e=document.querySelector(s);const x=e.getBoundingClientRect();return {x:x.x,y:x.y,width:x.width,height:x.height,bottom:x.bottom,right:x.right}};return {viewport:[innerWidth,innerHeight],document:[document.documentElement.scrollWidth,document.documentElement.scrollHeight],brand:r('.brand'),channels:r('.channels'),country:r('.country'),cookies:r('.cookie-settings'),hero:r('.hero'),form:r('.lead-card'),trust:r('.trustbar')}})));}await page.close();await browser.close()})().catch(e=>{console.error(e.message);process.exitCode=1})\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:21:33.044Z",
+      "lastAccessed": "2026-10-02T11:21:33.044Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:21:33.044Z"
+    },
+    "cmd-1790940101512": {
+      "key": "cmd-1790940101512",
+      "value": "{\"command\":\"@'\\nconst { chromium } = require('playwright');\\n(async () => {\\n  const browser = await chromium.launch({ headless: true });\\n  const page = await browser.newPage({ viewport: { width: 1366, height: 768 } });\\n  await page.addInitScript(() => localStorage.setItem('nfcr_consent_analytics', 'rejected'));\\n  await page.goto('http://localhost:3100/fr/visibilite/', { waitUntil: 'networkidle' });\\n  await page.evaluate(() => document.fonts.ready);\\n  for (const [width, height] of [[1920,1080],[1440,900],[1366,768],[1280,720],[1024,768],[901,600],[390,844],[320,568]]) {\\n    await page.setViewportSize({ width, height });\\n    console.log(JSON.stringify(await page.evaluate(() => {\\n      const rect = s => { const r = document.querySelector(s).getBoundingClientRect(); return { x:r.x, y:r.y, width:r.width, height:r.height, bottom:r.bottom, right:r.right }; };\\n      return { viewport:[innerWidth,innerHeight], document:[document.documentElement.scrollWidth,document.documentElement.scrollHeight], header:rect('.topbar'), cookies:rect('.cookie-settings'), hero:rect('.hero'), form:rect('.lead-card'), trust:rect('.trustbar'), footer:!!document.querySelector('footer') };\\n    })));\\n  }\\n  await browser.close();\\n})().catch(e => { console.error(e.message); process.exitCode = 1; });\\n'@ | node\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:21:41.512Z",
+      "lastAccessed": "2026-10-02T11:21:41.512Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:21:41.512Z"
+    },
+    "cmd-1790940135818": {
+      "key": "cmd-1790940135818",
+      "value": "{\"command\":\"@'\\nconst { chromium } = require('playwright');\\n(async () => {\\n const browser = await chromium.launch({ headless: true });\\n const page = await browser.newPage();\\n await page.addInitScript(() => localStorage.setItem('nfcr_consent_analytics', 'rejected'));\\n await page.goto('http://localhost:3100/fr/visibilite/', {waitUntil:'networkidle'});\\n await page.evaluate(() => document.fonts.ready);\\n for (const [width,height] of [[1366,600],[1024,600],[1280,640],[901,768],[900,600]]) {\\n  await page.setViewportSize({width,height});\\n  console.log(JSON.stringify(await page.evaluate(() => ({viewport:[innerWidth,innerHeight],scroll:[document.documentElement.scrollWidth,document.documentElement.scrollHeight],bodyHeight:document.body.getBoundingClientRect().height, formHeight:document.querySelector('.lead-card').getBoundingClientRect().height}))));\\n }\\n await browser.close();\\n})().catch(e=>{console.error(e.message);process.exitCode=1});\\n'@ | node\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:22:15.818Z",
+      "lastAccessed": "2026-10-02T11:22:15.818Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:22:15.818Z"
+    },
+    "cmd-1790940142569": {
+      "key": "cmd-1790940142569",
+      "value": "{\"command\":\"rg -n \\\"footer|cookies|scrollHeight|trustbar|viewport|1024|1280|1366\\\" e2e components --glob '*test*' --glob '*spec*'; rg -n \\\"landing-page|grid-template-rows|leadForm|cookie-settings\\\" app/globals.css components/landing/Header.tsx components/landing/LandingClient.tsx; git diff --check; rg --count -i \\\"api.?key|password|secret|bearer|token\\\" .claude-flow/memory/store.json .claude-flow/policy/state.json .claude-flow/neural/stats.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:22:22.569Z",
+      "lastAccessed": "2026-10-02T11:22:22.569Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:22:22.569Z"
+    },
+    "cmd-1790940143305": {
+      "key": "cmd-1790940143305",
+      "value": "{\"command\":\"Get-Content e2e/analytics.spec.ts; Get-Content .claude-flow/neural/stats.json; git diff -- .claude-flow/memory/store.json | Select-Object -First 100\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:22:23.305Z",
+      "lastAccessed": "2026-10-02T11:22:23.305Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:22:23.305Z"
+    },
+    "cmd-1790940185342": {
+      "key": "cmd-1790940185342",
+      "value": "{\"command\":\"Get-Content README.md -TotalCount 23; Get-Content e2e/README.md -TotalCount 20; Get-Content .gitignore\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T11:23:05.342Z",
+      "lastAccessed": "2026-10-02T11:23:05.342Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T11:23:05.342Z"
     }
   },
   "version": "3.0.0"

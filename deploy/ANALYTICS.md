@@ -1,6 +1,6 @@
 # Mesures Google Analytics 4
 
-Le flux de production est `G-EHR9YE7E24`, configuré dans `.env.production`.
+Le flux de production est `G-E28XSB71R4`, configuré dans `.env.production`.
 L'identifiant est public. Toute modification de `NEXT_PUBLIC_GA4_MEASUREMENT_ID`
 nécessite un nouveau build et un déploiement de `out/`.
 
@@ -15,7 +15,7 @@ Ces réglages nécessitent l'accès à l'administration Google Analytics ; ils n
 peuvent pas être effectués avec le seul identifiant de mesure.
 
 1. Administration → Collecte et modification des données → Flux de données →
-   sélectionner le flux Web correspondant à `G-EHR9YE7E24`.
+   sélectionner le flux Web correspondant à `G-E28XSB71R4`.
 2. Désactiver la **mesure améliorée** pour ce flux : les pages, clics, formulaires
    et défilements sont suivis par le code ci-dessous. Sinon GA peut également
    collecter des événements automatiques, des URL complètes ou doubler les
