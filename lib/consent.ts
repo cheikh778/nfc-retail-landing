@@ -15,7 +15,7 @@ if (typeof window !== 'undefined') {
   });
 }
 
-/** Lets the footer's "Gérer les cookies" link reopen the banner on demand. */
+/** Lets a "Gérer les cookies" control reopen the banner on demand. */
 export function reopenConsentBanner(): void {
   window.dispatchEvent(new CustomEvent(CONSENT_REOPEN_EVENT));
 }
