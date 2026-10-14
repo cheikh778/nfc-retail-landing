@@ -55,7 +55,7 @@ export const fr: LandingContent = {
       establishmentPlaceholder: 'Ex : Maison Zayna',
       cityLabel: 'Ville',
       cityPlaceholder: 'Ex : Paris',
-      firstNameLabel: 'Prénom',
+      firstNameLabel: 'Prénom (facultatif)',
       firstNamePlaceholder: 'Ex : Jean',
       lastNameLabel: 'Nom',
       lastNamePlaceholder: 'Ex : Dupont',

@@ -1,4 +1,4 @@
-import { captureAttribution, getStoredAttribution } from './utm';
+import { captureAttribution } from './utm';
 import type { ConsentData, LeadFormData, LeadSubmissionPayload } from '@/types/lead';
 
 /*
@@ -72,7 +72,7 @@ export async function submitLead(data: LeadFormData, meta: LeadSubmissionMeta): 
     throw new LeadSubmissionError('api_base_url_missing');
   }
 
-  const attribution = getStoredAttribution() ?? captureAttribution();
+  const attribution = captureAttribution();
   const payload: LeadSubmissionPayload = {
     ...data,
     attribution,

@@ -8,6 +8,7 @@ pré-généré, indexable et rapide.
 La landing affiche la promesse et le visuel à gauche, le formulaire à droite,
 puis la barre de confiance. Elle tient dans la hauteur des écrans desktop et
 portable, sans footer. Sur mobile, le contenu défile avec un CTA fixe.
+Le prénom est facultatif ; les autres champs du formulaire restent requis.
 La gestion des cookies reste accessible dans l’en-tête ; les pages légales et
 la confirmation conservent leur footer.
 
@@ -32,7 +33,7 @@ npm run dev                     # http://localhost:3000/fr/visibilite
 
 Sans `NEXT_PUBLIC_API_BASE_URL`, le formulaire affiche son message d'erreur à
 la soumission (aucune API à contacter). Pour tester le parcours complet en
-local, pointer la variable sur l'API Symfony ou un mock.
+local, pointer la variable sur l'API Node/Express ou un mock.
 
 ## Scripts
 
@@ -58,9 +59,9 @@ components/
 content/fr.ts            Tout le texte FR (source unique)
 hooks/useLeadForm.ts     État + validation + soumission du formulaire
 lib/
-  api.ts                 POST du lead vers l'API Symfony (contrat à confirmer — voir le TODO en tête)
+  api.ts                 CSRF + POST du lead vers l'API Node/Express
   tracking.ts / ga4.ts   dataLayer + GA4 (chargé après consentement)
-  utm.ts                 Capture UTM / click-ids (sessionStorage)
+  attribution.ts / utm.ts Attribution des leads, capture UTM/click-ids et secours
   validation.ts / phone.ts / url.ts
   seo.ts / paths.ts
 ```
@@ -71,7 +72,7 @@ Variables `NEXT_PUBLIC_*` (inlinées dans le bundle — jamais de secret) :
 
 | Variable | Rôle |
 | --- | --- |
-| `NEXT_PUBLIC_API_BASE_URL` | Base de l'API Symfony. Le client POST sur `${base}/fr/visibilite/lead`. |
+| `NEXT_PUBLIC_API_BASE_URL` | Base de l'API Node/Express. Le client POST sur `${base}/api/fr/visibilite/lead`. |
 | `NEXT_PUBLIC_GA4_MEASUREMENT_ID` | ID GA4 (`G-XXXX`). Vide = GA4 non chargé. |
 
 `.env.production` (committé) porte les valeurs de build prod.
@@ -82,6 +83,9 @@ La configuration du suivi, les événements et les réglages à effectuer dans G
 sont documentés dans [`deploy/ANALYTICS.md`](deploy/ANALYTICS.md).
 La revue de sécurité et les constats concernant l'API sont dans
 [`deploy/SECURITY-REVIEW.md`](deploy/SECURITY-REVIEW.md).
+L'attribution des leads, les valeurs de secours et les liens à utiliser pour
+Google Ads, ChatGPT et les autres sources sont dans
+[`deploy/ATTRIBUTION.md`](deploy/ATTRIBUTION.md).
 
 ## SEO
 
@@ -109,8 +113,6 @@ Dev local : `npm run dev` ici (front `:3000`) + `npm run dev` dans un clone de
 
 ## À faire avant la production
 
-- Confirmer le contrat de l'API Symfony (chemin, auth, réponse, idempotence
-  `submissionId`) et brancher `lib/api.ts`.
 - Rédiger et faire valider les pages **Mentions légales** et **Politique de
   confidentialité** (placeholders aujourd'hui).
 - Fournir un vrai `og-image.png`.
