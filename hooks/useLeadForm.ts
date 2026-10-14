@@ -32,7 +32,7 @@ type Errors = Partial<Record<keyof LeadFields, FieldErrorCode>>;
 
 function goToMerci(firstName: string, establishmentName: string): void {
   try {
-    sessionStorage.setItem(MERCI_CONTEXT_KEY, JSON.stringify({ firstName, establishmentName }));
+    sessionStorage.setItem(MERCI_CONTEXT_KEY, JSON.stringify({ firstName: firstName.trim(), establishmentName }));
   } catch {
     // Best-effort greeting only.
   }

@@ -1,77 +1,91 @@
 import type { AttributionData } from '@/types/lead';
-
-const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
-const CLICK_ID_KEYS = ['gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid'] as const;
+import { externalReferrer, normalizeAttribution, readTrackingParams, TRACKING_KEYS, type ResolvedAttribution } from './attribution';
 
 const SESSION_KEY = 'nfcr_attribution_last';
 const FIRST_TOUCH_KEY = 'nfcr_attribution_first';
+let memoryAttribution: ResolvedAttribution | null = null;
+let memoryOnly = false;
+let documentCaptured = false;
 
-function safeGetJSON<T>(storage: Storage, key: string): T | null {
+function isAttribution(value: unknown): value is AttributionData {
+  if (!value || typeof value !== 'object') return false;
+  const record = value as Record<string, unknown>;
+  return ['landing_page', 'landing_path', 'referrer', 'landing_timestamp'].every((key) => typeof record[key] === 'string')
+    && TRACKING_KEYS.every((key) => record[key] === null || typeof record[key] === 'string');
+}
+
+function readSession(): ResolvedAttribution | null {
+  if (memoryOnly) return memoryAttribution;
+  let raw: string | null;
   try {
-    const raw = storage.getItem(key);
-    return raw ? (JSON.parse(raw) as T) : null;
+    raw = window.sessionStorage.getItem(SESSION_KEY);
+  } catch {
+    return memoryAttribution;
+  }
+  if (!raw) return memoryOnly ? memoryAttribution : null;
+  try {
+    const value: unknown = JSON.parse(raw);
+    return isAttribution(value) ? normalizeAttribution(value) : null;
   } catch {
     return null;
   }
 }
 
-function safeSetJSON(storage: Storage, key: string, value: unknown): void {
+function persist(attribution: ResolvedAttribution): void {
+  memoryAttribution = attribution;
   try {
-    storage.setItem(key, JSON.stringify(value));
+    window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(attribution));
+    memoryOnly = false;
   } catch {
-    // Storage unavailable (private mode, quota, disabled) — attribution is
-    // best-effort only, never block the page for it.
+    // Even access to the storage getter can throw. Keep the current visit in memory.
+    memoryOnly = true;
+  }
+  try {
+    if (!window.localStorage.getItem(FIRST_TOUCH_KEY)) {
+      window.localStorage.setItem(FIRST_TOUCH_KEY, JSON.stringify(attribution));
+    }
+  } catch {
+    // First touch is best effort; submission uses the current visit, not this record.
   }
 }
 
-function readCurrentAttribution(): AttributionData {
-  const params = new URLSearchParams(window.location.search);
-  const get = (key: string) => params.get(key);
-
-  return {
-    utm_source: get('utm_source'),
-    utm_medium: get('utm_medium'),
-    utm_campaign: get('utm_campaign'),
-    utm_content: get('utm_content'),
-    utm_term: get('utm_term'),
-    gclid: get('gclid'),
-    gbraid: get('gbraid'),
-    wbraid: get('wbraid'),
-    fbclid: get('fbclid'),
-    msclkid: get('msclkid'),
-    landing_page: window.location.href,
-    landing_path: window.location.pathname,
-    referrer: document.referrer || '',
+function readCurrentAttribution(): ResolvedAttribution {
+  const params = readTrackingParams(window.location.href);
+  return normalizeAttribution({
+    utm_source: params.utm_source ?? null, utm_medium: params.utm_medium ?? null,
+    utm_campaign: params.utm_campaign ?? null, utm_content: params.utm_content ?? null,
+    utm_term: params.utm_term ?? null,
+    gclid: params.gclid ?? null, gbraid: params.gbraid ?? null, wbraid: params.wbraid ?? null,
+    fbclid: params.fbclid ?? null, msclkid: params.msclkid ?? null,
+    landing_page: window.location.href.slice(0, 2000),
+    landing_path: window.location.pathname.slice(0, 500),
+    referrer: document.referrer.slice(0, 2000),
     landing_timestamp: new Date().toISOString(),
-  };
-}
-
-function hasTrackingParams(): boolean {
-  const params = new URLSearchParams(window.location.search);
-  return [...UTM_KEYS, ...CLICK_ID_KEYS].some((key) => params.has(key) && params.get(key));
+  });
 }
 
 /**
- * Call once on mount. Captures UTM/click-id params from the URL and persists
- * them for the rest of the visit (sessionStorage), without dropping params a
- * user arrived with earlier in the session. Also snapshots a first-touch
- * record in localStorage (never overwritten) so first/last touch can be told
- * apart later, even though only last-touch ships in the lead payload for V1.
+ * Preserve the last acquisition during internal navigation and direct revisits.
+ * A new campaign replaces the complete attribution, never mixing old/new fields.
+ * Capture both on arrival and immediately before submitting; GA consent is separate.
  */
-export function captureAttribution(): AttributionData {
+export function captureAttribution(): ResolvedAttribution {
   const current = readCurrentAttribution();
-  const stored = safeGetJSON<AttributionData>(sessionStorage, SESSION_KEY);
-
-  const attribution = hasTrackingParams() || !stored ? current : stored;
-  safeSetJSON(sessionStorage, SESSION_KEY, attribution);
-
-  if (!safeGetJSON<AttributionData>(localStorage, FIRST_TOUCH_KEY)) {
-    safeSetJSON(localStorage, FIRST_TOUCH_KEY, current);
-  }
-
+  const stored = readSession();
+  const firstCapture = !documentCaptured;
+  documentCaptured = true;
+  const hasTracking = Object.keys(readTrackingParams(window.location.href)).length > 0;
+  // A real return from the same external site is still a new acquisition.
+  // document.referrer stays unchanged during SPA navigation, so subsequent
+  // captures of this document must preserve its original entry attribution.
+  const newReferrer = firstCapture && !!externalReferrer(current);
+  const sameEntry = !!stored && current.landing_page === stored.landing_page
+    && TRACKING_KEYS.every((key) => current[key] === stored[key]);
+  const attribution = stored && ((!firstCapture && sameEntry) || (!hasTracking && !newReferrer)) ? stored : current;
+  persist(attribution);
   return attribution;
 }
 
-export function getStoredAttribution(): AttributionData | null {
-  return safeGetJSON<AttributionData>(sessionStorage, SESSION_KEY);
+export function getStoredAttribution(): ResolvedAttribution | null {
+  return readSession();
 }

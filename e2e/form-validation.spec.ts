@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { dismissConsentBanner, fillLeadForm, LANDING, MERCI_RE, stubLeadApi } from './helpers';
+import { dismissConsentBanner, fillLeadForm, LANDING, MERCI_RE, stubLeadApi, VALID_LEAD } from './helpers';
 
 test('required fields are flagged and clear once corrected', async ({ page }) => {
   await page.goto(LANDING);
@@ -64,3 +64,19 @@ test('a failing API surfaces the retry message and stays on the form', async ({ 
   await expect(page.getByTestId('submit-error')).toBeVisible();
   await expect(page).toHaveURL(/\/fr\/visibilite\/?$/);
 });
+
+for (const firstName of ['', '   ']) {
+test(`a lead with optional first name ${JSON.stringify(firstName)} succeeds and preserves its campaign source`, async ({ page }) => {
+  const getBody = await stubLeadApi(page);
+  await page.goto(`${LANDING}?utm_source=chatgpt&utm_medium=ads&utm_campaign=optional_first_name`);
+  await dismissConsentBanner(page);
+  await fillLeadForm(page, { ...VALID_LEAD, firstName });
+  await expect(page.getByLabel('Prénom (facultatif)')).toBeVisible();
+  await page.getByTestId('lead-submit').click();
+  await expect(page).toHaveURL(MERCI_RE);
+  const payload = JSON.parse(getBody()!);
+  expect(payload.firstName.trim()).toBe('');
+  expect(payload.attribution).toMatchObject({ utm_source: 'chatgpt', utm_medium: 'ads', utm_campaign: 'optional_first_name' });
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Votre demande d’analyse a bien été reçue.');
+});
+}
