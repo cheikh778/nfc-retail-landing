@@ -48,6 +48,7 @@ export function LeadForm({ content }: Props) {
     'data-testid': `field-${name.replace(/([A-Z])/g, '-$1').toLowerCase()}`,
     value: form.values[name],
     autoComplete,
+    'aria-required': name !== 'firstName',
     'aria-invalid': form.errors[name] ? true : undefined,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => form.updateField(name, e.target.value),
   });
@@ -89,7 +90,7 @@ export function LeadForm({ content }: Props) {
 
         <div className="two-cols">
           <label htmlFor={`${uid}-firstName`}>
-            {content.fields.firstNameLabel} <span className="req">*</span>
+            {content.fields.firstNameLabel}
             <span className={fieldClass('firstName')}>
               <span className="field-icon" aria-hidden>
                 <User />

@@ -34,7 +34,7 @@ export interface LeadFields {
 export function validateLead(data: LeadFields): Partial<Record<keyof LeadFields, FieldErrorCode>> {
   const errors: Partial<Record<keyof LeadFields, FieldErrorCode>> = {};
 
-  for (const field of ['establishmentName', 'city', 'firstName', 'lastName', 'email', 'phone'] as const) {
+  for (const field of ['establishmentName', 'city', 'lastName', 'email', 'phone'] as const) {
     const missing = required(data[field]);
     if (missing) errors[field] = missing;
   }
@@ -53,9 +53,6 @@ export function validateStep2(
   data: Omit<LeadStep2, 'companyWebsiteHp'>,
 ): Partial<Record<keyof Omit<LeadStep2, 'companyWebsiteHp'>, FieldErrorCode>> {
   const errors: Partial<Record<keyof Omit<LeadStep2, 'companyWebsiteHp'>, FieldErrorCode>> = {};
-
-  const firstNameError = required(data.firstName);
-  if (firstNameError) errors.firstName = firstNameError;
 
   const lastNameError = required(data.lastName);
   if (lastNameError) errors.lastName = lastNameError;

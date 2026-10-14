@@ -3,14 +3,14 @@
 | File | Scenario |
 | --- | --- |
 | `happy-path.spec.ts` | Landing → CTA → modal step 1 → step 2 → submit → `/merci`; honeypot short-circuit |
-| `utm-attribution.spec.ts` | UTM params on the landing URL reach the submitted lead, and survive a param-less revisit |
+| `utm-attribution.spec.ts` | Campaigns, click IDs, referrers, direct access, blocked storage, query-only navigation, new external visits and GA refusal reach the submitted lead |
 | `form-validation.spec.ts` | Invalid input → inline errors → correction → success; consent gate; API-failure retry message |
 | `mobile.spec.ts` | Mobile viewport: no horizontal overflow, bottom-sheet modal, full flow |
 | `desktop.spec.ts` | Desktop and laptop viewports: no footer, no scrolling or clipped form controls, including validation and API errors |
 
 ## The lead API is stubbed
 
-The real lead API lives in a **separate Symfony repo**. Specs intercept the
+The real lead API lives in the **separate Node/Express repo `nfcretail-api`**. Specs intercept the
 request with `page.route('**/fr/visibilite/lead')` (`stubLeadApi` in
 `helpers.ts`) — nothing leaves the browser. `playwright.config.ts` sets
 `NEXT_PUBLIC_API_BASE_URL` to a dummy absolute URL so `lib/api.ts` builds a

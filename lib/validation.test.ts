@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { validateStep1, validateStep2 } from '@/lib/validation';
+import { validateLead, validateStep1, validateStep2 } from '@/lib/validation';
 
 describe('validateStep1', () => {
   it('flags all required fields when empty', () => {
@@ -41,7 +41,7 @@ describe('validateStep2', () => {
 
   it('flags missing required fields', () => {
     const errors = validateStep2({ ...valid, firstName: '', phone: '' });
-    expect(errors.firstName).toBe('required');
+    expect(errors.firstName).toBeUndefined();
     expect(errors.phone).toBe('required');
   });
 
@@ -58,5 +58,15 @@ describe('validateStep2', () => {
     expect(validateStep2({ ...valid, website: '' }).website).toBeUndefined();
     expect(validateStep2({ ...valid, website: 'example.fr' }).website).toBeUndefined();
     expect(validateStep2({ ...valid, website: 'not a url' }).website).toBe('invalid_website');
+  });
+});
+
+describe('validateLead', () => {
+  const valid = { establishmentName: 'Attribution Test', city: 'Lyon', firstName: '', lastName: 'Test', phone: '0674321985', email: 'lead@example.test' };
+  it.each(['', '   '])('accepts an optional first name %j', (firstName) => {
+    expect(validateLead({ ...valid, firstName })).toEqual({});
+  });
+  it('keeps the last name required', () => {
+    expect(validateLead({ ...valid, lastName: '' }).lastName).toBe('required');
   });
 });

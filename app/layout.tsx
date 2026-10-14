@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { Caveat, Public_Sans, Space_Grotesk } from 'next/font/google';
 import { ORGANIZATION_JSON_LD, SITE_NAME, SITE_URL, WEBSITE_JSON_LD } from '@/lib/seo';
 import './globals.css';
 import { AnalyticsTracker } from '@/components/consent/AnalyticsTracker';
 import { ConsentBanner } from '@/components/consent/ConsentBanner';
+import { AttributionCapture } from '@/components/consent/AttributionCapture';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -46,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body suppressHydrationWarning>
         {children}
+        <Suspense fallback={null}><AttributionCapture /></Suspense>
         <AnalyticsTracker />
         <ConsentBanner />
         <script

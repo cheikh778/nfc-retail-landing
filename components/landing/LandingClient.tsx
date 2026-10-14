@@ -1,18 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
 import { getContent } from '@/content';
-import { captureAttribution } from '@/lib/utm';
 import { Header } from './Header';
 import { Hero } from './Hero';
 import { TrustBar } from './TrustBar';
 
 export function LandingClient() {
   const content = getContent();
-
-  useEffect(() => {
-    captureAttribution();
-  }, []);
 
   return (
     <div className="landing-page">
