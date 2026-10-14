@@ -1223,6 +1223,1662 @@
       "lastAccessed": "2026-10-02T11:23:05.342Z",
       "accessCount": 0,
       "expiresAt": "2026-11-01T11:23:05.342Z"
+    },
+    "cmd-1790945083793": {
+      "key": "cmd-1790945083793",
+      "value": "{\"command\":\"node -e 'const {chromium}=require(\\\"@playwright/test\\\"); (async()=>{const b=await chromium.launch();for(const [width,height] of [[1280,600],[1280,560],[1024,640],[1024,600],[960,600],[901,600],[901,560],[1366,650]]){const p=await b.newPage({viewport:{width,height}});await p.goto(\\\"http://localhost:3100/fr/visibilite/\\\");await p.getByTestId(\\\"consent-reject\\\").click();await p.evaluate(()=>document.fonts.ready);for(const state of [\\\"initial\\\",\\\"errors\\\"]){if(state===\\\"errors\\\")await p.getByTestId(\\\"lead-submit\\\").click();console.log(JSON.stringify(await p.evaluate(state=>({state,viewport:[innerWidth,innerHeight],page:[document.documentElement.scrollWidth,document.documentElement.scrollHeight],form:{height:document.querySelector(\\\".lead-card\\\").getBoundingClientRect().height,width:document.querySelector(\\\".lead-card\\\").getBoundingClientRect().width},messageHeight:document.querySelector(\\\".form-message\\\").getBoundingClientRect().height}),state)));}if(width===1024&&height===600)await p.screenshot({path:\\\"C:/Users/Cheikh/.codex/visualizations/2026/10/02/01a0fbee-c61f-7000-bce6-3e15b782bd8d/landing-compact-1024x600.png\\\"});await p.close();}await b.close();})()'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:44:43.793Z",
+      "lastAccessed": "2026-10-02T12:44:43.793Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:44:43.793Z"
+    },
+    "cmd-1790945093145": {
+      "key": "cmd-1790945093145",
+      "value": "{\"command\":\"rg -n --hidden -g '!node_modules' -g '!.git' -g '!.next' -g '!out' -g '!test-results' -g '!playwright-report' 'G-EHR9YE7E24|G-E28XSB71R4|NEXT_PUBLIC_GA4_MEASUREMENT_ID' .; Get-Content lib/ga4.ts; Get-Content lib/consent.ts; Get-Content hooks/useAnalyticsBootstrap.ts; Get-Content components/consent/AnalyticsTracker.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:44:53.145Z",
+      "lastAccessed": "2026-10-02T12:44:53.145Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:44:53.145Z"
+    },
+    "cmd-1790945133293": {
+      "key": "cmd-1790945133293",
+      "value": "{\"command\":\"npm run dev -- --port 3100\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:45:33.293Z",
+      "lastAccessed": "2026-10-02T12:45:33.293Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:45:33.293Z"
+    },
+    "cmd-1790945190041": {
+      "key": "cmd-1790945190041",
+      "value": "{\"command\":\"git diff --staged; git status --short; git diff --stat; git diff -- app/globals.css components/landing/Header.tsx components/landing/LandingClient.tsx components/consent/ConsentBanner.tsx e2e/desktop.spec.ts .env.production docs/ANALYTICS.md; Get-Content e2e/desktop.spec.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:46:30.041Z",
+      "lastAccessed": "2026-10-02T12:46:30.041Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:46:30.041Z"
+    },
+    "cmd-1790945191956": {
+      "key": "cmd-1790945191956",
+      "value": "{\"command\":\"Get-Content components/consent/ConsentBanner.tsx; Get-Content components/landing/Header.tsx; Get-Content components/landing/LandingClient.tsx; Get-Content hooks/useAnalyticsBootstrap.ts; Get-Content lib/ga4.ts; Get-Content .env.production; rg -n \\\"G-EHR9YE7E24|G-E28XSB71R4|unset|cookie-settings\\\" docs deploy .env.example .env.production app components hooks lib e2e\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:46:31.956Z",
+      "lastAccessed": "2026-10-02T12:46:31.956Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:46:31.956Z"
+    },
+    "cmd-1790945198690": {
+      "key": "cmd-1790945198690",
+      "value": "{\"command\":\"git diff -- components/landing/LandingClient.tsx components/landing/Header.tsx app/globals.css; Get-Content e2e/desktop.spec.ts; Get-Content app/globals.css | Select-Object -Skip 810 -First 270; Get-Content components/landing/LeadForm.tsx | Select-Object -Skip 45 -First 155\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:46:38.690Z",
+      "lastAccessed": "2026-10-02T12:46:38.690Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:46:38.690Z"
+    },
+    "cmd-1790945200722": {
+      "key": "cmd-1790945200722",
+      "value": "{\"command\":\"npm run build\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:46:40.722Z",
+      "lastAccessed": "2026-10-02T12:46:40.722Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:46:40.722Z"
+    },
+    "cmd-1790945209277": {
+      "key": "cmd-1790945209277",
+      "value": "{\"command\":\"npm run lint\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:46:49.277Z",
+      "lastAccessed": "2026-10-02T12:46:49.277Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:46:49.277Z"
+    },
+    "cmd-1790945211031": {
+      "key": "cmd-1790945211031",
+      "value": "{\"command\":\"$reviewFiles = @('e2e/desktop.spec.ts','lib/consent.ts'); foreach ($reviewFile in $reviewFiles) { Write-Output \\\"FILE: $reviewFile\\\"; $lineNumber = 0; Get-Content -LiteralPath $reviewFile | ForEach-Object { $lineNumber++; '{0,4}: {1}' -f $lineNumber, $_ } }; git diff -- components/landing/LandingClient.tsx components/landing/Header.tsx lib/consent.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:46:51.031Z",
+      "lastAccessed": "2026-10-02T12:46:51.031Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:46:51.031Z"
+    },
+    "cmd-1790945223020": {
+      "key": "cmd-1790945223020",
+      "value": "{\"command\":\"Get-Content e2e/helpers.ts; Get-Content lib/consent.test.ts; Get-Content playwright.config.ts; git diff --check\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:47:03.020Z",
+      "lastAccessed": "2026-10-02T12:47:03.020Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:47:03.020Z"
+    },
+    "cmd-1790945223181": {
+      "key": "cmd-1790945223181",
+      "value": "{\"command\":\"git log --oneline -5; git diff -- lib/consent.ts deploy/ANALYTICS.md; git show HEAD -- app/globals.css components/landing/Header.tsx components/landing/LandingClient.tsx e2e/desktop.spec.ts; Get-Content deploy/ANALYTICS.md; Get-Content app/globals.css | Select-Object -Skip 956 -First 190\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:47:03.181Z",
+      "lastAccessed": "2026-10-02T12:47:03.181Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:47:03.181Z"
+    },
+    "cmd-1790945229849": {
+      "key": "cmd-1790945229849",
+      "value": "{\"command\":\"npm run lint; npx tsc --noEmit\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:47:09.849Z",
+      "lastAccessed": "2026-10-02T12:47:09.849Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:47:09.849Z"
+    },
+    "cmd-1790945234887": {
+      "key": "cmd-1790945234887",
+      "value": "{\"command\":\"Get-Content e2e/helpers.ts; Get-Content playwright.config.ts; rg -n 'company_website|form-message|submit-error|input|lead-submit' components/landing/LeadForm.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:47:14.887Z",
+      "lastAccessed": "2026-10-02T12:47:14.887Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:47:14.887Z"
+    },
+    "cmd-1790945240902": {
+      "key": "cmd-1790945240902",
+      "value": "{\"command\":\"rg -n 'two-cols|grid-template-columns: minmax|@media.*640|@media.*600|cookie-settings|overflow' app/globals.css; Get-NetTCPConnection -LocalPort 3100 -State Listen -ErrorAction SilentlyContinue | Select-Object LocalAddress,LocalPort\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:47:20.902Z",
+      "lastAccessed": "2026-10-02T12:47:20.902Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:47:20.902Z"
+    },
+    "cmd-1790945248800": {
+      "key": "cmd-1790945248800",
+      "value": "{\"command\":\"Get-Content components/landing/LeadForm.tsx | Select-Object -Skip 124 -First 74; Get-Content components/landing/Header.tsx; Get-Content components/landing/LandingClient.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:47:28.800Z",
+      "lastAccessed": "2026-10-02T12:47:28.800Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:47:28.800Z"
+    },
+    "cmd-1790945310484": {
+      "key": "cmd-1790945310484",
+      "value": "{\"command\":\"$reviewInventory = Get-CimInstance Win32_Process; $reviewNodes = @($reviewInventory | Where-Object { $_.Name -eq 'node.exe' -and $_.CommandLine -like '*cookieControl:!!document.querySelector*' }); foreach ($reviewNode in $reviewNodes) { $reviewPending = @([int]$reviewNode.ProcessId); $reviewOwned = @(); while ($reviewPending.Count -gt 0) { $reviewCurrent = $reviewPending[0]; $reviewPending = @($reviewPending | Select-Object -Skip 1); $reviewOwned += $reviewCurrent; $reviewPending += @($reviewInventory | Where-Object { $_.ParentProcessId -eq $reviewCurrent } | ForEach-Object { [int]$_.ProcessId }) }; foreach ($reviewOwnedId in ($reviewOwned | Sort-Object -Descending)) { Stop-Process -Id $reviewOwnedId -ErrorAction SilentlyContinue }; Write-Output ('Closed reviewer test processes: ' + $reviewOwned.Count) }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:48:30.484Z",
+      "lastAccessed": "2026-10-02T12:48:30.484Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:48:30.484Z"
+    },
+    "cmd-1790945364245": {
+      "key": "cmd-1790945364245",
+      "value": "{\"command\":\"npm test\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:49:24.245Z",
+      "lastAccessed": "2026-10-02T12:49:24.245Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:49:24.245Z"
+    },
+    "cmd-1790945367313": {
+      "key": "cmd-1790945367313",
+      "value": "{\"command\":\"npm run test:e2e -- --workers=1\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:49:27.313Z",
+      "lastAccessed": "2026-10-02T12:49:27.313Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:49:27.313Z"
+    },
+    "cmd-1790945388323": {
+      "key": "cmd-1790945388323",
+      "value": "{\"command\":\"node -e '\\nconst assert=require(\\\"node:assert/strict\\\");\\nconst {chromium}=require(\\\"@playwright/test\\\");\\n(async()=>{\\n const browser=await chromium.launch();\\n const context=await browser.newContext({viewport:{width:1366,height:650}});\\n const hits=[];\\n let gaScripts=0;\\n await context.route(\\\"**/*\\\",async route=>{\\n  const request=route.request(),url=new URL(request.url());\\n  if(url.hostname.endsWith(\\\"google-analytics.com\\\")||url.hostname===\\\"analytics.google.com\\\"||url.hostname.endsWith(\\\"doubleclick.net\\\")){\\n   const common=Object.fromEntries(url.searchParams);\\n   const lines=(request.postData()||\\\"\\\").split(\\\"\\\\n\\\");\\n   for(const line of lines) hits.push({...common,...Object.fromEntries(new URLSearchParams(line))});\\n   await route.fulfill({status:204,body:\\\"\\\"});return;\\n  }\\n  if(url.pathname===\\\"/api/csrf-token\\\"||url.pathname.endsWith(\\\"/fr/visibilite/lead\\\")){\\n   await route.fulfill({status:200,contentType:\\\"application/json\\\",headers:{\\\"access-control-allow-origin\\\":\\\"http://127.0.0.1:3200\\\",\\\"access-control-allow-credentials\\\":\\\"true\\\",\\\"access-control-allow-headers\\\":\\\"content-type,x-csrf-token\\\"},body:JSON.stringify(url.pathname===\\\"/api/csrf-token\\\"?{csrfToken:\\\"preview-token\\\"}:{})});return;\\n  }\\n  if(url.hostname===\\\"www.googletagmanager.com\\\"&&url.pathname===\\\"/gtag/js\\\")gaScripts++;\\n  await route.continue();\\n });\\n const page=await context.newPage();\\n await page.goto(\\\"http://127.0.0.1:3200/fr/visibilite/?email=private@example.com\\\");\\n await page.getByTestId(\\\"consent-accept\\\").waitFor();\\n assert.equal(gaScripts,0);assert.equal(hits.length,0);\\n const tagResponse=page.waitForResponse(r=>r.url().includes(\\\"googletagmanager.com/gtag/js?id=G-E28XSB71R4\\\"));\\n await page.getByTestId(\\\"consent-accept\\\").click();\\n assert.equal((await tagResponse).status(),200);\\n await page.waitForTimeout(1700);\\n await page.getByTestId(\\\"lead-submit\\\").click();\\n await page.getByRole(\\\"button\\\",{name:\\\"Gérer les cookies\\\"}).click();\\n await page.getByTestId(\\\"consent-accept\\\").click();\\n for(const [name,value] of Object.entries({\\\"establishment-name\\\":\\\"Boulangerie Test\\\",\\\"city\\\":\\\"Lyon\\\",\\\"first-name\\\":\\\"Camille\\\",\\\"last-name\\\":\\\"Moreau\\\",\\\"email\\\":\\\"preview@example.com\\\",\\\"phone\\\":\\\"06 74 32 19 85\\\"})){\\n  await page.getByTestId(\\\"field-\\\"+name).fill(value);\\n }\\n await page.getByTestId(\\\"lead-submit\\\").click();\\n await page.waitForURL(\\\"**/fr/visibilite/merci/\\\");\\n await page.waitForTimeout(2000);\\n const eventNames=[...new Set(hits.map(h=>h.en).filter(Boolean))];\\n const required=[\\\"page_view\\\",\\\"landing_view\\\",\\\"cta_click\\\",\\\"button_click\\\",\\\"form_view\\\",\\\"form_start\\\",\\\"form_submit\\\",\\\"form_validation_error\\\",\\\"form_complete\\\",\\\"generate_lead\\\",\\\"confirmation_view\\\"];\\n assert(required.every(name=>eventNames.includes(name)),\\\"Missing events: \\\"+required.filter(name=>!eventNames.includes(name)).join(\\\", \\\"));\\n assert(hits.filter(h=>h.en).every(h=>h.tid===\\\"G-E28XSB71R4\\\"));\\n const serialized=JSON.stringify(hits);\\n assert(!serialized.includes(\\\"preview@example.com\\\"));\\n assert(!serialized.includes(\\\"private@example.com\\\"));\\n console.log(JSON.stringify({googleScriptStatus:200,measurementId:\\\"G-E28XSB71R4\\\",googleScriptsRequested:gaScripts,collectedEvents:eventNames,totalEventRequests:hits.filter(h=>h.en).length,noRequestsBeforeConsent:true,noPersonalFormDataInEvents:true,note:\\\"Google collection intercepted: no synthetic metrics sent to production\\\"}));\\n await browser.close();\\n})().catch(error=>{console.error(error);process.exit(1);});\\n'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:49:48.323Z",
+      "lastAccessed": "2026-10-02T12:49:48.323Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:49:48.323Z"
+    },
+    "cmd-1790945393247": {
+      "key": "cmd-1790945393247",
+      "value": "{\"command\":\"git diff --check; git diff --stat; git status --short; rg -l 'G-E28XSB71R4' out/_next/static/chunks; rg -l 'G-EHR9YE7E24' out/_next/static/chunks\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:49:53.247Z",
+      "lastAccessed": "2026-10-02T12:49:53.247Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:49:53.247Z"
+    },
+    "cmd-1790945451079": {
+      "key": "cmd-1790945451079",
+      "value": "{\"command\":\"node -e '\\nconst assert=require(\\\"node:assert/strict\\\");\\nconst {chromium}=require(\\\"@playwright/test\\\");\\n(async()=>{\\n const browser=await chromium.launch();\\n try {\\n const context=await browser.newContext({viewport:{width:1366,height:650}});\\n const hits=[];\\n let gaScripts=0;\\n await context.route(\\\"**/*\\\",async route=>{\\n  const request=route.request(),url=new URL(request.url());\\n  if(url.hostname.endsWith(\\\"google-analytics.com\\\")||url.hostname===\\\"analytics.google.com\\\"||url.hostname.endsWith(\\\"doubleclick.net\\\")){\\n   const common=Object.fromEntries(url.searchParams);\\n   for(const line of (request.postData()||\\\"\\\").split(\\\"\\\\n\\\"))hits.push({...common,...Object.fromEntries(new URLSearchParams(line))});\\n   await route.fulfill({status:204,body:\\\"\\\"});return;\\n  }\\n  if(url.pathname===\\\"/api/csrf-token\\\"||url.pathname.endsWith(\\\"/fr/visibilite/lead\\\")){\\n   await route.fulfill({status:200,contentType:\\\"application/json\\\",headers:{\\\"access-control-allow-origin\\\":\\\"http://127.0.0.1:3200\\\",\\\"access-control-allow-credentials\\\":\\\"true\\\",\\\"access-control-allow-headers\\\":\\\"content-type,x-csrf-token\\\"},body:JSON.stringify(url.pathname===\\\"/api/csrf-token\\\"?{csrfToken:\\\"preview-token\\\"}:{})});return;\\n  }\\n  if(url.hostname===\\\"www.googletagmanager.com\\\"&&url.pathname===\\\"/gtag/js\\\")gaScripts++;\\n  await route.continue();\\n });\\n const page=await context.newPage();\\n await page.goto(\\\"http://127.0.0.1:3200/fr/visibilite/?email=private@example.com\\\");\\n await page.getByTestId(\\\"consent-accept\\\").waitFor();\\n assert.equal(gaScripts,0);assert.equal(hits.length,0);\\n const tagResponse=page.waitForResponse(r=>r.url().includes(\\\"googletagmanager.com/gtag/js?id=G-E28XSB71R4\\\"));\\n await page.getByTestId(\\\"consent-accept\\\").click();\\n assert.equal((await tagResponse).status(),200);\\n await page.waitForTimeout(1700);\\n await page.getByTestId(\\\"lead-submit\\\").click();\\n await page.getByRole(\\\"button\\\",{name:\\\"Gérer les cookies\\\"}).click();\\n await page.getByTestId(\\\"consent-accept\\\").click();\\n const fields={\\\"establishment-name\\\":\\\"Boulangerie Test\\\",\\\"city\\\":\\\"Lyon\\\",\\\"first-name\\\":\\\"Camille\\\",\\\"last-name\\\":\\\"Moreau\\\",\\\"email\\\":\\\"preview@example.com\\\",\\\"phone\\\":\\\"06 74 32 19 85\\\"};\\n for(const [name,value] of Object.entries(fields))await page.getByTestId(\\\"field-\\\"+name).fill(value);\\n await page.getByTestId(\\\"lead-submit\\\").click();\\n await page.waitForURL(/\\\\/fr\\\\/visibilite\\\\/merci\\\\/?$/);\\n await page.waitForTimeout(2000);\\n const eventNames=[...new Set(hits.map(h=>h.en).filter(Boolean))];\\n const required=[\\\"page_view\\\",\\\"landing_view\\\",\\\"cta_click\\\",\\\"button_click\\\",\\\"form_view\\\",\\\"form_start\\\",\\\"form_submit\\\",\\\"form_validation_error\\\",\\\"form_complete\\\",\\\"generate_lead\\\",\\\"confirmation_view\\\"];\\n assert(required.every(name=>eventNames.includes(name)),\\\"Missing events: \\\"+required.filter(name=>!eventNames.includes(name)).join(\\\", \\\"));\\n assert(hits.filter(h=>h.en).every(h=>h.tid===\\\"G-E28XSB71R4\\\"));\\n const serialized=JSON.stringify(hits);\\n assert(!serialized.includes(\\\"preview@example.com\\\"));\\n assert(!serialized.includes(\\\"private@example.com\\\"));\\n console.log(JSON.stringify({googleScriptStatus:200,measurementId:\\\"G-E28XSB71R4\\\",googleScriptsRequested:gaScripts,collectedEvents:eventNames,totalEventRequests:hits.filter(h=>h.en).length,noRequestsBeforeConsent:true,noPersonalFormDataInEvents:true,note:\\\"Google collection intercepted: no synthetic metrics sent to production\\\"}));\\n } finally {await browser.close();}\\n})().catch(error=>{console.error(error);process.exit(1);});\\n'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:50:51.079Z",
+      "lastAccessed": "2026-10-02T12:50:51.079Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:50:51.079Z"
+    },
+    "cmd-1790945456056": {
+      "key": "cmd-1790945456056",
+      "value": "{\"command\":\"git log -3 --format='%h %s'; Get-Content components/landing/LandingClient.tsx; rg -n 'max-height: 640|nth-of-type|minmax\\\\(0|landing-page' app/globals.css\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:50:56.056Z",
+      "lastAccessed": "2026-10-02T12:50:56.056Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:50:56.056Z"
+    },
+    "cmd-1790945537011": {
+      "key": "cmd-1790945537011",
+      "value": "{\"command\":\"node -e '\\nconst assert=require(\\\"node:assert/strict\\\");\\nconst {chromium}=require(\\\"@playwright/test\\\");\\n(async()=>{\\n const browser=await chromium.launch();\\n try {\\n const context=await browser.newContext({viewport:{width:1366,height:650}});\\n const hits=[];\\n let gaScripts=0;\\n await context.route(\\\"**/*\\\",async route=>{\\n  const request=route.request(),url=new URL(request.url());\\n  if(url.hostname.endsWith(\\\"google-analytics.com\\\")||url.hostname.endsWith(\\\"analytics.google.com\\\")||url.hostname.endsWith(\\\"doubleclick.net\\\")){\\n   const common=Object.fromEntries(url.searchParams);\\n   for(const line of (request.postData()||\\\"\\\").split(\\\"\\\\n\\\"))hits.push({...common,...Object.fromEntries(new URLSearchParams(line))});\\n   await route.fulfill({status:204,body:\\\"\\\"});return;\\n  }\\n  if(url.pathname===\\\"/api/csrf-token\\\"||url.pathname.endsWith(\\\"/fr/visibilite/lead\\\")){\\n   await route.fulfill({status:200,contentType:\\\"application/json\\\",headers:{\\\"access-control-allow-origin\\\":\\\"http://127.0.0.1:3200\\\",\\\"access-control-allow-credentials\\\":\\\"true\\\",\\\"access-control-allow-headers\\\":\\\"content-type,x-csrf-token\\\"},body:JSON.stringify(url.pathname===\\\"/api/csrf-token\\\"?{csrfToken:\\\"preview-token\\\"}:{})});return;\\n  }\\n  if(url.hostname===\\\"www.googletagmanager.com\\\"&&url.pathname===\\\"/gtag/js\\\")gaScripts++;\\n  await route.continue();\\n });\\n const page=await context.newPage();\\n await page.goto(\\\"http://127.0.0.1:3200/fr/visibilite/?email=private@example.com\\\");\\n await page.getByTestId(\\\"consent-accept\\\").waitFor();\\n assert.equal(gaScripts,0);assert.equal(hits.length,0);\\n const tagResponse=page.waitForResponse(r=>r.url().includes(\\\"googletagmanager.com/gtag/js?id=G-E28XSB71R4\\\"));\\n await page.getByTestId(\\\"consent-accept\\\").click();\\n assert.equal((await tagResponse).status(),200);\\n await page.waitForTimeout(1700);\\n await page.getByTestId(\\\"lead-submit\\\").click();\\n await page.getByRole(\\\"button\\\",{name:\\\"Gérer les cookies\\\"}).click();\\n await page.getByTestId(\\\"consent-accept\\\").click();\\n const fields={\\\"establishment-name\\\":\\\"Boulangerie Test\\\",\\\"city\\\":\\\"Lyon\\\",\\\"first-name\\\":\\\"Camille\\\",\\\"last-name\\\":\\\"Moreau\\\",\\\"email\\\":\\\"preview@example.com\\\",\\\"phone\\\":\\\"06 74 32 19 85\\\"};\\n for(const [name,value] of Object.entries(fields))await page.getByTestId(\\\"field-\\\"+name).fill(value);\\n await page.getByTestId(\\\"lead-submit\\\").click();\\n await page.waitForURL(/\\\\/fr\\\\/visibilite\\\\/merci\\\\/?$/);\\n await page.waitForTimeout(10000);\\n console.log(JSON.stringify({queueEvents:await page.evaluate(()=>window.dataLayer.filter(x=>x&&x.event).map(x=>x.event)),hitSummaries:hits.map(h=>({en:h.en,tid:h.tid,keys:Object.keys(h)}))}));\\n const eventNames=[...new Set(hits.map(h=>h.en).filter(Boolean))];\\n const required=[\\\"page_view\\\",\\\"landing_view\\\",\\\"cta_click\\\",\\\"button_click\\\",\\\"form_view\\\",\\\"form_start\\\",\\\"form_submit\\\",\\\"form_validation_error\\\",\\\"form_complete\\\",\\\"generate_lead\\\",\\\"confirmation_view\\\"];\\n assert(required.every(name=>eventNames.includes(name)),\\\"Missing events: \\\"+required.filter(name=>!eventNames.includes(name)).join(\\\", \\\"));\\n assert(hits.filter(h=>h.en).every(h=>h.tid===\\\"G-E28XSB71R4\\\"));\\n const serialized=JSON.stringify(hits);\\n assert(!serialized.includes(\\\"preview@example.com\\\"));\\n assert(!serialized.includes(\\\"private@example.com\\\"));\\n console.log(JSON.stringify({googleScriptStatus:200,measurementId:\\\"G-E28XSB71R4\\\",googleScriptsRequested:gaScripts,collectedEvents:eventNames,totalEventRequests:hits.filter(h=>h.en).length,noRequestsBeforeConsent:true,noPersonalFormDataInEvents:true,note:\\\"Google collection intercepted: no synthetic metrics sent to production\\\"}));\\n } finally {await browser.close();}\\n})().catch(error=>{console.error(error);process.exit(1);});\\n'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:52:17.011Z",
+      "lastAccessed": "2026-10-02T12:52:17.011Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:52:17.011Z"
+    },
+    "cmd-1790945543421": {
+      "key": "cmd-1790945543421",
+      "value": "{\"command\":\"Get-Content deploy/ANALYTICS.md; Get-Content hooks/useLeadForm.ts | Select-Object -Last 115; Get-Content lib/ga4.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:52:23.421Z",
+      "lastAccessed": "2026-10-02T12:52:23.421Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:52:23.421Z"
+    },
+    "cmd-1790945633167": {
+      "key": "cmd-1790945633167",
+      "value": "{\"command\":\"Get-Content lib/ga4.ts; Get-Content lib/tracking.ts; Get-Content hooks/useLeadForm.ts; Get-Content components/consent/AnalyticsTracker.tsx; Get-Content hooks/useAnalyticsBootstrap.ts; Get-Content lib/consent.ts; Get-Content lib/analytics-context.ts; Get-Content next.config.ts; rg -n \\\"event_callback|event_timeout|transport|gtag|NFCTracking|batch|sendGA4Event\\\" --glob '!package-lock.json' --glob '!*.map' --glob '!store.json' --glob '!state.json' .\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:53:53.167Z",
+      "lastAccessed": "2026-10-02T12:53:53.167Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:53:53.167Z"
+    },
+    "cmd-1790945642171": {
+      "key": "cmd-1790945642171",
+      "value": "{\"command\":\"node -e 'const u=\\\"https://nfcretail.com/fr/visibilite/\\\";const r=await fetch(u);const s=await r.text();const srcs=[...s.matchAll(/<script[^>]+src=\\\"([^\\\"]+)\\\"/g)].map(x=>x[1]);const scripts=await Promise.all(srcs.map(x=>fetch(new URL(x,u)).then(r=>r.text())));console.log(JSON.stringify({status:r.status,hasFooter: /<footer[ >]/.test(s),landingWrapper:s.includes(\\\"landing-page\\\"),measurementIds:[...new Set(scripts.flatMap(x=>[...x.matchAll(/G-[A-Z0-9]{6,}/g)].map(x=>x[0])))]}));'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:54:02.171Z",
+      "lastAccessed": "2026-10-02T12:54:02.171Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:54:02.171Z"
+    },
+    "cmd-1790945730242": {
+      "key": "cmd-1790945730242",
+      "value": "{\"command\":\"@'\\nimport { chromium } from '@playwright/test';\\nconst browser = await chromium.launch({headless:true});\\ntry {\\n const page = await browser.newPage();\\n const hits = [];\\n const navigations = [];\\n const scriptResponses = [];\\n await page.route('**/*', async route => {\\n  const request = route.request();\\n  const url = new URL(request.url());\\n  if (url.hostname.endsWith('google-analytics.com') || url.hostname === 'analytics.google.com' || (url.pathname.includes('/collect') && /google|doubleclick/.test(url.hostname))) {\\n   const body = request.postData() || '';\\n   const eventNames = [url.searchParams.get('en'), ...body.split('\\\\n').map(line => new URLSearchParams(line).get('en'))].filter(Boolean);\\n   hits.push({method:request.method(),host:url.hostname,path:url.pathname,events:eventNames,body,query:url.search});\\n   await route.fulfill({status:204});\\n  } else if (url.pathname === '/api/csrf-token') {\\n   await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({csrfToken:'review-test-token'})});\\n  } else if (url.pathname === '/api/fr/visibilite/lead') {\\n   await route.fulfill({status:204});\\n  } else await route.continue();\\n });\\n page.on('request',request => {if(request.isNavigationRequest() && request.frame() === page.mainFrame()) navigations.push({method:request.method(),url:request.url()});});\\n page.on('response',res => {if(res.url().includes('googletagmanager.com/gtag/js')) scriptResponses.push(res.status());});\\n await page.goto('http://127.0.0.1:3200/fr/visibilite/');\\n await page.getByTestId('consent-accept').click();\\n await page.waitForFunction(() => window.dataLayer.some(entry => entry.event === 'gtm.load'),{},{timeout:15000}).catch(()=>{});\\n const inspect = () => page.evaluate(() => ({url:location.href,consent:localStorage.getItem('nfcr_consent_analytics'),layer:window.dataLayer.map(entry => entry[0] ? Array.from(entry) : entry),disabled:window['ga-disable-G-E28XSB71R4']}));\\n console.log(JSON.stringify({phase:'loaded',scriptResponses,navigations,state:await inspect(),hits}));\\n await page.getByTestId('lead-submit').click();\\n await page.getByTestId('field-first-name').fill('Camille');\\n await page.getByRole('button',{name:'Gérer les cookies'}).click();\\n await page.getByTestId('consent-accept').click();\\n console.log(JSON.stringify({phase:'interactions',state:await inspect(),hits}));\\n await page.waitForTimeout(2500);\\n console.log(JSON.stringify({phase:'paused',state:await inspect(),hits}));\\n for(const [id,value] of [['field-establishment-name','Boulangerie Test'],['field-city','Lyon'],['field-last-name','Moreau'],['field-email','camille@example.com'],['field-phone','06 74 32 19 85']]) await page.getByTestId(id).fill(value);\\n await page.getByTestId('lead-submit').click();\\n await page.waitForURL(/merci/);\\n await page.waitForTimeout(2500);\\n console.log(JSON.stringify({phase:'completed',navigations,state:await inspect(),hits}));\\n} finally {await browser.close();}\\n'@ | node --input-type=module\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:55:30.242Z",
+      "lastAccessed": "2026-10-02T12:55:30.242Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:55:30.242Z"
+    },
+    "cmd-1790945737405": {
+      "key": "cmd-1790945737405",
+      "value": "{\"command\":\"node -e '\\nconst assert=require(\\\"node:assert/strict\\\");\\nconst {chromium}=require(\\\"@playwright/test\\\");\\n(async()=>{\\n const browser=await chromium.launch();\\n try {\\n const context=await browser.newContext({viewport:{width:1366,height:650}});\\n const hits=[];\\n let gaScripts=0;\\n await context.route(\\\"**/*\\\",async route=>{\\n  const request=route.request(),url=new URL(request.url());\\n  if(url.hostname.endsWith(\\\"google-analytics.com\\\")||url.hostname.endsWith(\\\"analytics.google.com\\\")||url.hostname.endsWith(\\\"doubleclick.net\\\")){\\n   const common=Object.fromEntries(url.searchParams);\\n   for(const line of (request.postData()||\\\"\\\").split(\\\"\\\\n\\\"))hits.push({...common,...Object.fromEntries(new URLSearchParams(line))});\\n   await route.fulfill({status:204,body:\\\"\\\"});return;\\n  }\\n  if(url.pathname===\\\"/api/csrf-token\\\"||url.pathname.endsWith(\\\"/fr/visibilite/lead\\\")){\\n   await route.fulfill({status:200,contentType:\\\"application/json\\\",headers:{\\\"access-control-allow-origin\\\":\\\"http://127.0.0.1:3200\\\",\\\"access-control-allow-credentials\\\":\\\"true\\\",\\\"access-control-allow-headers\\\":\\\"content-type,x-csrf-token\\\"},body:JSON.stringify(url.pathname===\\\"/api/csrf-token\\\"?{csrfToken:\\\"preview-token\\\"}:{})});return;\\n  }\\n  if(url.hostname===\\\"www.googletagmanager.com\\\"&&url.pathname===\\\"/gtag/js\\\")gaScripts++;\\n  await route.continue();\\n });\\n const page=await context.newPage();\\n await page.goto(\\\"http://127.0.0.1:3200/fr/visibilite/?email=private@example.com\\\");\\n await page.getByTestId(\\\"consent-accept\\\").waitFor();\\n assert.equal(gaScripts,0);assert.equal(hits.length,0);\\n const tagResponse=page.waitForResponse(r=>r.url().includes(\\\"googletagmanager.com/gtag/js?id=G-E28XSB71R4\\\"));\\n await page.getByTestId(\\\"consent-accept\\\").click();\\n assert.equal((await tagResponse).status(),200);\\n await page.waitForTimeout(1700);\\n await page.getByTestId(\\\"lead-submit\\\").click();\\n await page.getByRole(\\\"button\\\",{name:\\\"Gérer les cookies\\\"}).click();\\n await page.getByTestId(\\\"consent-accept\\\").click();\\n await page.waitForTimeout(8000);\\n console.log(JSON.stringify({beforeSubmitEvents:await page.evaluate(()=>window.dataLayer.filter(x=>x&&x.event).map(x=>x.event)),beforeSubmitHits:hits.map(h=>h.en)}));\\n const fields={\\\"establishment-name\\\":\\\"Boulangerie Test\\\",\\\"city\\\":\\\"Lyon\\\",\\\"first-name\\\":\\\"Camille\\\",\\\"last-name\\\":\\\"Moreau\\\",\\\"email\\\":\\\"preview@example.com\\\",\\\"phone\\\":\\\"06 74 32 19 85\\\"};\\n for(const [name,value] of Object.entries(fields))await page.getByTestId(\\\"field-\\\"+name).fill(value);\\n await page.waitForTimeout(5000);\\n await page.getByTestId(\\\"lead-submit\\\").click();\\n await page.waitForURL(/\\\\/fr\\\\/visibilite\\\\/merci\\\\/?$/);\\n await page.waitForTimeout(10000);\\n console.log(JSON.stringify({queueEvents:await page.evaluate(()=>window.dataLayer.filter(x=>x&&x.event).map(x=>x.event)),hitSummaries:hits.map(h=>({en:h.en,tid:h.tid,keys:Object.keys(h)}))}));\\n const eventNames=[...new Set(hits.map(h=>h.en).filter(Boolean))];\\n const required=[\\\"page_view\\\",\\\"landing_view\\\",\\\"cta_click\\\",\\\"button_click\\\",\\\"form_view\\\",\\\"form_start\\\",\\\"form_submit\\\",\\\"form_validation_error\\\",\\\"form_complete\\\",\\\"generate_lead\\\",\\\"confirmation_view\\\"];\\n assert(required.every(name=>eventNames.includes(name)),\\\"Missing events: \\\"+required.filter(name=>!eventNames.includes(name)).join(\\\", \\\"));\\n assert(hits.filter(h=>h.en).every(h=>h.tid===\\\"G-E28XSB71R4\\\"));\\n const serialized=JSON.stringify(hits);\\n assert(!serialized.includes(\\\"preview@example.com\\\"));\\n assert(!serialized.includes(\\\"private@example.com\\\"));\\n console.log(JSON.stringify({googleScriptStatus:200,measurementId:\\\"G-E28XSB71R4\\\",googleScriptsRequested:gaScripts,collectedEvents:eventNames,totalEventRequests:hits.filter(h=>h.en).length,noRequestsBeforeConsent:true,noPersonalFormDataInEvents:true,note:\\\"Google collection intercepted: no synthetic metrics sent to production\\\"}));\\n } finally {await browser.close();}\\n})().catch(error=>{console.error(error);process.exit(1);});\\n'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:55:37.405Z",
+      "lastAccessed": "2026-10-02T12:55:37.405Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:55:37.405Z"
+    },
+    "cmd-1790945739833": {
+      "key": "cmd-1790945739833",
+      "value": "{\"command\":\"git branch --show-current; git branch -vv; git remote -v; git symbolic-ref refs/remotes/origin/HEAD; git status --short; git log -4 --format='%h %s'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:55:39.833Z",
+      "lastAccessed": "2026-10-02T12:55:39.833Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:55:39.833Z"
+    },
+    "cmd-1790945825257": {
+      "key": "cmd-1790945825257",
+      "value": "{\"command\":\"git fetch origin; git diff -- .env.production; git log --oneline --graph -12 --all\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:57:05.257Z",
+      "lastAccessed": "2026-10-02T12:57:05.257Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:57:05.257Z"
+    },
+    "cmd-1790945827849": {
+      "key": "cmd-1790945827849",
+      "value": "{\"command\":\"@'\\nimport { chromium } from '@playwright/test';\\nconst browser = await chromium.launch({headless:true});\\ntry {\\n const page = await browser.newPage();\\n const hits = [];\\n const errors = [];\\n await page.route('**/*', async route => {\\n  const req = route.request(); const url = new URL(req.url());\\n  if (url.hostname.endsWith('google-analytics.com') || url.hostname === 'analytics.google.com' || (url.pathname.includes('/collect') && /google|doubleclick/.test(url.hostname))) {\\n   const body = req.postData() || '';\\n   hits.push({time:Date.now(),names:[url.searchParams.get('en'),...body.split('\\\\n').map(line=>new URLSearchParams(line).get('en'))].filter(Boolean),body,method:req.method()});\\n   await route.fulfill({status:204});\\n  } else await route.continue();\\n });\\n page.on('pageerror', e => errors.push(e.message));\\n page.on('console', e => {if(e.type()==='error'||e.type()==='warning') errors.push(e.text());});\\n await page.goto('http://127.0.0.1:3200/fr/visibilite/');\\n await page.getByTestId('consent-accept').click();\\n await page.waitForFunction(()=>window.dataLayer.some(entry=>entry.event==='gtm.load'));\\n await page.getByTestId('lead-submit').click();\\n await page.getByTestId('field-first-name').fill('Camille');\\n const start=Date.now();\\n await page.evaluate(()=>{\\n  window.gtag('event','review_direct_check',{send_to:'G-E28XSB71R4',event_callback:()=>{window.reviewCallbackAt=Date.now();},event_timeout:2000});\\n  window.NFCTracking.track('button_click',{element_id:'manage_cookies',element_type:'button',location:'header'});\\n });\\n await page.waitForTimeout(8000);\\n console.log(JSON.stringify({elapsed:Date.now()-start,callbacks:await page.evaluate(()=>window.reviewCallbackAt||null),errors,hits: hits.map(hit=>({...hit,time:hit.time-start})),commands:await page.evaluate(()=>window.dataLayer.filter(e=>e[0]==='event').map(e=>[e[1],e[2].send_to]))}));\\n}finally{await browser.close();}\\n'@ | node --input-type=module\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:57:07.849Z",
+      "lastAccessed": "2026-10-02T12:57:07.849Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:57:07.849Z"
+    },
+    "cmd-1790945884448": {
+      "key": "cmd-1790945884448",
+      "value": "{\"command\":\"Get-Content deploy/cloudflare-worker/worker.js; rg -n \\\"static export|\\\\.txt|RSC|Content-Type|text/x-component|mime\\\" deploy/DEPLOYMENT.md node_modules/next/dist/docs/01-app/02-guides/static-exports.md; rg --files out/fr/visibilite/merci; rg -n \\\"event_callback|event_timeout\\\" node_modules/next/dist/docs -g '*.md' | Select-Object -First 8\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:58:04.448Z",
+      "lastAccessed": "2026-10-02T12:58:04.448Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:58:04.448Z"
+    },
+    "cmd-1790945933268": {
+      "key": "cmd-1790945933268",
+      "value": "{\"command\":\"Get-Content out/fr/visibilite/merci/index.txt -TotalCount 6; rg -n \\\"__next\\\\.\\\\*|text/x-component|rsc\\\" out/_headers .github/workflows/ci.yml deploy/ANALYTICS.md deploy/DEPLOYMENT.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:58:53.268Z",
+      "lastAccessed": "2026-10-02T12:58:53.268Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:58:53.268Z"
+    },
+    "cmd-1790945937916": {
+      "key": "cmd-1790945937916",
+      "value": "{\"command\":\"rg -n \\\"contentType|text/x-component|__NEXT|\\\\.txt|output ===|static export|mime|export\\\" node_modules/next/dist/client/components/router-reducer/fetch-server-response.js node_modules/next/dist/client/components/segment-cache node_modules/next/dist/export --glob '*.js' | Select-Object -First 80; Get-Content node_modules/next/dist/client/components/router-reducer/fetch-server-response.js | Select-Object -First 270; Get-Content node_modules/next/dist/docs/01-app/02-guides/static-exports.md | Select-Object -Skip 315 -First 65; Get-Content public/_headers; Get-Content public/_redirects\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:58:57.916Z",
+      "lastAccessed": "2026-10-02T12:58:57.916Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:58:57.916Z"
+    },
+    "cmd-1790945961308": {
+      "key": "cmd-1790945961308",
+      "value": "{\"command\":\"rg -n -i 'rsc|txt|nginx|server|trailing' node_modules/next/dist/docs/01-app/02-guides/static-exports.md; Get-ChildItem out/fr/visibilite/merci; git show origin/main:.env.production | Select-String 'GA4'; git rev-list --left-right --count origin/main...dev\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T12:59:21.308Z",
+      "lastAccessed": "2026-10-02T12:59:21.308Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T12:59:21.308Z"
+    },
+    "cmd-1790946012487": {
+      "key": "cmd-1790946012487",
+      "value": "{\"command\":\"@'\\nimport {chromium} from '@playwright/test';\\nconst browser=await chromium.launch({headless:true});\\ntry {\\n for(const correctMime of [false,true]) {\\n  const page=await browser.newPage(); const textResponses=[];const navigations=[];const errors=[];\\n  await page.route('**/*',async route=>{\\n   const req=route.request(); const u=new URL(req.url());\\n   if(u.pathname==='/api/csrf-token') await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({csrfToken:'review-token'})});\\n   else if(u.pathname==='/api/fr/visibilite/lead') await route.fulfill({status:204});\\n   else if(correctMime && u.pathname.endsWith('.txt')) {const res=await route.fetch(); await route.fulfill({response:res,headers:{...res.headers(),'content-type':'text/plain; charset=utf-8'}});}\\n   else await route.continue();\\n  });\\n  page.on('response',res=>{const u=new URL(res.url());if(u.pathname.endsWith('.txt')) textResponses.push({path:u.pathname,status:res.status(),type:res.headers()['content-type']});});\\n  page.on('request',req=>{if(req.isNavigationRequest()&&req.frame()===page.mainFrame()) navigations.push(req.url());});\\n  page.on('pageerror',e=>errors.push(e.message));\\n  await page.goto('http://127.0.0.1:3200/fr/visibilite/');await page.getByTestId('consent-reject').click();\\n  for(const [id,value] of [['field-establishment-name','Boulangerie Test'],['field-city','Lyon'],['field-first-name','Camille'],['field-last-name','Moreau'],['field-email','camille@example.com'],['field-phone','06 74 32 19 85']]) await page.getByTestId(id).fill(value);\\n  await page.getByTestId('lead-submit').click();await page.waitForURL(/merci/);await page.waitForTimeout(200);\\n  console.log(JSON.stringify({correctMime,textResponses,navigations,errors}));await page.close();\\n }\\n}finally{await browser.close();}\\n'@ | node --input-type=module\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:00:12.487Z",
+      "lastAccessed": "2026-10-02T13:00:12.487Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:00:12.487Z"
+    },
+    "cmd-1790946030174": {
+      "key": "cmd-1790946030174",
+      "value": "{\"command\":\"node -e '\\nconst {chromium}=require(\\\"@playwright/test\\\");\\nconst assert=require(\\\"node:assert/strict\\\");\\n(async()=>{\\n const browser=await chromium.launch();\\n const batch=\\\"codex-test-\\\"+new Date().toISOString().replace(/[:.]/g,\\\"-\\\");\\n let completed=0;\\n try {\\n  for(let start=0;start<20;start+=3){\\n   await Promise.all(Array.from({length:Math.min(3,20-start)},async(_,offset)=>{\\n    const visit=start+offset+1;\\n    const context=await browser.newContext({viewport:{width:1366,height:650}});\\n    const page=await context.newPage();\\n    const received=[];\\n    page.on(\\\"response\\\",response=>{\\n      const request=response.request(),url=new URL(response.url());\\n      if((url.hostname.endsWith(\\\"google-analytics.com\\\")||url.hostname.endsWith(\\\"analytics.google.com\\\"))&&url.pathname.endsWith(\\\"collect\\\")){\\n       const common=Object.fromEntries(url.searchParams);\\n       for(const line of (request.postData()||\\\"\\\").split(\\\"\\\\n\\\")){\\n        const hit={...common,...Object.fromEntries(new URLSearchParams(line))};\\n        received.push({id:hit.tid,event:hit.en,status:response.status()});\\n       }\\n      }\\n    });\\n    await page.goto(\\\"http://127.0.0.1:3200/fr/visibilite/\\\");\\n    await page.getByTestId(\\\"consent-accept\\\").click();\\n    await page.waitForFunction(()=>window.gtag&&document.getElementById(\\\"nfcr-ga4\\\")?.getAttribute(\\\"src\\\")?.includes(\\\"G-E28XSB71R4\\\"));\\n    await page.evaluate(({batch,visit})=>window.gtag(\\\"event\\\",\\\"analytics_test_visit\\\",{send_to:\\\"G-E28XSB71R4\\\",test_batch:batch,test_visit_index:visit,event_callback:()=>{},event_timeout:2000}),{batch,visit});\\n    await page.waitForTimeout(7500);\\n    assert(received.some(hit=>hit.id===\\\"G-E28XSB71R4\\\"&&hit.event===\\\"page_view\\\"&&hit.status===204),\\\"Page view not acknowledged for visit \\\"+visit);\\n    assert(received.some(hit=>hit.event===\\\"analytics_test_visit\\\"&&hit.status===204),\\\"Test marker not acknowledged for visit \\\"+visit);\\n    completed++;\\n    console.log(JSON.stringify({completed,total:20,visit,measurementId:\\\"G-E28XSB71R4\\\",googleResponse:204,testMarker:\\\"analytics_test_visit\\\"}));\\n    await context.close();\\n   }));\\n  }\\n  console.log(JSON.stringify({completed,total:20,batch,source:\\\"local production preview\\\",page:\\\"/fr/visibilite\\\",measurementId:\\\"G-E28XSB71R4\\\",fakeLeadsSubmitted:0}));\\n }finally{await browser.close();}\\n})().catch(error=>{console.error(error);process.exit(1);});\\n'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:00:30.174Z",
+      "lastAccessed": "2026-10-02T13:00:30.174Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:00:30.174Z"
+    },
+    "cmd-1790946034847": {
+      "key": "cmd-1790946034847",
+      "value": "{\"command\":\"git diff --stat origin/main...dev; git diff origin/main -- components/landing/LandingClient.tsx components/landing/Header.tsx app/globals.css e2e/desktop.spec.ts; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:00:34.847Z",
+      "lastAccessed": "2026-10-02T13:00:34.847Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:00:34.847Z"
+    },
+    "cmd-1790946105693": {
+      "key": "cmd-1790946105693",
+      "value": "{\"command\":\"@'\\nimport {chromium} from '@playwright/test';\\nconst browser=await chromium.launch({headless:true});\\ntry {\\n const page=await browser.newPage();const hits=[];const navigations=[];\\n await page.route('**/*',async route=>{\\n  const req=route.request();const url=new URL(req.url());\\n  if(url.hostname.endsWith('google-analytics.com')||url.hostname==='analytics.google.com'||(url.pathname.includes('/collect')&&/google|doubleclick/.test(url.hostname))) {\\n   const body=req.postData()||'';hits.push({id:url.searchParams.get('tid'),events:[url.searchParams.get('en'),...body.split('\\\\n').map(line=>new URLSearchParams(line).get('en'))].filter(Boolean),hasPrivateData:/Camille|camille%40|camille@example/.test(url.search+body)});await route.fulfill({status:204});\\n  } else if(url.pathname==='/api/csrf-token') await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({csrfToken:'review-token'})});\\n  else if(url.pathname==='/api/fr/visibilite/lead') await route.fulfill({status:204});\\n  else if(url.pathname.endsWith('.txt')){const res=await route.fetch();await route.fulfill({response:res,headers:{...res.headers(),'content-type':'text/plain; charset=utf-8'}});}\\n  else await route.continue();\\n });\\n page.on('request',req=>{if(req.isNavigationRequest()&&req.frame()===page.mainFrame()) navigations.push(req.url());});\\n await page.goto('http://127.0.0.1:3200/fr/visibilite/');await page.getByTestId('consent-accept').click();await page.waitForFunction(()=>window.dataLayer.some(entry=>entry.event==='gtm.load'));\\n await page.getByTestId('lead-submit').click();\\n for(const [id,value] of [['field-establishment-name','Boulangerie Test'],['field-city','Lyon'],['field-first-name','Camille'],['field-last-name','Moreau'],['field-email','camille@example.com'],['field-phone','06 74 32 19 85']]) await page.getByTestId(id).fill(value);\\n await page.getByTestId('lead-submit').click();await page.waitForURL(/merci/);await page.waitForTimeout(7000);\\n console.log(JSON.stringify({navigations,hits,leadCount:hits.flatMap(h=>h.events).filter(name=>name==='generate_lead').length,queue:await page.evaluate(()=>window.dataLayer.filter(e=>e[0]==='event').map(e=>e[1]))}));\\n}finally{await browser.close();}\\n'@ | node --input-type=module\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:01:45.693Z",
+      "lastAccessed": "2026-10-02T13:01:45.693Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:01:45.693Z"
+    },
+    "cmd-1790946113598": {
+      "key": "cmd-1790946113598",
+      "value": "{\"command\":\"git diff --check -- .env.production deploy/ANALYTICS.md lib/consent.ts; git diff --name-only origin/main -- . ':!.claude-flow'; gh --version; gh pr list --head dev --state open --json number,title,url,baseRefName,headRefName\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:01:53.598Z",
+      "lastAccessed": "2026-10-02T13:01:53.598Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:01:53.598Z"
+    },
+    "cmd-1790946203163": {
+      "key": "cmd-1790946203163",
+      "value": "{\"command\":\"node -e '\\nconst assert=require(\\\"node:assert/strict\\\");\\nconst {chromium}=require(\\\"@playwright/test\\\");\\n(async()=>{\\n const browser=await chromium.launch();\\n try {\\n const context=await browser.newContext({viewport:{width:1366,height:650}});\\n const hits=[];\\n let gaScripts=0;\\n await context.route(\\\"**/*\\\",async route=>{\\n  const request=route.request(),url=new URL(request.url());\\n  if(url.hostname.endsWith(\\\"google-analytics.com\\\")||url.hostname.endsWith(\\\"analytics.google.com\\\")||url.hostname.endsWith(\\\"doubleclick.net\\\")){\\n   const common=Object.fromEntries(url.searchParams);\\n   for(const line of (request.postData()||\\\"\\\").split(\\\"\\\\n\\\"))hits.push({...common,...Object.fromEntries(new URLSearchParams(line))});\\n   await route.fulfill({status:204,body:\\\"\\\"});return;\\n  }\\n  if(url.pathname===\\\"/api/csrf-token\\\"||url.pathname.endsWith(\\\"/fr/visibilite/lead\\\")){\\n   await route.fulfill({status:200,contentType:\\\"application/json\\\",headers:{\\\"access-control-allow-origin\\\":\\\"http://127.0.0.1:3201\\\",\\\"access-control-allow-credentials\\\":\\\"true\\\",\\\"access-control-allow-headers\\\":\\\"content-type,x-csrf-token\\\"},body:JSON.stringify(url.pathname===\\\"/api/csrf-token\\\"?{csrfToken:\\\"preview-token\\\"}:{})});return;\\n  }\\n  if(url.hostname===\\\"www.googletagmanager.com\\\"&&url.pathname===\\\"/gtag/js\\\")gaScripts++;\\n  await route.continue();\\n });\\n const page=await context.newPage();\\n await page.goto(\\\"http://127.0.0.1:3201/fr/visibilite/?email=private@example.com\\\");\\n await page.getByTestId(\\\"consent-accept\\\").waitFor();\\n assert.equal(gaScripts,0);assert.equal(hits.length,0);\\n const tagResponse=page.waitForResponse(r=>r.url().includes(\\\"googletagmanager.com/gtag/js?id=G-E28XSB71R4\\\"));\\n await page.getByTestId(\\\"consent-accept\\\").click();\\n assert.equal((await tagResponse).status(),200);\\n await page.waitForTimeout(1700);\\n await page.getByTestId(\\\"lead-submit\\\").click();\\n await page.getByRole(\\\"button\\\",{name:\\\"Gérer les cookies\\\"}).click();\\n await page.getByTestId(\\\"consent-accept\\\").click();\\n \\n\\n const fields={\\\"establishment-name\\\":\\\"Boulangerie Test\\\",\\\"city\\\":\\\"Lyon\\\",\\\"first-name\\\":\\\"Camille\\\",\\\"last-name\\\":\\\"Moreau\\\",\\\"email\\\":\\\"preview@example.com\\\",\\\"phone\\\":\\\"06 74 32 19 85\\\"};\\n for(const [name,value] of Object.entries(fields))await page.getByTestId(\\\"field-\\\"+name).fill(value);\\n \\n await page.getByTestId(\\\"lead-submit\\\").click();\\n await page.waitForURL(/\\\\/fr\\\\/visibilite\\\\/merci\\\\/?$/);\\n await page.waitForTimeout(10000);\\n\\n const eventNames=[...new Set(hits.map(h=>h.en).filter(Boolean))];\\n const required=[\\\"page_view\\\",\\\"landing_view\\\",\\\"cta_click\\\",\\\"button_click\\\",\\\"form_view\\\",\\\"form_start\\\",\\\"form_submit\\\",\\\"form_validation_error\\\",\\\"form_complete\\\",\\\"generate_lead\\\",\\\"confirmation_view\\\"];\\n assert(required.every(name=>eventNames.includes(name)),\\\"Missing events: \\\"+required.filter(name=>!eventNames.includes(name)).join(\\\", \\\"));\\n assert(hits.filter(h=>h.en).every(h=>h.tid===\\\"G-E28XSB71R4\\\"));\\n const serialized=JSON.stringify(hits);\\n assert(!serialized.includes(\\\"preview@example.com\\\"));\\n assert(!serialized.includes(\\\"private@example.com\\\"));\\n console.log(JSON.stringify({googleScriptStatus:200,measurementId:\\\"G-E28XSB71R4\\\",googleScriptsRequested:gaScripts,collectedEvents:eventNames,totalEventRequests:hits.filter(h=>h.en).length,noRequestsBeforeConsent:true,noPersonalFormDataInEvents:true,note:\\\"Google collection intercepted: no synthetic metrics sent to production\\\"}));\\n } finally {await browser.close();}\\n})().catch(error=>{console.error(error);process.exit(1);});\\n'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:03:23.163Z",
+      "lastAccessed": "2026-10-02T13:03:23.163Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:03:23.163Z"
+    },
+    "cmd-1790946207928": {
+      "key": "cmd-1790946207928",
+      "value": "{\"command\":\"git add -- .env.production deploy/ANALYTICS.md lib/consent.ts; git commit -m 'chore: configure new GA4 production stream'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:03:27.928Z",
+      "lastAccessed": "2026-10-02T13:03:27.928Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:03:27.928Z"
+    },
+    "cmd-1790946244941": {
+      "key": "cmd-1790946244941",
+      "value": "{\"command\":\"git diff --name-only dev...origin/main; git merge --no-edit origin/main\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:04:04.941Z",
+      "lastAccessed": "2026-10-02T13:04:04.941Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:04:04.941Z"
+    },
+    "cmd-1790946301511": {
+      "key": "cmd-1790946301511",
+      "value": "{\"command\":\"Get-Content .env.production; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:05:01.511Z",
+      "lastAccessed": "2026-10-02T13:05:01.511Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:05:01.511Z"
+    },
+    "cmd-1790946326028": {
+      "key": "cmd-1790946326028",
+      "value": "{\"command\":\"git add -- .env.production; git commit -m 'Merge main into dev keeping the requested GA4 stream'; git push origin dev; git rev-parse HEAD\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:05:26.028Z",
+      "lastAccessed": "2026-10-02T13:05:26.028Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:05:26.028Z"
+    },
+    "cmd-1790946508649": {
+      "key": "cmd-1790946508649",
+      "value": "{\"command\":\"git fetch origin; git merge-base --is-ancestor main origin/main; if ($LASTEXITCODE -eq 0) { git branch -f main origin/main; git switch main }; git status --short; git log -1 --format='%h %s'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:08:28.649Z",
+      "lastAccessed": "2026-10-02T13:08:28.649Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:08:28.649Z"
+    },
+    "cmd-1790946516195": {
+      "key": "cmd-1790946516195",
+      "value": "{\"command\":\"node -e 'for(const u of [\\\"https://nfcretail.com/fr/visibilite/\\\",\\\"https://dev.nfcretail-web.pages.dev/fr/visibilite/\\\"]){const r=await fetch(u);const s=await r.text();const srcs=[...s.matchAll(/<script[^>]+src=\\\"([^\\\"]+)\\\"/g)].map(x=>x[1]);const scripts=await Promise.all(srcs.map(x=>fetch(new URL(x,u)).then(r=>r.text())));console.log(JSON.stringify({url:u,status:r.status,hasFooter:/<footer[ >]/.test(s),landingWrapper:s.includes(\\\"landing-page\\\"),measurementIds:[...new Set(scripts.flatMap(x=>[...x.matchAll(/G-[A-Z0-9]{6,}/g)].map(x=>x[0])))]}));}'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:08:36.195Z",
+      "lastAccessed": "2026-10-02T13:08:36.195Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:08:36.195Z"
+    },
+    "cmd-1790946592692": {
+      "key": "cmd-1790946592692",
+      "value": "{\"command\":\"node -e 'const {chromium}=require(\\\"@playwright/test\\\"); (async()=>{const b=await chromium.launch(); for(const [width,height]of [[1920,1080],[1366,650],[1280,560],[1024,600],[390,844]]){const p=await b.newPage({viewport:{width,height}});await p.route(\\\"**/*\\\",r=>r.request().url().includes(\\\"google-analytics.com\\\")||r.request().url().includes(\\\"googletagmanager.com\\\")?r.abort():r.continue());await p.goto(\\\"https://nfcretail.com/fr/visibilite/\\\");await p.getByTestId(\\\"consent-reject\\\").click();await p.evaluate(()=>document.fonts.ready);console.log(JSON.stringify(await p.evaluate(()=>({viewport:[innerWidth,innerHeight],page:[document.documentElement.scrollWidth,document.documentElement.scrollHeight],hasFooter:!!document.querySelector(\\\"footer\\\"),cookieControl:!!document.querySelector(\\\".cookie-settings\\\")}))));if(width===1366)await p.screenshot({path:\\\"C:/Users/Cheikh/.codex/visualizations/2026/10/02/01a0fbee-c61f-7000-bce6-3e15b782bd8d/landing-production.png\\\"});await p.close();}await b.close();})()'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:09:52.692Z",
+      "lastAccessed": "2026-10-02T13:09:52.692Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:09:52.692Z"
+    },
+    "cmd-1790946636911": {
+      "key": "cmd-1790946636911",
+      "value": "{\"command\":\"node -e 'const http=require(\\\"node:http\\\"),fs=require(\\\"node:fs\\\"),path=require(\\\"node:path\\\");const root=path.resolve(\\\"out\\\");const types={\\\".html\\\":\\\"text/html\\\",\\\".js\\\":\\\"application/javascript\\\",\\\".css\\\":\\\"text/css\\\",\\\".woff2\\\":\\\"font/woff2\\\",\\\".svg\\\":\\\"image/svg+xml\\\",\\\".webp\\\":\\\"image/webp\\\",\\\".png\\\":\\\"image/png\\\"};http.createServer((req,res)=>{let file=path.resolve(root,\\\".\\\"+decodeURIComponent(new URL(req.url,\\\"http://localhost\\\").pathname));if(!file.startsWith(root+path.sep)&&file!==root){res.writeHead(403);res.end();return;}if(fs.existsSync(file)&&fs.statSync(file).isDirectory())file=path.join(file,\\\"index.html\\\");if(!fs.existsSync(file)){res.writeHead(404);res.end();return;}res.setHeader(\\\"Content-Type\\\",types[path.extname(file)]||\\\"application/octet-stream\\\");fs.createReadStream(file).pipe(res);}).listen(3200,\\\"127.0.0.1\\\",()=>console.log(\\\"Static production preview http://127.0.0.1:3200\\\"));'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:10:36.911Z",
+      "lastAccessed": "2026-10-02T13:10:36.911Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:10:36.911Z"
+    },
+    "cmd-1790946639639": {
+      "key": "cmd-1790946639639",
+      "value": "{\"command\":\"node -e 'const http=require(\\\"node:http\\\"),fs=require(\\\"node:fs\\\"),path=require(\\\"node:path\\\");const root=path.resolve(\\\"out\\\");const types={\\\".html\\\":\\\"text/html\\\",\\\".txt\\\":\\\"text/plain\\\",\\\".js\\\":\\\"application/javascript\\\",\\\".css\\\":\\\"text/css\\\",\\\".woff2\\\":\\\"font/woff2\\\",\\\".svg\\\":\\\"image/svg+xml\\\",\\\".webp\\\":\\\"image/webp\\\",\\\".png\\\":\\\"image/png\\\"};http.createServer((req,res)=>{let file=path.resolve(root,\\\".\\\"+decodeURIComponent(new URL(req.url,\\\"http://localhost\\\").pathname));if(!file.startsWith(root+path.sep)&&file!==root){res.writeHead(403);res.end();return;}if(fs.existsSync(file)&&fs.statSync(file).isDirectory())file=path.join(file,\\\"index.html\\\");if(!fs.existsSync(file)){res.writeHead(404);res.end();return;}res.setHeader(\\\"Content-Type\\\",types[path.extname(file)]||\\\"application/octet-stream\\\");fs.createReadStream(file).pipe(res);}).listen(3201,\\\"127.0.0.1\\\",()=>console.log(\\\"Static preview with correct Next RSC MIME http://127.0.0.1:3201\\\"));'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:10:39.639Z",
+      "lastAccessed": "2026-10-02T13:10:39.639Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:10:39.639Z"
+    },
+    "cmd-1790946646687": {
+      "key": "cmd-1790946646687",
+      "value": "{\"command\":\"git status --short; git branch --show-current; git rev-parse HEAD; git diff --check -- ':!.claude-flow'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:10:46.687Z",
+      "lastAccessed": "2026-10-02T13:10:46.687Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:10:46.687Z"
+    },
+    "cmd-1790946667236": {
+      "key": "cmd-1790946667236",
+      "value": "{\"command\":\"node -e '\\nconst {chromium}=require(\\\"@playwright/test\\\");\\nconst assert=require(\\\"node:assert/strict\\\");\\n(async()=>{\\n const browser=await chromium.launch();\\n const batch=\\\"codex-test-\\\"+new Date().toISOString().replace(/[:.]/g,\\\"-\\\");\\n let completed=0;\\n try {\\n  for(let start=0;start<20;start+=3){\\n   await Promise.all(Array.from({length:Math.min(3,20-start)},async(_,offset)=>{\\n    const visit=start+offset+1;\\n    const context=await browser.newContext({viewport:{width:1366,height:650}});\\n    const page=await context.newPage();\\n    const received=[];\\n    page.on(\\\"response\\\",response=>{\\n      const request=response.request(),url=new URL(response.url());\\n      if((url.hostname.endsWith(\\\"google-analytics.com\\\")||url.hostname.endsWith(\\\"analytics.google.com\\\"))&&url.pathname.endsWith(\\\"collect\\\")){\\n       const common=Object.fromEntries(url.searchParams);\\n       for(const line of (request.postData()||\\\"\\\").split(\\\"\\\\n\\\")){\\n        const hit={...common,...Object.fromEntries(new URLSearchParams(line))};\\n        received.push({id:hit.tid,event:hit.en,status:response.status()});\\n       }\\n      }\\n    });\\n    await page.goto(\\\"https://nfcretail.com/fr/visibilite/\\\");\\n    await page.getByTestId(\\\"consent-accept\\\").click();\\n    await page.waitForFunction(()=>window.gtag&&document.getElementById(\\\"nfcr-ga4\\\")?.getAttribute(\\\"src\\\")?.includes(\\\"G-E28XSB71R4\\\"));\\n    await page.evaluate(({batch,visit})=>window.gtag(\\\"event\\\",\\\"analytics_test_visit\\\",{send_to:\\\"G-E28XSB71R4\\\",test_batch:batch,test_visit_index:visit,event_callback:()=>{},event_timeout:2000}),{batch,visit});\\n    await page.getByTestId(\\\"lead-submit\\\").click();\\n    await page.waitForTimeout(7500);\\n    assert(received.some(hit=>hit.id===\\\"G-E28XSB71R4\\\"&&hit.event===\\\"page_view\\\"&&hit.status===204),\\\"Page view not acknowledged for visit \\\"+visit);\\n    assert(received.some(hit=>hit.event===\\\"analytics_test_visit\\\"&&hit.status===204),\\\"Test marker not acknowledged for visit \\\"+visit);\\n    completed++;\\n    console.log(JSON.stringify({completed,total:20,visit,measurementId:\\\"G-E28XSB71R4\\\",googleResponse:204,testMarker:\\\"analytics_test_visit\\\"}));\\n    await context.close();\\n   }));\\n  }\\n  console.log(JSON.stringify({completed,total:20,batch,source:\\\"deployed nfcretail.com\\\",page:\\\"/fr/visibilite\\\",measurementId:\\\"G-E28XSB71R4\\\",fakeLeadsSubmitted:0}));\\n }finally{await browser.close();}\\n})().catch(error=>{console.error(error);process.exit(1);});\\n'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T13:11:07.236Z",
+      "lastAccessed": "2026-10-02T13:11:07.236Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T13:11:07.236Z"
+    },
+    "cmd-1790952081021": {
+      "key": "cmd-1790952081021",
+      "value": "{\"command\":\"node -e 'const u=\\\"https://nfcretail.com/fr/visibilite/\\\";const r=await fetch(u);const s=await r.text();const srcs=[...s.matchAll(/<script[^>]+src=\\\"([^\\\"]+)\\\"/g)].map(x=>x[1]);const scripts=await Promise.all(srcs.map(x=>fetch(new URL(x,u)).then(r=>r.text())));console.log(JSON.stringify({status:r.status,hasFooter:/<footer[ >]/.test(s),initialHtmlHasGoogleTag:/<script[^>]+src=\\\"https:\\\\/\\\\/www.googletagmanager.com\\\\/gtag\\\\/js/.test(s),measurementIds:[...new Set(scripts.flatMap(x=>[...x.matchAll(/G-[A-Z0-9]{6,}/g)].map(x=>x[0])))]}));const home=await fetch(\\\"https://www.nfcretail.com/\\\");const html=await home.text();console.log(JSON.stringify({url:home.url,status:home.status,title:html.match(/<title>(.*?)<\\\\/title>/s)?.[1],hasGoogleTag:html.includes(\\\"googletagmanager.com/gtag/js\\\"),bytes:html.length}));'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T14:41:21.021Z",
+      "lastAccessed": "2026-10-02T14:41:21.021Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T14:41:21.021Z"
+    },
+    "cmd-1790952181342": {
+      "key": "cmd-1790952181342",
+      "value": "{\"command\":\"Get-Content lib/ga4.ts; Get-Content lib/consent.ts; Get-Content components/consent/ConsentBanner.tsx; Get-Content hooks/useAnalyticsBootstrap.ts; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T14:43:01.342Z",
+      "lastAccessed": "2026-10-02T14:43:01.342Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T14:43:01.342Z"
+    },
+    "cmd-1790952342148": {
+      "key": "cmd-1790952342148",
+      "value": "{\"command\":\"Get-Content package.json; rg -n \\\"DENIED_CONSENT|analytics_storage|ad_user_data|consent|allow_google\\\" lib/ga4.ts components/consent/ConsentBanner.tsx; Get-Content playwright.config.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T14:45:42.148Z",
+      "lastAccessed": "2026-10-02T14:45:42.148Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T14:45:42.148Z"
+    },
+    "cmd-1790952360854": {
+      "key": "cmd-1790952360854",
+      "value": "{\"command\":\"Get-Content components/consent/ConsentBanner.tsx; Get-Content lib/ga4.ts; Get-Command node | Select-Object -ExpandProperty Source\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T14:46:00.854Z",
+      "lastAccessed": "2026-10-02T14:46:00.854Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T14:46:00.854Z"
+    },
+    "cmd-1790952572018": {
+      "key": "cmd-1790952572018",
+      "value": "{\"command\":\"@'\\nconst { chromium } = require('@playwright/test');\\n(async () => {\\n  const browser = await chromium.launch({ headless: true });\\n  try {\\n    const context = await browser.newContext();\\n    const page = await context.newPage();\\n    let scriptRequests = 0;\\n    const measurements = [];\\n    page.on('request', request => {\\n      const u = new URL(request.url());\\n      if (u.hostname === 'www.googletagmanager.com' && u.pathname === '/gtag/js') scriptRequests++;\\n    });\\n    await context.route('**/*', async route => {\\n      const req = route.request();\\n      const u = new URL(req.url());\\n      if (u.hostname.endsWith('google-analytics.com') || u.hostname.endsWith('analytics.google.com') || u.hostname.endsWith('doubleclick.net')) {\\n        const fields = new URLSearchParams(u.search);\\n        const body = new URLSearchParams(req.postData() || '');\\n        measurements.push({ id: fields.get('tid') || body.get('tid'), event: fields.get('en') || body.get('en') });\\n        await route.fulfill({ status: 204, body: '', headers: { 'access-control-allow-origin': '*' } });\\n      } else await route.continue();\\n    });\\n    const snapshot = async () => page.evaluate(() => ({\\n      consent: localStorage.getItem('nfcr_consent_analytics'),\\n      script: document.querySelector('#nfcr-ga4')?.getAttribute('src') || null,\\n      commands: (window.dataLayer || []).filter(x => x && x[0] === 'consent').map(x => Array.from(x)),\\n      optedOut: window['ga-disable-G-E28XSB71R4'] === true\\n    }));\\n    await page.goto('https://nfcretail.com/fr/visibilite/', { waitUntil: 'networkidle', timeout: 30000 });\\n    await page.getByTestId('consent-accept').waitFor();\\n    const before = { ...await snapshot(), scriptRequests, measurements: measurements.length };\\n    await page.getByTestId('consent-accept').click();\\n    await page.waitForFunction(() => (window.dataLayer || []).some(x => x && x[0] === 'consent' && x[1] === 'update' && x[2]?.analytics_storage === 'granted'));\\n    await page.waitForTimeout(7000);\\n    const accepted = { ...await snapshot(), scriptRequests, measurements: measurements.slice() };\\n    await page.getByRole('button', { name: /cookies/i }).click();\\n    await page.getByTestId('consent-reject').click();\\n    const revoked = await snapshot();\\n    await page.reload({ waitUntil: 'networkidle' });\\n    const remembered = { ...await snapshot(), bannerVisible: await page.getByTestId('consent-accept').isVisible() };\\n    console.log(JSON.stringify({ before, accepted, revoked, remembered }, null, 2));\\n  } finally { await browser.close(); }\\n})().catch(error => { console.error(error); process.exitCode = 1; });\\n'@ | node\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T14:49:32.018Z",
+      "lastAccessed": "2026-10-02T14:49:32.018Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T14:49:32.018Z"
+    },
+    "cmd-1790952632323": {
+      "key": "cmd-1790952632323",
+      "value": "{\"command\":\"@'\\nconst { chromium } = require('@playwright/test');\\n(async () => {\\n  const browser = await chromium.launch({headless:true});\\n  try {\\n    const context = await browser.newContext();\\n    const page = await context.newPage();\\n    const logs=[];\\n    const related = url => /google-analytics\\\\.com|googletagmanager\\\\.com|analytics\\\\.google\\\\.com|doubleclick\\\\.net/.test(url);\\n    page.on('request', r => {if(related(r.url())) logs.push({type:'request',url:r.url(),body:r.postData()?.slice(0,700) || ''});});\\n    page.on('response', r=>{if(related(r.url())) logs.push({type:'response',url:r.url(),status:r.status()});});\\n    page.on('requestfailed',r=>{if(related(r.url())) logs.push({type:'failed',url:r.url(),reason:r.failure()?.errorText});});\\n    await context.route('**/*',async route=> {\\n      const u=new URL(route.request().url());\\n      if(u.hostname.endsWith('google-analytics.com')||u.hostname.endsWith('analytics.google.com')||u.hostname.endsWith('doubleclick.net')) await route.fulfill({status:204,body:'',headers:{'access-control-allow-origin':'*'}});\\n      else await route.continue();\\n    });\\n    const response=await page.goto('https://nfcretail.com/fr/visibilite/',{waitUntil:'domcontentloaded',timeout:30000});\\n    await page.getByTestId('consent-accept').waitFor();\\n    console.log('BEFORE',JSON.stringify({scripts:await page.locator('script[src]').evaluateAll(s=>s.map(x=>({src:x.getAttribute('src'),id:x.id}))),logs}));\\n    await page.getByTestId('consent-accept').click();\\n    await page.waitForTimeout(12000);\\n    console.log('AFTER',JSON.stringify({commands:await page.evaluate(()=>(window.dataLayer||[]).map(x=>x&&x[0]?Array.from(x):x)),logs}));\\n    console.log('HTML_GOOGLE',((await response.text()).match(/.{0,100}googletagmanager.{0,250}/g)||[]));\\n  }finally{await browser.close();}\\n})().catch(e=>{console.error(e);process.exitCode=1;});\\n'@ | node\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T14:50:32.323Z",
+      "lastAccessed": "2026-10-02T14:50:32.323Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T14:50:32.323Z"
+    },
+    "cmd-1790952636082": {
+      "key": "cmd-1790952636082",
+      "value": "{\"command\":\"rg -n \\\"mgyy|gtg_health|gtag|google-tag|zaraz\\\" deploy app components next.config* .env.example .env.production; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T14:50:36.082Z",
+      "lastAccessed": "2026-10-02T14:50:36.082Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T14:50:36.082Z"
+    },
+    "cmd-1790952696681": {
+      "key": "cmd-1790952696681",
+      "value": "{\"command\":\"@'\\nconst { chromium }=require('@playwright/test');\\n(async()=>{\\n const browser=await chromium.launch({headless:true});\\n try{\\n  const context=await browser.newContext(); const page=await context.newPage(); const transport=[]; const scripts=[];\\n  let stage='before';\\n  await context.route('**/*',async route=>{\\n   const req=route.request(),u=new URL(req.url());\\n   if(u.hostname==='nfcretail.com'&&u.pathname.startsWith('/mgyy')){\\n    if(u.pathname==='/mgyy/' && !u.search){const response=await route.fetch();const body=await response.text();console.log('GATEWAY_LOADER',body.slice(0,2000));await route.fulfill({response,body});return;}\\n    const fields=new URLSearchParams(u.search),body=req.postData()||'';\\n    transport.push({stage,path:u.pathname,id:fields.get('tid'),event:fields.get('en'),eventsInBody:[...body.matchAll(/(?:^|[\\\\n&])en=([^&\\\\n]+)/g)].map(m=>m[1]),consent:fields.get('gcs')});\\n    await route.fulfill({status:204,body:'',headers:{'access-control-allow-origin':'*'}});return;\\n   }\\n   if(u.hostname.endsWith('google-analytics.com')||u.hostname.endsWith('analytics.google.com')||u.hostname.endsWith('doubleclick.net')){await route.fulfill({status:204,body:'',headers:{'access-control-allow-origin':'*'}});return;}\\n   await route.continue();\\n  });\\n  page.on('request',req=>{if(req.url().includes('googletagmanager.com/gtag/js'))scripts.push({stage,url:req.url()});});\\n  await page.goto('https://nfcretail.com/fr/visibilite/',{waitUntil:'domcontentloaded'});\\n  await page.getByTestId('consent-accept').waitFor();await page.waitForTimeout(3000);\\n  stage='accepted';await page.getByTestId('consent-accept').click();await page.waitForTimeout(12000);\\n  console.log('TRANSPORT',JSON.stringify({transport,scripts}));\\n }finally{await browser.close();}\\n})().catch(e=>{console.error(e);process.exitCode=1;});\\n'@ | node\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-02T14:51:36.681Z",
+      "lastAccessed": "2026-10-02T14:51:36.681Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-01T14:51:36.681Z"
+    },
+    "cmd-1791273519871": {
+      "key": "cmd-1791273519871",
+      "value": "{\"command\":\"git status --short --branch; git log -6 --oneline --decorate; git remote -v; rg --files -g 'package.json' -g 'AGENTS.md' -g 'app/**' -g 'src/**' | Select-Object -First 80\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-06T07:58:39.871Z",
+      "lastAccessed": "2026-10-06T07:58:39.871Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-05T07:58:39.871Z"
+    },
+    "cmd-1791273543160": {
+      "key": "cmd-1791273543160",
+      "value": "{\"command\":\"git status --short; git log -12 --format=\\\"%h %ad %s\\\" --date=short; Get-Content package.json; Get-Content app\\\\page.tsx -TotalCount 240; git branch -a\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-06T07:59:03.160Z",
+      "lastAccessed": "2026-10-06T07:59:03.160Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-05T07:59:03.160Z"
+    },
+    "cmd-1791544101375": {
+      "key": "cmd-1791544101375",
+      "value": "{\"command\":\"git status --short --branch; git log -8 --oneline --decorate --date=short; rg --files -g '!node_modules' | Select-Object -First 60\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-09T11:08:21.375Z",
+      "lastAccessed": "2026-10-09T11:08:21.375Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-08T11:08:21.375Z"
+    },
+    "cmd-1791969021579": {
+      "key": "cmd-1791969021579",
+      "value": "{\"command\":\"git status --short --branch; git log -8 --oneline --decorate; rg --files -g 'package.json' -g 'AGENTS.md' -g 'README*' -g 'app/**' -g 'src/**' | select -First 80\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:10:21.579Z",
+      "lastAccessed": "2026-10-14T09:10:21.579Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:10:21.579Z"
+    },
+    "cmd-1791969033431": {
+      "key": "cmd-1791969033431",
+      "value": "{\"command\":\"git status --short --branch; git log -5 --format=\\\"%h %ad %s\\\" --date=short; git remote -v\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:10:33.431Z",
+      "lastAccessed": "2026-10-14T09:10:33.431Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:10:33.431Z"
+    },
+    "cmd-1791969202487": {
+      "key": "cmd-1791969202487",
+      "value": "{\"command\":\"git status --short; rg --files -g AGENTS.md -g package.json -g '*utm*' -g '*attribution*' -g '*lead*' -g '*Lead*' -g '*tracking*' -g '!node_modules' -g '!vendor'; if (Test-Path AGENTS.md) { Get-Content AGENTS.md }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:13:22.487Z",
+      "lastAccessed": "2026-10-14T09:13:22.487Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:13:22.487Z"
+    },
+    "cmd-1791969203707": {
+      "key": "cmd-1791969203707",
+      "value": "{\"command\":\"Get-Location; git status --short; rg --files -g AGENTS.md -g package.json -g '*utm*' -g '*attribution*' -g '*lead*' -g '*Lead*' -g '*analytics*' -g '*tracking*' -g '!node_modules' -g '!vendor' -g '!out' -g '!.next'; Get-Content AGENTS.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:13:23.707Z",
+      "lastAccessed": "2026-10-14T09:13:23.707Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:13:23.707Z"
+    },
+    "cmd-1791969224699": {
+      "key": "cmd-1791969224699",
+      "value": "{\"command\":\"Get-Content package.json; Get-Content src/types/lead.ts; Get-Content src/validation/leadSchema.ts; Get-Content src/controllers/leadController.ts; Get-Content src/services/LeadService.ts; Get-Content src/services/LeadStore.ts; rg -n \\\"utm|gclid|gbraid|wbraid|referrer|attribution|source|LeadPayload\\\" src README*; rg --files -g '!node_modules' -g '!*lock*' -g '!.git' -g '!dist' -g '!coverage'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:13:44.699Z",
+      "lastAccessed": "2026-10-14T09:13:44.699Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:13:44.699Z"
+    },
+    "cmd-1791969224826": {
+      "key": "cmd-1791969224826",
+      "value": "{\"command\":\"Get-Content package.json; Get-Content lib/utm.ts; Get-Content lib/utm.test.ts; Get-Content types/lead.ts; Get-Content hooks/useLeadForm.ts; Get-Content e2e/utm-attribution.spec.ts; rg -n \\\"utm|gclid|gbraid|wbraid|referrer|attribution|submitLead\\\" app components hooks lib types deploy README.md; rg --files node_modules/next/dist/docs | rg 'use-search-params|use-pathname|static-export|use-router'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:13:44.826Z",
+      "lastAccessed": "2026-10-14T09:13:44.826Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:13:44.826Z"
+    },
+    "cmd-1791969263440": {
+      "key": "cmd-1791969263440",
+      "value": "{\"command\":\"Get-Content src/services/crm/HttpCrmClient.ts; Get-Content src/services/crm/HttpCrmClient.test.ts; Get-Content src/app.test.ts; Get-Content src/validation/leadSchema.test.ts; Get-Content README.md; Get-Content vitest.config.ts; Get-Content tsconfig.json; git branch --show-current; git remote -v\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:14:23.440Z",
+      "lastAccessed": "2026-10-14T09:14:23.440Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:14:23.440Z"
+    },
+    "cmd-1791969263712": {
+      "key": "cmd-1791969263712",
+      "value": "{\"command\":\"Get-Content lib/api.ts; Get-Content components/landing/LandingClient.tsx; Get-Content e2e/helpers.ts; Get-Content vitest.config.ts; rg --files node_modules/next/dist/docs | rg 'use-search-params|static-export|use-router|use-pathname|use-client'; Get-Content deploy/cloudflare/worker.ts -ErrorAction SilentlyContinue; Get-ChildItem deploy; Get-Content README.md; Get-Content lib/api.test.ts -ErrorAction SilentlyContinue; git branch --show-current; git remote -v\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:14:23.712Z",
+      "lastAccessed": "2026-10-14T09:14:23.712Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:14:23.712Z"
+    },
+    "cmd-1791969308276": {
+      "key": "cmd-1791969308276",
+      "value": "{\"command\":\"Get-Content src/services/crm/HttpCrmClient.ts -Tail 22; Get-Content src/services/crm/HttpCrmClient.test.ts -TotalCount 95; Get-Content src/services/LeadService.test.ts; Get-Content src/services/replayPendingLeads.ts; Get-Content src/app.ts; Get-Content package.json -TotalCount 23; rg --files -g '*.docx' -g '*.md' -g '!node_modules' -g '!dist'; Get-Content C:\\\\Users\\\\Cheikh\\\\Documents\\\\DEV\\\\AGENTS.md -ErrorAction SilentlyContinue\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:15:08.276Z",
+      "lastAccessed": "2026-10-14T09:15:08.276Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:15:08.276Z"
+    },
+    "cmd-1791969308711": {
+      "key": "cmd-1791969308711",
+      "value": "{\"command\":\"Get-Content node_modules/next/dist/docs/01-app/03-api-reference/01-directives/use-client.md -TotalCount 110; Get-Content node_modules/next/dist/docs/01-app/02-guides/static-exports.md -TotalCount 125; Get-Content deploy/cloudflare-worker/src/index.ts -ErrorAction SilentlyContinue; Get-Content vite.config.ts; rg --files deploy/cloudflare-worker; Get-Content app/layout.tsx; Get-Content components/consent/AnalyticsTracker.tsx -TotalCount 40\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:15:08.711Z",
+      "lastAccessed": "2026-10-14T09:15:08.711Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:15:08.711Z"
+    },
+    "cmd-1791969433724": {
+      "key": "cmd-1791969433724",
+      "value": "{\"command\":\"rg --files -g '*config*' -g '!node_modules' -g '!out' -g '!.next'; Get-Content deploy/cloudflare-worker/worker.js; Get-Content src/validation/leadSchema.test.ts -ErrorAction SilentlyContinue; Get-Content .gitignore\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:17:13.724Z",
+      "lastAccessed": "2026-10-14T09:17:13.724Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:17:13.724Z"
+    },
+    "cmd-1791969438573": {
+      "key": "cmd-1791969438573",
+      "value": "{\"command\":\"Get-Content src/middleware/rateLimit.ts; Get-Content src/services/replayPendingLeads.ts; Get-Content src/services/LeadService.test.ts -Tail 65; Get-Content src/config/env.ts -TotalCount 90\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:17:18.573Z",
+      "lastAccessed": "2026-10-14T09:17:18.573Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:17:18.573Z"
+    },
+    "cmd-1791969540013": {
+      "key": "cmd-1791969540013",
+      "value": "{\"command\":\"Get-Content lib/attribution.test.ts -Raw\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:19:00.013Z",
+      "lastAccessed": "2026-10-14T09:19:00.013Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:19:00.013Z"
+    },
+    "cmd-1791969555082": {
+      "key": "cmd-1791969555082",
+      "value": "{\"command\":\"npm test -- src/lib/attribution.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:19:15.082Z",
+      "lastAccessed": "2026-10-14T09:19:15.082Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:19:15.082Z"
+    },
+    "cmd-1791969558733": {
+      "key": "cmd-1791969558733",
+      "value": "{\"command\":\"npm test -- lib/utm.test.ts lib/attribution.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:19:18.733Z",
+      "lastAccessed": "2026-10-14T09:19:18.733Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:19:18.733Z"
+    },
+    "cmd-1791969580199": {
+      "key": "cmd-1791969580199",
+      "value": "{\"command\":\"npm ci --ignore-scripts --no-audit --no-fund\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:19:40.199Z",
+      "lastAccessed": "2026-10-14T09:19:40.199Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:19:40.199Z"
+    },
+    "cmd-1791969617459": {
+      "key": "cmd-1791969617459",
+      "value": "{\"command\":\"npm test -- src/lib/attribution.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:20:17.459Z",
+      "lastAccessed": "2026-10-14T09:20:17.459Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:20:17.459Z"
+    },
+    "cmd-1791969738814": {
+      "key": "cmd-1791969738814",
+      "value": "{\"command\":\"Get-Content lib/utm.ts -Raw\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:22:18.814Z",
+      "lastAccessed": "2026-10-14T09:22:18.814Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:22:18.814Z"
+    },
+    "cmd-1791969790325": {
+      "key": "cmd-1791969790325",
+      "value": "{\"command\":\"npm test\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:23:10.325Z",
+      "lastAccessed": "2026-10-14T09:23:10.325Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:23:10.325Z"
+    },
+    "cmd-1791969928841": {
+      "key": "cmd-1791969928841",
+      "value": "{\"command\":\"npm test\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:25:28.841Z",
+      "lastAccessed": "2026-10-14T09:25:28.841Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:25:28.841Z"
+    },
+    "cmd-1791969981188": {
+      "key": "cmd-1791969981188",
+      "value": "{\"command\":\"git diff --staged; git diff --stat; git status --short; git diff -- lib/attribution.ts lib/utm.ts components/consent/AttributionCapture.tsx app/layout.tsx lib/api.ts; Get-Content AGENTS.md; Get-Content package.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:21.188Z",
+      "lastAccessed": "2026-10-14T09:26:21.188Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:21.188Z"
+    },
+    "cmd-1791969981306": {
+      "key": "cmd-1791969981306",
+      "value": "{\"command\":\"git diff --staged; git diff --stat; git status --short; git diff -- src/Service/LeadService.php; rg --files -g AGENTS.md -g '*LeadService*' -g '*HttpCrmClient*' -g '*schema*' -g package.json -g '*attribution*' -g '*utm*'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:21.306Z",
+      "lastAccessed": "2026-10-14T09:26:21.306Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:21.306Z"
+    },
+    "cmd-1791969987957": {
+      "key": "cmd-1791969987957",
+      "value": "{\"command\":\"git status --short; git diff -- app/layout.tsx components/consent/AttributionCapture.tsx components/landing/LandingClient.tsx lib/utm.ts lib/api.ts; Get-Content components/consent/AttributionCapture.tsx; Get-Content lib/utm.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:27.957Z",
+      "lastAccessed": "2026-10-14T09:26:27.957Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:27.957Z"
+    },
+    "cmd-1791969988133": {
+      "key": "cmd-1791969988133",
+      "value": "{\"command\":\"Get-Content app/layout.tsx; Get-Content components/landing/LandingClient.tsx; Get-Content lib/api.ts; Get-Content package.json; rg -n 'captureAttribution|getStoredAttribution|usePathname|history.replace|utm_' lib/*.test.ts e2e hooks components/consent test -g '*.ts' -g '*.tsx'; Get-Content AGENTS.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:28.133Z",
+      "lastAccessed": "2026-10-14T09:26:28.133Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:28.133Z"
+    },
+    "cmd-1791969992738": {
+      "key": "cmd-1791969992738",
+      "value": "{\"command\":\"npm test; node node_modules/typescript/bin/tsc -p tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:32.738Z",
+      "lastAccessed": "2026-10-14T09:26:32.738Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:32.738Z"
+    },
+    "cmd-1791969992816": {
+      "key": "cmd-1791969992816",
+      "value": "{\"command\":\"npm run build\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:32.816Z",
+      "lastAccessed": "2026-10-14T09:26:32.816Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:32.816Z"
+    },
+    "cmd-1791970003589": {
+      "key": "cmd-1791970003589",
+      "value": "{\"command\":\"npm run lint; git diff --stat; Get-Content e2e/README.md -TotalCount 110; Get-Content lib/paths.ts; Get-Content vitest.config.mts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:43.589Z",
+      "lastAccessed": "2026-10-14T09:26:43.589Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:43.589Z"
+    },
+    "cmd-1791970003940": {
+      "key": "cmd-1791970003940",
+      "value": "{\"command\":\"git status --short; git diff --staged --stat; git diff --stat; Get-Content package.json; Get-Content tsconfig.json; Test-Path node_modules/eslint/bin/eslint.js; if (Test-Path AGENTS.md) {Get-Content AGENTS.md}\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:43.940Z",
+      "lastAccessed": "2026-10-14T09:26:43.940Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:43.940Z"
+    },
+    "cmd-1791970004593": {
+      "key": "cmd-1791970004593",
+      "value": "{\"command\":\"git status --short; git diff --staged --stat; git diff --stat; Get-Content package.json; Get-Content tsconfig.json; Test-Path node_modules/eslint/bin/eslint.js\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:44.593Z",
+      "lastAccessed": "2026-10-14T09:26:44.593Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:44.593Z"
+    },
+    "cmd-1791970012314": {
+      "key": "cmd-1791970012314",
+      "value": "{\"command\":\"git diff -- src/services/LeadService.ts src/services/crm/HttpCrmClient.ts src/validation/leadSchema.ts src/services/crm/HttpCrmClient.test.ts src/validation/leadSchema.test.ts; Get-Content src/lib/attribution.ts; Get-Content src/lib/attribution.test.ts; Get-Content src/attribution.integration.test.ts; Get-Content src/services/LeadService.ts; Get-Content src/services/crm/HttpCrmClient.ts; Get-Content src/validation/leadSchema.ts; Get-Content package.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:52.314Z",
+      "lastAccessed": "2026-10-14T09:26:52.314Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:52.314Z"
+    },
+    "cmd-1791970013196": {
+      "key": "cmd-1791970013196",
+      "value": "{\"command\":\"Get-Content lib/attribution.ts; Get-Content lib/attribution.test.ts; Get-Content lib/utm.test.ts; Get-Content components/consent/AttributionCapture.tsx; Get-Content types/lead.ts; Get-Content lib/api.ts; Get-Content e2e/utm-attribution.spec.ts; Get-Content node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-pathname.md | Select-Object -First 95\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:26:53.196Z",
+      "lastAccessed": "2026-10-14T09:26:53.196Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:26:53.196Z"
+    },
+    "cmd-1791970065645": {
+      "key": "cmd-1791970065645",
+      "value": "{\"command\":\"git diff -- lib/api.ts lib/utm.ts lib/utm.test.ts e2e/utm-attribution.spec.ts; $reviewFiles = @('lib/attribution.ts','lib/attribution.test.ts'); foreach ($reviewFile in $reviewFiles) { Write-Output \\\"FILE: $reviewFile\\\"; $lineNumber=0; Get-Content -LiteralPath $reviewFile | ForEach-Object { $lineNumber++; '{0,4}: {1}' -f $lineNumber, $_ } }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:27:45.645Z",
+      "lastAccessed": "2026-10-14T09:27:45.645Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:27:45.645Z"
+    },
+    "cmd-1791970065811": {
+      "key": "cmd-1791970065811",
+      "value": "{\"command\":\"git diff -- src/services/LeadService.ts src/services/crm/HttpCrmClient.ts src/services/crm/HttpCrmClient.test.ts src/validation/leadSchema.ts src/validation/leadSchema.test.ts; $reviewFiles = @('src/lib/attribution.ts','src/lib/attribution.test.ts','src/attribution.integration.test.ts'); foreach ($reviewFile in $reviewFiles) { Write-Output \\\"FILE: $reviewFile\\\"; $lineNumber=0; Get-Content -LiteralPath $reviewFile | ForEach-Object { $lineNumber++; '{0,4}: {1}' -f $lineNumber, $_ } }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:27:45.811Z",
+      "lastAccessed": "2026-10-14T09:27:45.811Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:27:45.811Z"
+    },
+    "cmd-1791970079882": {
+      "key": "cmd-1791970079882",
+      "value": "{\"command\":\"npx tsc --noEmit -p tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:27:59.882Z",
+      "lastAccessed": "2026-10-14T09:27:59.882Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:27:59.882Z"
+    },
+    "cmd-1791970079984": {
+      "key": "cmd-1791970079984",
+      "value": "{\"command\":\"npx tsc --noEmit --incremental false -p tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:27:59.984Z",
+      "lastAccessed": "2026-10-14T09:27:59.984Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:27:59.984Z"
+    },
+    "cmd-1791970083794": {
+      "key": "cmd-1791970083794",
+      "value": "{\"command\":\"Get-Content e2e/utm-attribution.spec.ts; git diff -- components/landing/LandingClient.tsx lib/utm.test.ts; rg -n \\\"getStoredAttribution|captureAttribution|normalizeAttribution|utm_source|source\\\" lib/api.test.ts hooks/useLeadForm.test.ts* lib/utm.ts lib/attribution.ts deploy/ANALYTICS.md components/consent/AttributionCapture.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:28:03.794Z",
+      "lastAccessed": "2026-10-14T09:28:03.794Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:28:03.794Z"
+    },
+    "cmd-1791970084997": {
+      "key": "cmd-1791970084997",
+      "value": "{\"command\":\"git diff -- src/services/LeadService.ts src/services/crm/HttpCrmClient.ts src/validation/leadSchema.ts; Get-Content src/types/lead.ts; Get-Content src/routes/lead.ts; Get-Content src/scripts/replayPendingLeads.ts; Get-Content src/services/LeadStore.ts; Get-Content src/services/crm/HttpCrmClient.test.ts | Select-Object -First 130; Get-Content src/lib/attribution.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:28:04.997Z",
+      "lastAccessed": "2026-10-14T09:28:04.997Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:28:04.997Z"
+    },
+    "cmd-1791970085119": {
+      "key": "cmd-1791970085119",
+      "value": "{\"command\":\"npm run lint\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:28:05.119Z",
+      "lastAccessed": "2026-10-14T09:28:05.119Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:28:05.119Z"
+    },
+    "cmd-1791970092664": {
+      "key": "cmd-1791970092664",
+      "value": "{\"command\":\"Get-Content lib/attribution.ts; Get-Content lib/utm.test.ts; Get-Content e2e/utm-attribution.spec.ts; Get-Content .oxlintrc.json; Get-Content node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-pathname.md | Select-Object -First 115; Get-Content next.config.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:28:12.664Z",
+      "lastAccessed": "2026-10-14T09:28:12.664Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:28:12.664Z"
+    },
+    "cmd-1791970092780": {
+      "key": "cmd-1791970092780",
+      "value": "{\"command\":\"npm run lint\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:28:12.780Z",
+      "lastAccessed": "2026-10-14T09:28:12.780Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:28:12.780Z"
+    },
+    "cmd-1791970092953": {
+      "key": "cmd-1791970092953",
+      "value": "{\"command\":\"npx tsc --noEmit\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:28:12.953Z",
+      "lastAccessed": "2026-10-14T09:28:12.953Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:28:12.953Z"
+    },
+    "cmd-1791970127736": {
+      "key": "cmd-1791970127736",
+      "value": "{\"command\":\"git diff --stat; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:28:47.736Z",
+      "lastAccessed": "2026-10-14T09:28:47.736Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:28:47.736Z"
+    },
+    "cmd-1791970127980": {
+      "key": "cmd-1791970127980",
+      "value": "{\"command\":\"rg -n -A 24 -B 5 'Suspense|Static Rendering|Native History' node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-search-params.md; Get-Content .github/workflows/ci.yml -TotalCount 80\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:28:47.980Z",
+      "lastAccessed": "2026-10-14T09:28:47.980Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:28:47.980Z"
+    },
+    "cmd-1791970148425": {
+      "key": "cmd-1791970148425",
+      "value": "{\"command\":\"npm run test:e2e -- --workers=1\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:29:08.425Z",
+      "lastAccessed": "2026-10-14T09:29:08.425Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:29:08.425Z"
+    },
+    "cmd-1791970154017": {
+      "key": "cmd-1791970154017",
+      "value": "{\"command\":\"$reviewFiles=@('src/validation/leadSchema.ts','src/services/crm/HttpCrmClient.ts','src/types/lead.ts','src/services/LeadService.ts','src/services/LeadStore.ts','src/scripts/replayPendingLeads.ts'); foreach ($reviewFile in $reviewFiles) {Write-Output \\\"FILE: $reviewFile\\\"; $lineNumber=0; Get-Content -LiteralPath $reviewFile | ForEach-Object { $lineNumber++; '{0,4}: {1}' -f $lineNumber, $_ }}\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:29:14.017Z",
+      "lastAccessed": "2026-10-14T09:29:14.017Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:29:14.017Z"
+    },
+    "cmd-1791970154404": {
+      "key": "cmd-1791970154404",
+      "value": "{\"command\":\"$reviewFiles=@('lib/utm.ts','lib/api.ts','types/lead.ts'); foreach ($reviewFile in $reviewFiles) {Write-Output \\\"FILE: $reviewFile\\\"; $lineNumber=0; Get-Content -LiteralPath $reviewFile | ForEach-Object { $lineNumber++; '{0,4}: {1}' -f $lineNumber, $_ }}; Get-Content components/consent/AttributionCapture.tsx; Get-Content lib/utm.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:29:14.404Z",
+      "lastAccessed": "2026-10-14T09:29:14.404Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:29:14.404Z"
+    },
+    "cmd-1791970168753": {
+      "key": "cmd-1791970168753",
+      "value": "{\"command\":\"../nfcretail-api/node_modules/.bin/tsx.cmd -e \\\"import { JSDOM } from 'jsdom'; import {captureAttribution} from './lib/utm.ts'; const first=new JSDOM('',{url:'https://nfcretail.com/fr/visibilite/?utm_source=google&utm_medium=cpc&utm_campaign=paid&gclid=old-click',referrer:'https://www.google.com/'});globalThis.window=first.window;globalThis.document=first.window.document;const a=captureAttribution(); const stored=first.window.sessionStorage.getItem('nfcr_attribution_last');const second=new JSDOM('',{url:'https://nfcretail.com/fr/visibilite/',referrer:'https://www.google.com/'});second.window.sessionStorage.setItem('nfcr_attribution_last',stored);globalThis.window=second.window;globalThis.document=second.window.document;const b=captureAttribution();console.log(JSON.stringify({first:{source:a.utm_source,medium:a.utm_medium,gclid:a.gclid},organicReturn:{source:b.utm_source,medium:b.utm_medium,gclid:b.gclid,entry:b.landing_page}}));first.window.close();second.window.close();\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:29:28.753Z",
+      "lastAccessed": "2026-10-14T09:29:28.753Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:29:28.753Z"
+    },
+    "cmd-1791970193330": {
+      "key": "cmd-1791970193330",
+      "value": "{\"command\":\"node --experimental-strip-types --input-type=module -e 'const {normalizeAttribution}=await import(\\\"./src/lib/attribution.ts\\\"); const result=normalizeAttribution({utm_source:null,utm_medium:null,utm_campaign:null,utm_content:null,utm_term:null,gclid:null,gbraid:null,wbraid:null,fbclid:null,msclkid:null,landing_page:\\\"https://nfcretail.com/fr/visibilite/\\\",landing_path:\\\"/fr/visibilite/\\\",referrer:\\\"https://\\\"+\\\"a\\\".repeat(550)+\\\".example/\\\",landing_timestamp:new Date().toISOString()}); console.log({source_length:result.utm_source.length,medium:result.utm_medium});'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:29:53.330Z",
+      "lastAccessed": "2026-10-14T09:29:53.330Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:29:53.330Z"
+    },
+    "cmd-1791970193731": {
+      "key": "cmd-1791970193731",
+      "value": "{\"command\":\"node --experimental-strip-types --input-type=module -e 'import ts from \\\"typescript\\\"; import { readFileSync } from \\\"node:fs\\\"; import { resolve } from \\\"node:path\\\"; import { pathToFileURL } from \\\"node:url\\\"; const code = ts.transpile(readFileSync(\\\"lib/utm.ts\\\", \\\"utf8\\\"), { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext }).replace(\\\"./attribution\\\", pathToFileURL(resolve(\\\"lib/attribution.ts\\\")).href); const record = {utm_source:\\\"google\\\",utm_medium:\\\"cpc\\\",utm_campaign:null,utm_content:null,utm_term:null,gclid:null,gbraid:null,wbraid:null,fbclid:null,msclkid:null,landing_page:\\\"https://nfcretail.com/\\\" + \\\"x\\\".repeat(2100),landing_path:\\\"/fr/visibilite/\\\",referrer:\\\"\\\",landing_timestamp:new Date().toISOString()}; globalThis.window={location:new URL(\\\"https://nfcretail.com/fr/visibilite/\\\"),sessionStorage:{getItem:()=>JSON.stringify(record),setItem(){}},localStorage:{getItem:()=>null,setItem(){}}}; globalThis.document={referrer:\\\"\\\"}; const {captureAttribution}=await import(\\\"data:text/javascript;base64,\\\"+Buffer.from(code).toString(\\\"base64\\\")); const result=captureAttribution(); console.log({source:result.utm_source,landing_page_length:result.landing_page.length});'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:29:53.731Z",
+      "lastAccessed": "2026-10-14T09:29:53.731Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:29:53.731Z"
+    },
+    "cmd-1791970198417": {
+      "key": "cmd-1791970198417",
+      "value": "{\"command\":\"rg --files src | Select-String 'Controller|controller|route|replay|env.test'; rg -n \\\"leadSchema|service.submit|leadService.submit|new LeadService|buildAttribution|normalizeAttribution\\\" src --glob '!*.test.ts'; Get-Content src/services/replayPendingLeads.ts; Get-Content src/app.ts | Select-Object -First 190; Get-Content src/validation/leadSchema.test.ts; git diff --check; rg --files | Select-String 'DOCX|docx|CONTRACT|contract|README|AGENTS'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:29:58.417Z",
+      "lastAccessed": "2026-10-14T09:29:58.417Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:29:58.417Z"
+    },
+    "cmd-1791970199386": {
+      "key": "cmd-1791970199386",
+      "value": "{\"command\":\"$reviewPaths = @('lib/utm.ts','lib/attribution.ts','components/consent/AttributionCapture.tsx'); foreach ($reviewPath in $reviewPaths) { Write-Output $reviewPath; $reviewLine = 0; Get-Content -LiteralPath $reviewPath | ForEach-Object { $reviewLine++; \\\"${reviewLine}: $_\\\" } }; Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue | Where-Object { $_.LocalPort -in 3000,3100,3200 } | Select-Object LocalPort; Get-Content components/landing/LegalPage.tsx; Get-Content components/landing/Header.tsx; git diff --check\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:29:59.386Z",
+      "lastAccessed": "2026-10-14T09:29:59.386Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:29:59.386Z"
+    },
+    "cmd-1791970212562": {
+      "key": "cmd-1791970212562",
+      "value": "{\"command\":\"Get-Content app/layout.tsx | Select-Object -First 80; Get-Content node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-search-params.md | Select-String -Pattern 'Suspense|production|build' -Context 2,2 | Select-Object -First 35; Get-Content src/controllers/leadController.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:30:12.562Z",
+      "lastAccessed": "2026-10-14T09:30:12.562Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:30:12.562Z"
+    },
+    "cmd-1791970347475": {
+      "key": "cmd-1791970347475",
+      "value": "{\"command\":\"Get-Content src/services/replayPendingLeads.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:32:27.475Z",
+      "lastAccessed": "2026-10-14T09:32:27.475Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:32:27.475Z"
+    },
+    "cmd-1791970356726": {
+      "key": "cmd-1791970356726",
+      "value": "{\"command\":\"./node_modules/.bin/tsx.cmd -e \\\"import {HttpCrmClient} from './src/services/crm/HttpCrmClient.ts';import {replayPendingLeads} from './src/services/replayPendingLeads.ts';(async()=>{let wire:any;let stored:any;const attribution={utm_source:null,utm_medium:null,utm_campaign:null,utm_content:null,utm_term:null,gclid:null,gbraid:null,wbraid:null,fbclid:null,msclkid:null,landing_page:'https://nfcretail.com/fr/visibilite/?utm_source=chatgpt&utm_medium=ads',landing_path:'/fr/visibilite/',referrer:'',landing_timestamp:'2026-10-14T12:00:00.000Z'};const lead:any={id:'review-legacy',submissionId:'review-legacy-submit',market:'fr',establishmentName:'Review',city:'Lyon',activity:'',firstName:'Review',lastName:'Test',phone:'0674321985',email:'review@example.test',website:'',attribution,consent:{noticeVersion:'v1',marketingConsent:true,marketingConsentAt:'2026-10-14T12:00:00.000Z'},receivedAt:'2026-10-14T12:00:00.000Z',status:'pending'};const crm=new HttpCrmClient({apiUrl:'https://crm.example.test/leads',apiKey:'test-only',locale:'fr-FR',offerCode:'visibility',fetchImpl:async (_u,init)=>{wire=JSON.parse(init!.body as string);return new Response(null,{status:201});}});await replayPendingLeads({readAll:async()=>[lead],rewriteAll:async(v:any)=>{stored=v;}} as any,()=>crm,{info(){},error(){},warn(){}} as any);console.log(JSON.stringify({crmSource:wire.attribution.utm_source,storedSource:stored[0].attribution.utm_source,storedStatus:stored[0].status}));})()\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:32:36.726Z",
+      "lastAccessed": "2026-10-14T09:32:36.726Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:32:36.726Z"
+    },
+    "cmd-1791970371171": {
+      "key": "cmd-1791970371171",
+      "value": "{\"command\":\"git diff -- src/services/replayPendingLeads.ts; Get-Content src/services/replayPendingLeads.ts | Select-Object -First 85; Get-Content src/services/LeadService.ts | Select-Object -First 60; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:32:51.171Z",
+      "lastAccessed": "2026-10-14T09:32:51.171Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:32:51.171Z"
+    },
+    "cmd-1791970398787": {
+      "key": "cmd-1791970398787",
+      "value": "{\"command\":\"Get-Content lib/utm.ts | Select-Object -Skip 62 -First 56; git diff --stat; Get-Content components/consent/AttributionCapture.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:33:18.787Z",
+      "lastAccessed": "2026-10-14T09:33:18.787Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:33:18.787Z"
+    },
+    "cmd-1791970409776": {
+      "key": "cmd-1791970409776",
+      "value": "{\"command\":\"Get-Content components/consent/AttributionCapture.tsx; Get-Content app/layout.tsx; Get-Content e2e/utm-attribution.spec.ts | Select-Object -Last 92; git diff -- components/consent/AttributionCapture.tsx app/layout.tsx; Get-Content lib/utm.ts | Select-Object -Last 29\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:33:29.776Z",
+      "lastAccessed": "2026-10-14T09:33:29.776Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:33:29.776Z"
+    },
+    "cmd-1791970419363": {
+      "key": "cmd-1791970419363",
+      "value": "{\"command\":\"git diff -- src/lib/attribution.ts src/lib/attribution.test.ts; Get-Content src/lib/attribution.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:33:39.363Z",
+      "lastAccessed": "2026-10-14T09:33:39.363Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:33:39.363Z"
+    },
+    "cmd-1791970419575": {
+      "key": "cmd-1791970419575",
+      "value": "{\"command\":\"$reviewFiles=@('lib/attribution.ts','lib/utm.ts','lib/attribution.test.ts','lib/utm.test.ts'); foreach ($reviewFile in $reviewFiles) { Write-Output \\\"FILE: $reviewFile\\\"; $lineNumber=0; Get-Content -LiteralPath $reviewFile | ForEach-Object { $lineNumber++; '{0,4}: {1}' -f $lineNumber, $_ }}\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:33:39.575Z",
+      "lastAccessed": "2026-10-14T09:33:39.575Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:33:39.575Z"
+    },
+    "cmd-1791970447651": {
+      "key": "cmd-1791970447651",
+      "value": "{\"command\":\"Get-Content src/services/replayPendingLeads.ts; Get-Content src/services/replayPendingLeads.test.ts | Select-Object -Last 100; Get-Content src/controllers/leadController.ts; git diff --check\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:34:07.651Z",
+      "lastAccessed": "2026-10-14T09:34:07.651Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:34:07.651Z"
+    },
+    "cmd-1791970447718": {
+      "key": "cmd-1791970447718",
+      "value": "{\"command\":\"npm run lint; npx tsc --noEmit\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:34:07.718Z",
+      "lastAccessed": "2026-10-14T09:34:07.718Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:34:07.718Z"
+    },
+    "cmd-1791970447998": {
+      "key": "cmd-1791970447998",
+      "value": "{\"command\":\"Get-Content lib/utm.ts; Get-Content lib/utm.test.ts | Select-Object -Last 90; Get-Content e2e/utm-attribution.spec.ts | Select-Object -Last 90; Get-Content components/consent/AttributionCapture.tsx; Get-Content app/layout.tsx | Select-Object -Skip 40 -First 27; git diff --check\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:34:07.998Z",
+      "lastAccessed": "2026-10-14T09:34:07.998Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:34:07.998Z"
+    },
+    "cmd-1791970509380": {
+      "key": "cmd-1791970509380",
+      "value": "{\"command\":\"git status --short; git diff --stat; git diff -- src/lib/attribution.ts src/controllers/leadController.ts src/validation/leadSchema.ts src/services/replayPendingLeads.ts src/types/lead.ts; if (Test-Path -LiteralPath 'AGENTS.md') { Get-Content -LiteralPath 'AGENTS.md' }; rg --files -g AGENTS.md -g '*attribution*' -g '*leadSchema*' -g '!node_modules/**' -g '!dist/**'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:35:09.380Z",
+      "lastAccessed": "2026-10-14T09:35:09.380Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:35:09.380Z"
+    },
+    "cmd-1791970509424": {
+      "key": "cmd-1791970509424",
+      "value": "{\"command\":\"git status --short; git diff --stat; git diff -- lib/utm.ts lib/attribution.ts lib/api.ts lib/tracking.ts lib/ga4.ts types/lead.ts; if (Test-Path -LiteralPath 'AGENTS.md') { Get-Content -LiteralPath 'AGENTS.md' }; rg --files -g AGENTS.md -g '*attribution*' -g '*utm*' -g '*api.test*' -g '!node_modules/**' -g '!.next/**' -g '!out/**'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:35:09.424Z",
+      "lastAccessed": "2026-10-14T09:35:09.424Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:35:09.424Z"
+    },
+    "cmd-1791970527017": {
+      "key": "cmd-1791970527017",
+      "value": "{\"command\":\"$paths=@('src/lib/attribution.ts','src/lib/attribution.test.ts','src/attribution.integration.test.ts','src/validation/leadSchema.ts'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); $n=0; Get-Content -LiteralPath $p | ForEach-Object { $n++; '{0}: {1}' -f $n,$_ } }; git diff -- src/services/LeadService.ts src/services/crm/HttpCrmClient.ts src/services/replayPendingLeads.ts; Get-Content -LiteralPath 'src/types/lead.ts'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:35:27.017Z",
+      "lastAccessed": "2026-10-14T09:35:27.017Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:35:27.017Z"
+    },
+    "cmd-1791970527322": {
+      "key": "cmd-1791970527322",
+      "value": "{\"command\":\"$paths=@('lib/attribution.ts','lib/attribution.test.ts','lib/utm.test.ts','components/consent/AttributionCapture.tsx','lib/ga4.ts','lib/tracking.ts','types/lead.ts'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); $n=0; Get-Content -LiteralPath $p | ForEach-Object { $n++; '{0}: {1}' -f $n,$_ } }; git diff -- app/layout.tsx components/landing/LandingClient.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:35:27.322Z",
+      "lastAccessed": "2026-10-14T09:35:27.322Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:35:27.322Z"
+    },
+    "cmd-1791970554544": {
+      "key": "cmd-1791970554544",
+      "value": "{\"command\":\"npm test; node node_modules/typescript/bin/tsc -p tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:35:54.544Z",
+      "lastAccessed": "2026-10-14T09:35:54.544Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:35:54.544Z"
+    },
+    "cmd-1791970554622": {
+      "key": "cmd-1791970554622",
+      "value": "{\"command\":\"npm test; npm run build\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:35:54.622Z",
+      "lastAccessed": "2026-10-14T09:35:54.622Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:35:54.622Z"
+    },
+    "cmd-1791970570067": {
+      "key": "cmd-1791970570067",
+      "value": "{\"command\":\"$paths=@('src/controllers/leadController.ts','src/services/replayPendingLeads.ts','src/services/crm/HttpCrmClient.ts'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); $n=0; Get-Content -LiteralPath $p | ForEach-Object { $n++; if ($p -notlike '*HttpCrmClient*' -or $n -ge 130) { '{0}: {1}' -f $n,$_ } } }; rg -n 'attribution|dangerouslySetInnerHTML|eval\\\\(|new Function|\\\\.query\\\\(' src -g '!*.test.ts'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:36:10.067Z",
+      "lastAccessed": "2026-10-14T09:36:10.067Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:36:10.067Z"
+    },
+    "cmd-1791970570127": {
+      "key": "cmd-1791970570127",
+      "value": "{\"command\":\"$paths=@('lib/tracking.ts','lib/analytics-context.ts','app/layout.tsx','components/landing/LandingClient.tsx'); foreach ($p in $paths) { Write-Output ('FILE ' + $p); $n=0; Get-Content -LiteralPath $p | ForEach-Object { $n++; '{0}: {1}' -f $n,$_ } }; rg -n 'attribution|readTrackingParams|captureAttribution|normalizeAttribution' lib hooks components app types -g '!*.test.*'; rg --files node_modules/next/dist/docs -g '*client*' -g '*layout*' -g '*suspense*' -g '*search-params*'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:36:10.127Z",
+      "lastAccessed": "2026-10-14T09:36:10.127Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:36:10.127Z"
+    },
+    "cmd-1791970629417": {
+      "key": "cmd-1791970629417",
+      "value": "{\"command\":\"git show HEAD:src/services/crm/HttpCrmClient.ts | Select-Object -Last 22; Get-Content -LiteralPath 'src/services/crm/CrmClient.ts' | Select-Object -Last 13; Get-Content -LiteralPath 'src/services/replayPendingLeads.test.ts' | Select-Object -Last 95\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:37:09.417Z",
+      "lastAccessed": "2026-10-14T09:37:09.417Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:37:09.417Z"
+    },
+    "cmd-1791970629487": {
+      "key": "cmd-1791970629487",
+      "value": "{\"command\":\"Select-String -LiteralPath 'node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-search-params.md' -Pattern 'Suspense|production build|Client Component' -Context 1,2; $front=Get-Content -LiteralPath 'lib/attribution.ts' | Select-Object -Skip 1; $back=Get-Content -LiteralPath 'C:/Users/Cheikh/Documents/DEV/nfcretail-api/src/lib/attribution.ts' | Select-Object -Skip 1; $different=Compare-Object $front $back; if ($different) { $different } else { Write-Output 'MIRROR_IDENTICAL_AFTER_TYPE_IMPORT' }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:37:09.487Z",
+      "lastAccessed": "2026-10-14T09:37:09.487Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:37:09.487Z"
+    },
+    "cmd-1791970698280": {
+      "key": "cmd-1791970698280",
+      "value": "{\"command\":\"git diff -- src/services/LeadService.ts src/services/crm/HttpCrmClient.ts src/services/crm/HttpCrmClient.test.ts src/services/replayPendingLeads.ts src/services/replayPendingLeads.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:38:18.280Z",
+      "lastAccessed": "2026-10-14T09:38:18.280Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:38:18.280Z"
+    },
+    "cmd-1791970698635": {
+      "key": "cmd-1791970698635",
+      "value": "{\"command\":\"git diff -- app/layout.tsx components/landing/LandingClient.tsx lib/api.ts; rg -n 'fetch\\\\(|dangerouslySetInnerHTML|innerHTML|eval\\\\(|localStorage|sessionStorage|track\\\\(' lib/attribution.ts lib/utm.ts components/consent/AttributionCapture.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:38:18.635Z",
+      "lastAccessed": "2026-10-14T09:38:18.635Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:38:18.635Z"
+    },
+    "cmd-1791970852371": {
+      "key": "cmd-1791970852371",
+      "value": "{\"command\":\"npm test; node node_modules/typescript/bin/tsc -p tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:40:52.371Z",
+      "lastAccessed": "2026-10-14T09:40:52.371Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:40:52.371Z"
+    },
+    "cmd-1791970852497": {
+      "key": "cmd-1791970852497",
+      "value": "{\"command\":\"npm run test:e2e -- --workers=1; npm run lint\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:40:52.497Z",
+      "lastAccessed": "2026-10-14T09:40:52.497Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:40:52.497Z"
+    },
+    "cmd-1791970861496": {
+      "key": "cmd-1791970861496",
+      "value": "{\"command\":\"git status --short; git diff --check; git fetch origin\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:41:01.496Z",
+      "lastAccessed": "2026-10-14T09:41:01.496Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:41:01.496Z"
+    },
+    "cmd-1791970863148": {
+      "key": "cmd-1791970863148",
+      "value": "{\"command\":\"git status --short; git diff --check; git fetch origin\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:41:03.148Z",
+      "lastAccessed": "2026-10-14T09:41:03.148Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:41:03.148Z"
+    },
+    "cmd-1791970895655": {
+      "key": "cmd-1791970895655",
+      "value": "{\"command\":\"git rev-list --left-right --count HEAD...origin/main; git log -1 --format='%h %s' origin/main\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:41:35.655Z",
+      "lastAccessed": "2026-10-14T09:41:35.655Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:41:35.655Z"
+    },
+    "cmd-1791970899348": {
+      "key": "cmd-1791970899348",
+      "value": "{\"command\":\"git rev-list --left-right --count HEAD...origin/main; git log -1 --format='%h %s' origin/main\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:41:39.348Z",
+      "lastAccessed": "2026-10-14T09:41:39.348Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:41:39.348Z"
+    },
+    "cmd-1791970937281": {
+      "key": "cmd-1791970937281",
+      "value": "{\"command\":\"node 'C:\\\\Users\\\\Cheikh\\\\.codex\\\\visualizations\\\\2026\\\\10\\\\02\\\\01a0fbee-c61f-7000-bce6-3e15b782bd8d\\\\utm-audit-2026-10-14\\\\browser-harness.mjs'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:42:17.281Z",
+      "lastAccessed": "2026-10-14T09:42:17.281Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:42:17.281Z"
+    },
+    "cmd-1791970939074": {
+      "key": "cmd-1791970939074",
+      "value": "{\"command\":\"git diff -- src/services/LeadService.ts src/services/crm/HttpCrmClient.ts src/services/replayPendingLeads.ts src/services/crm/HttpCrmClient.test.ts src/services/replayPendingLeads.test.ts; $paths=@('src/services/crm/HttpCrmClient.ts','src/services/replayPendingLeads.ts'); foreach ($p in $paths) { $current=git hash-object $p; $committed=git rev-parse ('HEAD:' + $p); Write-Output ($p + ' IDENTICAL_TO_HEAD ' + ($current -eq $committed)) }\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:42:19.074Z",
+      "lastAccessed": "2026-10-14T09:42:19.074Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:42:19.074Z"
+    },
+    "cmd-1791970942847": {
+      "key": "cmd-1791970942847",
+      "value": "{\"command\":\"git diff -- src/services/LeadService.ts src/services/crm/HttpCrmClient.ts src/services/replayPendingLeads.ts; git diff --check\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:42:22.847Z",
+      "lastAccessed": "2026-10-14T09:42:22.847Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:42:22.847Z"
+    },
+    "cmd-1791970965074": {
+      "key": "cmd-1791970965074",
+      "value": "{\"command\":\"node 'C:\\\\Users\\\\Cheikh\\\\.codex\\\\visualizations\\\\2026\\\\10\\\\02\\\\01a0fbee-c61f-7000-bce6-3e15b782bd8d\\\\utm-audit-2026-10-14\\\\api-harness.mjs'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:42:45.074Z",
+      "lastAccessed": "2026-10-14T09:42:45.074Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:42:45.074Z"
+    },
+    "cmd-1791970968428": {
+      "key": "cmd-1791970968428",
+      "value": "{\"command\":\"$env:NEXT_PUBLIC_API_BASE_URL='http://localhost:3002'; $env:NEXT_PUBLIC_GA4_MEASUREMENT_ID=''; npm run dev -- --port 3100\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:42:48.428Z",
+      "lastAccessed": "2026-10-14T09:42:48.428Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:42:48.428Z"
+    },
+    "cmd-1791971007893": {
+      "key": "cmd-1791971007893",
+      "value": "{\"command\":\"git switch -c cheikh/lead-attribution; git add README.md src/services/LeadService.ts src/services/crm/HttpCrmClient.test.ts src/services/replayPendingLeads.test.ts src/validation/leadSchema.ts src/validation/leadSchema.test.ts src/attribution.integration.test.ts src/lib/attribution.ts src/lib/attribution.test.ts; git diff --cached --stat; git diff --cached --check\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:43:27.893Z",
+      "lastAccessed": "2026-10-14T09:43:27.893Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:43:27.893Z"
+    },
+    "cmd-1791971053989": {
+      "key": "cmd-1791971053989",
+      "value": "{\"command\":\"node node_modules/typescript/bin/tsc --noEmit; git add lib/utm.ts; git diff --cached --check\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:44:13.989Z",
+      "lastAccessed": "2026-10-14T09:44:13.989Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:44:13.989Z"
+    },
+    "cmd-1791971095212": {
+      "key": "cmd-1791971095212",
+      "value": "{\"command\":\"rg -n 'firstName|first_name' src README.md; Get-Content src/controllers/leadController.ts -TotalCount 85; Get-Content src/services/crm/HttpCrmClient.ts -Tail 45; Get-Content src/services/LeadService.test.ts -Tail 35\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:44:55.212Z",
+      "lastAccessed": "2026-10-14T09:44:55.212Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:44:55.212Z"
+    },
+    "cmd-1791971095297": {
+      "key": "cmd-1791971095297",
+      "value": "{\"command\":\"Get-Content lib/validation.ts; Get-Content lib/validation.test.ts; Get-Content components/landing/LeadForm.tsx; Get-Content e2e/form-validation.spec.ts; rg -n 'firstName|prenom|prénom' components content lib hooks e2e types\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:44:55.297Z",
+      "lastAccessed": "2026-10-14T09:44:55.297Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:44:55.297Z"
+    },
+    "cmd-1791971199171": {
+      "key": "cmd-1791971199171",
+      "value": "{\"command\":\"npm test -- src/validation/leadSchema.test.ts src/attribution.integration.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:46:39.171Z",
+      "lastAccessed": "2026-10-14T09:46:39.171Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:46:39.171Z"
+    },
+    "cmd-1791971200317": {
+      "key": "cmd-1791971200317",
+      "value": "{\"command\":\"npm test -- lib/validation.test.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:46:40.317Z",
+      "lastAccessed": "2026-10-14T09:46:40.317Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:46:40.317Z"
+    },
+    "cmd-1791971325077": {
+      "key": "cmd-1791971325077",
+      "value": "{\"command\":\"git diff -- components/landing/LeadForm.tsx hooks/useLeadForm.ts components/landing/MerciClient.tsx lib/validation.ts content/fr.ts; Get-Content components/landing/LeadForm.tsx; Get-Content components/landing/MerciClient.tsx; Get-Content hooks/useLeadForm.ts; Get-Content lib/validation.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:48:45.077Z",
+      "lastAccessed": "2026-10-14T09:48:45.077Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:48:45.077Z"
+    },
+    "cmd-1791971327635": {
+      "key": "cmd-1791971327635",
+      "value": "{\"command\":\"git diff -- e2e/form-validation.spec.ts e2e/desktop.spec.ts content/fr.ts lib/utm.ts; Get-Content .oxlintrc.json; Get-Content app/globals.css | Select-Object -Skip 880 -First 182; Get-NetTCPConnection -LocalPort 3100 -State Listen -ErrorAction SilentlyContinue | Select-Object LocalPort\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:48:47.635Z",
+      "lastAccessed": "2026-10-14T09:48:47.635Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:48:47.635Z"
+    },
+    "cmd-1791971336183": {
+      "key": "cmd-1791971336183",
+      "value": "{\"command\":\"git diff -- lib/validation.ts lib/utm.ts lib/api.ts lib/validation.test.ts components/landing/LeadForm.tsx hooks/useLeadForm.ts content/fr.ts content/fr/landing.ts types/lead.ts; rg -n 'firstName|goToMerci|validateStep2|validateLead' lib hooks components/landing/LeadForm.tsx content e2e\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:48:56.183Z",
+      "lastAccessed": "2026-10-14T09:48:56.183Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:48:56.183Z"
+    },
+    "cmd-1791971336336": {
+      "key": "cmd-1791971336336",
+      "value": "{\"command\":\"git diff -- src/validation/leadSchema.ts src/validation/leadSchema.test.ts src/services/LeadService.ts src/services/crm/HttpCrmClient.ts src/services/crm/HttpCrmClient.test.ts src/attribution.integration.test.ts; Get-Content src/attribution.integration.test.ts; rg -n 'firstName|first_name|normalizeAttribution' src/services src/controllers src/validation src/types\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:48:56.336Z",
+      "lastAccessed": "2026-10-14T09:48:56.336Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:48:56.336Z"
+    },
+    "cmd-1791971364064": {
+      "key": "cmd-1791971364064",
+      "value": "{\"command\":\"git diff --staged; git diff --stat; git status --short; git diff -- lib/validation.ts lib/validation.test.ts hooks/useLeadForm.ts components/landing/LeadForm.tsx components/landing/MerciClient.tsx content/fr.ts types/lead.ts; rg -n \\\"firstName|first_name|prénom|Prénom|first-name\\\" hooks components lib/validation* content types e2e --glob '!*.map'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:49:24.064Z",
+      "lastAccessed": "2026-10-14T09:49:24.064Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:49:24.064Z"
+    },
+    "cmd-1791971364210": {
+      "key": "cmd-1791971364210",
+      "value": "{\"command\":\"git diff --staged; git diff --stat; git status --short; git diff -- src/validation/leadSchema.ts src/services/LeadService.ts src/services/crm/HttpCrmClient.ts src/services/replayPendingLeads.ts src/services/replayPendingLeads.test.ts src/services/crm/HttpCrmClient.test.ts; rg -n \\\"firstName|first_name|normalizeAttribution|idempot|409|first.name\\\" src README.md --glob '!*.map'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:49:24.210Z",
+      "lastAccessed": "2026-10-14T09:49:24.210Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:49:24.210Z"
+    },
+    "cmd-1791971369510": {
+      "key": "cmd-1791971369510",
+      "value": "{\"command\":\"rg -n 'first_name|prénom|prenom' --glob '*.md' --glob '*.txt' --glob '*.json' .; git diff -- src/services/crm/HttpCrmClient.ts src/services/replayPendingLeads.ts; Get-Content src/controllers/leadController.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:49:29.510Z",
+      "lastAccessed": "2026-10-14T09:49:29.510Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:49:29.510Z"
+    },
+    "cmd-1791971373641": {
+      "key": "cmd-1791971373641",
+      "value": "{\"command\":\"Get-Content lib/utm.ts; Get-Content lib/validation.ts; Get-Content e2e/form-validation.spec.ts; Get-Content components/landing/MerciClient.tsx\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:49:33.641Z",
+      "lastAccessed": "2026-10-14T09:49:33.641Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:49:33.641Z"
+    },
+    "cmd-1791971394842": {
+      "key": "cmd-1791971394842",
+      "value": "{\"command\":\"npx tsc --noEmit -p tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:49:54.842Z",
+      "lastAccessed": "2026-10-14T09:49:54.842Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:49:54.842Z"
+    },
+    "cmd-1791971405868": {
+      "key": "cmd-1791971405868",
+      "value": "{\"command\":\"npm test; node node_modules/typescript/bin/tsc -p tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:50:05.868Z",
+      "lastAccessed": "2026-10-14T09:50:05.868Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:50:05.868Z"
+    },
+    "cmd-1791971406026": {
+      "key": "cmd-1791971406026",
+      "value": "{\"command\":\"npm test; npm run build\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:50:06.026Z",
+      "lastAccessed": "2026-10-14T09:50:06.026Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:50:06.026Z"
+    },
+    "cmd-1791971419007": {
+      "key": "cmd-1791971419007",
+      "value": "{\"command\":\"Get-Content src/services/replayPendingLeads.ts; Get-Content src/services/crm/HttpCrmClient.ts | Select-Object -Skip 98 -First 65; git diff -- src/validation/leadSchema.test.ts src/attribution.integration.test.ts; git diff HEAD -- src/services/replayPendingLeads.ts src/services/crm/HttpCrmClient.ts; git diff --check\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:50:19.007Z",
+      "lastAccessed": "2026-10-14T09:50:19.007Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:50:19.007Z"
+    },
+    "cmd-1791971419111": {
+      "key": "cmd-1791971419111",
+      "value": "{\"command\":\"git diff -- lib/validation.ts lib/validation.test.ts components/landing/LeadForm.tsx components/landing/MerciClient.tsx content/fr.ts e2e/form-validation.spec.ts; Get-Content lib/validation.ts; Get-Content components/landing/MerciClient.tsx; Get-Content content/fr.ts | Select-Object -Skip 80 -First 65; Get-Content components/landing/LeadForm.tsx | Select-Object -Skip 88 -First 27; Get-Content hooks/useLeadForm.ts | Select-Object -Skip 90 -First 65; Get-Content lib/validation.test.ts | Select-Object -First 175; git diff --check\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:50:19.111Z",
+      "lastAccessed": "2026-10-14T09:50:19.111Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:50:19.111Z"
+    },
+    "cmd-1791971424366": {
+      "key": "cmd-1791971424366",
+      "value": "{\"command\":\"rg -n \\\"title:|firstName|trim\\\\(|confirmation|firstNameLabel\\\" content/fr.ts hooks/useLeadForm.ts components/landing/MerciClient.tsx; Get-Content content/fr.ts | Select-Object -Skip 97 -First 32; Get-Content e2e/form-validation.spec.ts | Select-Object -First 28; Get-Content lib/ga4.ts | Select-Object -Skip 76 -First 12\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:50:24.366Z",
+      "lastAccessed": "2026-10-14T09:50:24.366Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:50:24.366Z"
+    },
+    "cmd-1791971430595": {
+      "key": "cmd-1791971430595",
+      "value": "{\"command\":\"npx tsc --noEmit --incremental false -p tsconfig.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:50:30.595Z",
+      "lastAccessed": "2026-10-14T09:50:30.595Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:50:30.595Z"
+    },
+    "cmd-1791971430715": {
+      "key": "cmd-1791971430715",
+      "value": "{\"command\":\"npm run lint\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:50:30.715Z",
+      "lastAccessed": "2026-10-14T09:50:30.715Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:50:30.715Z"
+    },
+    "cmd-1791971438185": {
+      "key": "cmd-1791971438185",
+      "value": "{\"command\":\"@'\\nconst { chromium } = require('playwright');\\n(async () => {\\n const browser = await chromium.launch({headless:true});\\n const page = await browser.newPage({viewport:{width:901,height:560}});\\n await page.addInitScript(() => localStorage.setItem('nfcr_consent_analytics','rejected'));\\n await page.goto('http://localhost:3100/fr/visibilite/',{waitUntil:'networkidle'});\\n await page.evaluate(() => document.fonts.ready);\\n for (const [width,height] of [[901,560],[1024,600],[1280,560],[1366,768],[320,568]]) {\\n  await page.setViewportSize({width,height});\\n  console.log(JSON.stringify(await page.evaluate(() => {\\n   const first=document.querySelector('[name=\\\"firstName\\\"]');\\n   const bounds=first.getBoundingClientRect();\\n   const label=first.closest('label');\\n   return {viewport:[innerWidth,innerHeight],document:[document.documentElement.scrollWidth,document.documentElement.scrollHeight],firstLabel:label.innerText,firstRequired:first.getAttribute('aria-required'),lastRequired:document.querySelector('[name=\\\"lastName\\\"]').getAttribute('aria-required'),firstBounds:{left:bounds.left,right:bounds.right,bottom:bounds.bottom},labelWidth:label.getBoundingClientRect().width};\\n  })));\\n }\\n await page.setViewportSize({width:901,height:560});\\n await page.getByTestId('lead-submit').click();\\n console.log(JSON.stringify(await page.evaluate(() => ({afterBlankSubmit:[document.documentElement.scrollWidth,document.documentElement.scrollHeight],firstInvalid:document.querySelector('[name=\\\"firstName\\\"]').getAttribute('aria-invalid'),lastInvalid:document.querySelector('[name=\\\"lastName\\\"]').getAttribute('aria-invalid')}))));\\n await browser.close();\\n})().catch(e=>{console.error(e.message);process.exitCode=1});\\n'@ | node\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:50:38.185Z",
+      "lastAccessed": "2026-10-14T09:50:38.185Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:50:38.185Z"
+    },
+    "cmd-1791971438467": {
+      "key": "cmd-1791971438467",
+      "value": "{\"command\":\"Get-Content content/fr.ts | Select-Object -Skip 87 -First 28; Get-Content e2e/helpers.ts | Select-Object -First 85; npm run lint; npx tsc --noEmit\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:50:38.467Z",
+      "lastAccessed": "2026-10-14T09:50:38.467Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:50:38.467Z"
+    },
+    "cmd-1791971442216": {
+      "key": "cmd-1791971442216",
+      "value": "{\"command\":\"rg -n 'Merci, votre demande|demande d’analyse|optional first name' e2e/form-validation.spec.ts content/fr.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:50:42.216Z",
+      "lastAccessed": "2026-10-14T09:50:42.216Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:50:42.216Z"
+    },
+    "cmd-1791971509650": {
+      "key": "cmd-1791971509650",
+      "value": "{\"command\":\"npm run test:e2e -- e2e/form-validation.spec.ts e2e/utm-attribution.spec.ts e2e/desktop.spec.ts --workers=1\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:51:49.650Z",
+      "lastAccessed": "2026-10-14T09:51:49.650Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:51:49.650Z"
+    },
+    "cmd-1791971513423": {
+      "key": "cmd-1791971513423",
+      "value": "{\"command\":\"git add README.md app/layout.tsx components/landing/LandingClient.tsx components/landing/LeadForm.tsx components/consent/AttributionCapture.tsx content/fr.ts hooks/useLeadForm.ts e2e/README.md e2e/utm-attribution.spec.ts e2e/form-validation.spec.ts lib/api.ts lib/utm.ts lib/utm.test.ts lib/attribution.ts lib/attribution.test.ts lib/validation.ts lib/validation.test.ts deploy/ATTRIBUTION.md; git diff --cached --check; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:51:53.423Z",
+      "lastAccessed": "2026-10-14T09:51:53.423Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:51:53.423Z"
+    },
+    "cmd-1791971518117": {
+      "key": "cmd-1791971518117",
+      "value": "{\"command\":\"git add README.md src/services/LeadService.ts src/services/crm/HttpCrmClient.test.ts src/services/replayPendingLeads.test.ts src/validation/leadSchema.ts src/validation/leadSchema.test.ts src/attribution.integration.test.ts src/lib/attribution.ts src/lib/attribution.test.ts; git diff --cached --check; git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:51:58.117Z",
+      "lastAccessed": "2026-10-14T09:51:58.117Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:51:58.117Z"
+    },
+    "cmd-1791971561394": {
+      "key": "cmd-1791971561394",
+      "value": "{\"command\":\"git diff --cached --numstat; git diff --cached -- lib/validation.ts components/landing/LeadForm.tsx hooks/useLeadForm.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:52:41.394Z",
+      "lastAccessed": "2026-10-14T09:52:41.394Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:52:41.394Z"
+    },
+    "cmd-1791971565091": {
+      "key": "cmd-1791971565091",
+      "value": "{\"command\":\"git diff --cached -- src/validation/leadSchema.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:52:45.091Z",
+      "lastAccessed": "2026-10-14T09:52:45.091Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:52:45.091Z"
+    },
+    "cmd-1791971594299": {
+      "key": "cmd-1791971594299",
+      "value": "{\"command\":\"npm run test:e2e -- e2e/form-validation.spec.ts --grep 'optional first name' --workers=1\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:53:14.299Z",
+      "lastAccessed": "2026-10-14T09:53:14.299Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:53:14.299Z"
+    },
+    "cmd-1791971600764": {
+      "key": "cmd-1791971600764",
+      "value": "{\"command\":\"git commit -m 'fix: preserve lead attribution and make first name optional'; git push -u origin cheikh/lead-attribution\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:53:20.764Z",
+      "lastAccessed": "2026-10-14T09:53:20.764Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:53:20.764Z"
+    },
+    "cmd-1791971606744": {
+      "key": "cmd-1791971606744",
+      "value": "{\"command\":\"git commit -m 'fix: normalize lead sources and accept optional first names'; git push -u origin cheikh/lead-attribution\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:53:26.744Z",
+      "lastAccessed": "2026-10-14T09:53:26.744Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:53:26.744Z"
+    },
+    "cmd-1791971698851": {
+      "key": "cmd-1791971698851",
+      "value": "{\"command\":\"git status --short; git log -1 --format='%h %s'\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:54:58.851Z",
+      "lastAccessed": "2026-10-14T09:54:58.851Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:54:58.851Z"
+    },
+    "cmd-1791971700669": {
+      "key": "cmd-1791971700669",
+      "value": "{\"command\":\"git status --short; git log -1 --format='%h %s'; Get-NetTCPConnection -LocalPort 3100,3002 -State Listen -ErrorAction SilentlyContinue | Select-Object LocalPort,OwningProcess\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:55:00.669Z",
+      "lastAccessed": "2026-10-14T09:55:00.669Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:55:00.669Z"
+    },
+    "cmd-1791971747150": {
+      "key": "cmd-1791971747150",
+      "value": "{\"command\":\"Get-Command vercel -ErrorAction SilentlyContinue | Select-Object Source; Test-Path \\\"$env:APPDATA\\\\com.vercel.cli\\\\auth.json\\\"; Test-Path .vercel/project.json; rg --files .github; Get-Content .github/workflows/ci.yml -ErrorAction SilentlyContinue; Get-Content package.json -TotalCount 24\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-14T09:55:47.150Z",
+      "lastAccessed": "2026-10-14T09:55:47.150Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-13T09:55:47.150Z"
     }
   },
   "version": "3.0.0"
